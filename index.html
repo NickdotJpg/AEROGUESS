@@ -27,6 +27,81 @@
   --border-bright: #1e2d4a;
 }
 
+/* ──────────────────── THEMES ──────────────────── */
+:root[data-theme="phosphor"] {
+  --bg: #040a04;
+  --panel: #070d07;
+  --panel2: #0a120a;
+  --amber: #3ec96a;
+  --amber-dim: rgba(62,201,106,0.12);
+  --amber-glow: rgba(62,201,106,0.4);
+  --cyan: #6ddc96;
+  --cyan-dim: rgba(109,220,150,0.1);
+  --green: #6ddc96;
+  --green-dim: rgba(109,220,150,0.15);
+  --border: #0d1a0d;
+  --border-bright: #152415;
+}
+:root[data-theme="arctic"] {
+  --bg: #050c14;
+  --panel: #080f1c;
+  --panel2: #0c1528;
+  --amber: #3aaec8;
+  --amber-dim: rgba(58,174,200,0.12);
+  --amber-glow: rgba(58,174,200,0.4);
+  --cyan: #7acce0;
+  --cyan-dim: rgba(122,204,224,0.1);
+  --green: #4ad4ba;
+  --green-dim: rgba(74,212,186,0.15);
+  --border: #0d1828;
+  --border-bright: #152638;
+}
+:root[data-theme="dusk"] {
+  --bg: #0e0a14;
+  --panel: #130d1c;
+  --panel2: #180f24;
+  --amber: #b078d8;
+  --amber-dim: rgba(176,120,216,0.12);
+  --amber-glow: rgba(176,120,216,0.4);
+  --cyan: #d88fc8;
+  --cyan-dim: rgba(216,143,200,0.1);
+  --green: #78c8a0;
+  --green-dim: rgba(120,200,160,0.15);
+  --border: #1c1228;
+  --border-bright: #2a1a3a;
+}
+/* ──────────────────── THEME CHIPS ──────────────────── */
+.theme-grid {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 640px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.theme-chip {
+  flex: 1;
+  min-width: 120px;
+  background: var(--panel);
+  border: 1px solid var(--border-bright);
+  padding: 12px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  user-select: none;
+}
+.theme-chip:hover { border-color: rgba(255,255,255,0.25); color: var(--text); }
+.theme-chip.selected { border-color: var(--amber); background: var(--amber-dim); color: var(--amber); }
+.theme-chip-name { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+.theme-chip-swatches { display: flex; gap: 4px; align-items: center; }
+.theme-swatch { width: 16px; height: 16px; border-radius: 2px; flex-shrink: 0; }
+
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body {
@@ -706,6 +781,46 @@ main {
   <div class="start-logo">✈ AEROGUESS</div>
   <div class="start-sub">Aircraft Identification Challenge</div>
 
+  <div class="start-section-title">▸ DISPLAY THEME</div>
+  <div class="theme-grid" id="theme-selector">
+    <div class="theme-chip selected" data-theme="default" onclick="selectTheme('default', this)">
+      <div class="theme-chip-name">Default</div>
+      <div class="theme-chip-swatches">
+        <div class="theme-swatch" style="background:#ffb200"></div>
+        <div class="theme-swatch" style="background:#00d4ff"></div>
+        <div class="theme-swatch" style="background:#00ff88"></div>
+        <div class="theme-swatch" style="background:#04060e"></div>
+      </div>
+    </div>
+    <div class="theme-chip" data-theme="phosphor" onclick="selectTheme('phosphor', this)">
+      <div class="theme-chip-name">Phosphor</div>
+      <div class="theme-chip-swatches">
+        <div class="theme-swatch" style="background:#3ec96a"></div>
+        <div class="theme-swatch" style="background:#6ddc96"></div>
+        <div class="theme-swatch" style="background:#6ddc96"></div>
+        <div class="theme-swatch" style="background:#040a04"></div>
+      </div>
+    </div>
+    <div class="theme-chip" data-theme="arctic" onclick="selectTheme('arctic', this)">
+      <div class="theme-chip-name">Arctic</div>
+      <div class="theme-chip-swatches">
+        <div class="theme-swatch" style="background:#3aaec8"></div>
+        <div class="theme-swatch" style="background:#7acce0"></div>
+        <div class="theme-swatch" style="background:#4ad4ba"></div>
+        <div class="theme-swatch" style="background:#050c14"></div>
+      </div>
+    </div>
+    <div class="theme-chip" data-theme="dusk" onclick="selectTheme('dusk', this)">
+      <div class="theme-chip-name">Dusk</div>
+      <div class="theme-chip-swatches">
+        <div class="theme-swatch" style="background:#b078d8"></div>
+        <div class="theme-swatch" style="background:#d88fc8"></div>
+        <div class="theme-swatch" style="background:#78c8a0"></div>
+        <div class="theme-swatch" style="background:#0e0a14"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="start-section-title">▸ SELECT AIRCRAFT FAMILIES TO INCLUDE</div>
   <div class="start-mfr-grid" id="mfr-selector">
     <!-- filled by JS -->
@@ -1147,7 +1262,32 @@ let state = {
 // ═══════════════════════════════════════════════════════════
 // START SCREEN LOGIC
 // ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// THEME SELECTION
+// ═══════════════════════════════════════════════════════════
+function selectTheme(theme, el) {
+  document.querySelectorAll('.theme-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  if (theme === 'default') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  localStorage.setItem('ag_theme', theme);
+}
+// Apply saved theme immediately on load
+(function() {
+  const saved = localStorage.getItem('ag_theme');
+  if (saved && saved !== 'default') document.documentElement.setAttribute('data-theme', saved);
+})();
+
 function buildStartScreen() {
+  // Sync theme chip with saved preference
+  const savedTheme = localStorage.getItem('ag_theme') || 'default';
+  document.querySelectorAll('.theme-chip').forEach(chip => {
+    chip.classList.toggle('selected', chip.dataset.theme === savedTheme);
+  });
+
   const grid = document.getElementById('mfr-selector');
   grid.innerHTML = '';
   MFR_FAMILIES.forEach((fam, idx) => {
@@ -1231,13 +1371,27 @@ function getActiveLists() {
   }
 })();
 
+// Build a lookup of all airline name tokens from the PLANES dataset for cross-airline veto
+function buildAirlineTokenMap() {
+  const map = {};
+  PLANES.forEach(p => {
+    const tokens = p.airline.toLowerCase().replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(w => w.length > 3);
+    tokens.forEach(tok => {
+      if (!map[tok]) map[tok] = new Set();
+      map[tok].add(p.airline);
+    });
+  });
+  return map;
+}
+let _airlineTokenMap = null;
+
 async function fetchWikiImage(plane) {
-  // Words strongly indicating a full exterior aircraft photo
+  if (!_airlineTokenMap) _airlineTokenMap = buildAirlineTokenMap();
+
   const GOOD_WORDS = ['landing','takeoff','approach','departure','flight','tarmac',
                       'taxiing','apron','runway','airborne','final','aircraft','airliner',
                       'airplane','climbing','spotting','ramp','pushback'];
 
-  // Hard-reject: interior shots, logos, diagrams, parts — anything not showing the plane body
   const BAD_WORDS  = ['logo','badge','coat','map','icon','scheme','diagram','silhouette',
                       'route','flag','seal','emblem',
                       'cockpit','interior','cabin','inside','inflight','in-flight',
@@ -1248,22 +1402,41 @@ async function fetchWikiImage(plane) {
                       'floor','ceiling','window_view','ifec','screen',
                       'passenger','crew','pilot_in','flight_deck'];
 
-  const airlineWords = plane.airline.toLowerCase().split(/\s+/).filter(w => w.length > 3);
-  const modelTokens  = plane.model.toLowerCase().replace(/[^a-z0-9]/g,' ').split(/\s+/).filter(Boolean);
-  const mfrToken     = plane.mfr.toLowerCase().split(/\s+/)[0];
+  // Tokens belonging to the CORRECT airline (used for positive scoring)
+  const correctAirlineTokens = plane.airline.toLowerCase()
+    .replace(/[^a-z0-9\s]/g,' ').split(/\s+/).filter(w => w.length > 3);
 
-  function scoreFile(title) {
+  const modelTokens = plane.model.toLowerCase().replace(/[^a-z0-9]/g,' ').split(/\s+/).filter(Boolean);
+  const mfrToken    = plane.mfr.toLowerCase().split(/\s+/)[0];
+
+  // Returns true if a filename token clearly names a DIFFERENT airline
+  function mentionsDifferentAirline(t) {
+    for (const [tok, airlines] of Object.entries(_airlineTokenMap)) {
+      if (!t.includes(tok)) continue;
+      // If this token appears in the correct airline name, it's fine
+      if (correctAirlineTokens.includes(tok)) continue;
+      // If every airline that owns this token is the correct airline, it's fine
+      if ([...airlines].every(a => a === plane.airline)) continue;
+      // The token names a different airline — veto this image
+      return true;
+    }
+    return false;
+  }
+
+  function scoreFile(title, requireAirline = true) {
     const t = title.toLowerCase().replace(/^file:/i,'');
     if (!/\.(jpg|jpeg)$/i.test(title)) return -999;
     if (BAD_WORDS.some(w => t.includes(w))) return -999;
+    // Hard veto: filename clearly shows a different airline's livery
+    if (mentionsDifferentAirline(t)) return -999;
     let score = 0;
     if (GOOD_WORDS.some(w => t.includes(w))) score += 10;
-    if (airlineWords.some(w => t.includes(w))) score += 8;
+    // Reward correct airline name in filename
+    if (correctAirlineTokens.some(w => t.includes(w))) score += 12;
+    else if (requireAirline) score -= 5; // penalise missing airline when we expect it
     if (modelTokens.some(w => t.includes(w))) score += 5;
     if (t.includes(mfrToken)) score += 3;
-    // Bonus for aircraft registration-style (e.g. G-BNWZ_, EI-DLV_)
     if (/\b[a-z]{1,2}[-_][a-z0-9]{3,5}\b/.test(t)) score += 4;
-    // Penalty for static display / museum
     if (/(museum|preserved|static|stored|scrap|retirement)/i.test(t)) score -= 6;
     return score;
   }
@@ -1284,42 +1457,29 @@ async function fetchWikiImage(plane) {
     return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}?width=900`;
   }
 
+  // Primary queries — all include the airline name so results should match
   const queries = [
     plane.wikiSearch,
     `${plane.airline} ${plane.mfr} ${plane.model} aircraft approach`,
     `${plane.airline} ${plane.model} landing`,
-    `${plane.mfr} ${plane.model} ${plane.airline} aircraft approach`,
-    `${plane.mfr} ${plane.model} airliner approach landing`,
+    `${plane.airline} ${plane.mfr} aircraft approach landing`,
   ];
 
   for (const q of queries) {
     try {
-      const url = `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srnamespace=6&srlimit=20&format=json&origin=*`;
+      const url = `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srnamespace=6&srlimit=25&format=json&origin=*`;
       const res = await fetch(url);
       const data = await res.json();
       const results = data?.query?.search || [];
       const scored = results
-        .map(r => ({ title: r.title, score: scoreFile(r.title) }))
+        .map(r => ({ title: r.title, score: scoreFile(r.title, true) }))
         .filter(r => r.score > 0)
         .sort((a, b) => b.score - a.score);
       if (scored.length > 0) return await resolveThumb(scored[0].title);
     } catch(e) {}
   }
 
-  // Last resort: model only
-  try {
-    const fallbackQ = `${plane.mfr} ${plane.model} airplane exterior approach`;
-    const url = `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(fallbackQ)}&srnamespace=6&srlimit=20&format=json&origin=*`;
-    const res = await fetch(url);
-    const data = await res.json();
-    const results = data?.query?.search || [];
-    for (const r of results) {
-      if (!/\.(jpg|jpeg)$/i.test(r.title)) continue;
-      if (BAD_WORDS.some(w => r.title.toLowerCase().includes(w))) continue;
-      return await resolveThumb(r.title);
-    }
-  } catch(e) {}
-
+  // No usable image found — signal caller to skip this plane
   return null;
 }
 
@@ -1327,25 +1487,49 @@ async function fetchWikiImage(plane) {
 // START NEW GAME
 // ═══════════════════════════════════════════════════════════
 async function startNewGame() {
-  // Pick random plane from active set, avoid repeats
-  const available = state.activePlanes.filter(p => !state.usedIds.includes(p.id));
-  if (available.length === 0) {
-    state.usedIds = [];
-    state.activePlanes.filter(p => !state.usedIds.includes(p.id));
+  document.getElementById('result-modal-backdrop').classList.remove('visible');
+  hideScoreboard();
+  showLoading(true);
+  document.getElementById('plane-img').style.display = 'none';
+  document.getElementById('error-state').classList.add('hidden');
+
+  // Try planes until one has a usable image, to avoid mismatched image/answer
+  const MAX_SKIP = 8;
+  let plane = null;
+  let imageUrl = null;
+
+  for (let attempt = 0; attempt < MAX_SKIP; attempt++) {
+    let pool = state.activePlanes.filter(p => !state.usedIds.includes(p.id));
+    if (pool.length === 0) {
+      state.usedIds = [];
+      pool = [...state.activePlanes];
+    }
+    const candidate = pool[Math.floor(Math.random() * pool.length)];
+    state.usedIds.push(candidate.id);
+
+    const url = await fetchWikiImage(candidate);
+    if (url) {
+      plane = candidate;
+      imageUrl = url;
+      break;
+    }
+    // No valid image found for this candidate — try next
   }
-  const pool = state.activePlanes.filter(p => !state.usedIds.includes(p.id));
-  const plane = pool[Math.floor(Math.random() * pool.length)];
-  state.usedIds.push(plane.id);
+
+  if (!plane) {
+    // Absolute fallback: couldn't find any valid image
+    showLoading(false);
+    document.getElementById('error-state').classList.remove('hidden');
+    document.getElementById('error-state').querySelector('div').textContent = 'IMAGE UNAVAILABLE — PRESS NEW PLANE TO TRY AGAIN';
+    return;
+  }
 
   state.currentPlane = plane;
   state.guesses = [];
   state.gameOver = false;
-  state.imageUrl = null;
+  state.imageUrl = imageUrl;
   state.imgRetries = 0;
   state.selections = { mfr: null, model: null, airline: null };
-
-  document.getElementById('result-modal-backdrop').classList.remove('visible');
-  hideScoreboard();
 
   document.getElementById('guess-history').innerHTML = '<div class="no-guesses" id="no-guesses-msg">▸ MAKE YOUR FIRST IDENTIFICATION ATTEMPT</div>';
   document.getElementById('round-info').textContent = `ROUND ${state.played + 1}`;
@@ -1368,63 +1552,10 @@ async function startNewGame() {
   showHints(plane, 0);
   updateStats();
 
-  showLoading(true);
   const img = document.getElementById('plane-img');
-  img.style.display = 'none';
-  document.getElementById('error-state').classList.add('hidden');
-
-  const imageUrl = await fetchWikiImage(plane);
-  if (imageUrl) {
-    state.imageUrl = imageUrl;
-    img.className = 'loading';
-    img.style.display = 'block';
-    img.src = imageUrl;
-  } else {
-    showLoading(false);
-    document.getElementById('error-state').classList.remove('hidden');
-    setTimeout(() => tryLoadAltImage(plane), 2000);
-  }
-}
-
-async function tryLoadAltImage(plane) {
-  if (state.imgRetries >= 3) {
-    document.getElementById('error-state').classList.remove('hidden');
-    return;
-  }
-  state.imgRetries++;
-
-  const BAD_WORDS = ['logo','badge','map','icon','diagram','silhouette','cockpit','interior',
-                     'cabin','seat','galley','lavatory','aisle','detail','close_up','closeup',
-                     'inside','inflight'];
-
-  const attempts = [
-    `${plane.mfr} ${plane.model} airplane landing approach`,
-    `${plane.mfr} ${plane.model} aircraft`,
-    `${plane.model} airliner`,
-  ];
-
-  for (const q of attempts) {
-    try {
-      const url = `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srnamespace=6&srlimit=12&format=json&origin=*`;
-      const res = await fetch(url);
-      const data = await res.json();
-      const results = data?.query?.search || [];
-      for (const r of results) {
-        if (!/\.(jpg|jpeg)$/i.test(r.title)) continue;
-        if (BAD_WORDS.some(w => r.title.toLowerCase().includes(w))) continue;
-        const filename = r.title.replace(/^File:/i,'');
-        const imgUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(filename)}?width=900`;
-        const img = document.getElementById('plane-img');
-        document.getElementById('error-state').classList.add('hidden');
-        img.style.display = 'block';
-        img.className = 'loading';
-        img.src = imgUrl;
-        showLoading(true);
-        return;
-      }
-    } catch(e) {}
-  }
-  document.getElementById('error-state').classList.remove('hidden');
+  img.className = 'loading';
+  img.style.display = 'block';
+  img.src = imageUrl;
 }
 
 function imageLoaded() {
@@ -1438,9 +1569,8 @@ function imageError() {
   showLoading(false);
   document.getElementById('plane-img').style.display = 'none';
   document.getElementById('error-state').classList.remove('hidden');
-  if (state.imgRetries < 3) {
-    setTimeout(() => tryLoadAltImage(state.currentPlane), 1500);
-  }
+  // Image URL failed to load — skip to a different plane automatically
+  setTimeout(() => startNewGame(), 1500);
 }
 
 function showLoading(show) {
