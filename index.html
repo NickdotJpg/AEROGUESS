@@ -1996,13 +1996,23 @@ function submitGuess() {
     localStorage.setItem('ag_played', state.played);
     localStorage.setItem('ag_dist', JSON.stringify(state.dist));
     state.gameOver = true;
-    setTimeout(() => { showResult(true, state.guesses.length); renderScoreboard(state.guesses.length); }, 600);
+    if (state.isDailyMode) {
+      localStorage.setItem('ag_daily_date', getDailyDateKey());
+      const db = document.getElementById('btn-start-daily');
+      if (db) { db.textContent = '✓ DONE'; db.classList.add('completed'); }
+    }
+    setTimeout(() => { showResult(true, state.guesses.length); renderScoreboard(state.guesses.length); setTimeout(burstConfetti, 200); }, 600);
   } else if (state.guesses.length >= state.maxGuesses) {
     state.streak = 0;
     state.played++;
     localStorage.setItem('ag_streak', state.streak);
     localStorage.setItem('ag_played', state.played);
     state.gameOver = true;
+    if (state.isDailyMode) {
+      localStorage.setItem('ag_daily_date', getDailyDateKey());
+      const db = document.getElementById('btn-start-daily');
+      if (db) { db.textContent = '✓ DONE'; db.classList.add('completed'); }
+    }
     setTimeout(() => { showResult(false, state.guesses.length); renderScoreboard(null); }, 600);
   }
 
@@ -2498,20 +2508,9 @@ async function startDailyGame() {
   }
 }
 
-// Patch submitGuess to record daily completion
-const _origSubmitGuess = submitGuess;
-function submitGuess() {
-  _origSubmitGuess();
-  // After original logic, if daily mode and game is over, record completion
-  if (state.isDailyMode && state.gameOver) {
-    localStorage.setItem('ag_daily_date', getDailyDateKey());
-    // Update button
-    const btn = document.getElementById('btn-start-daily');
-    if (btn) { btn.textContent = '✓ DONE'; btn.classList.add('completed'); }
-  }
-}
-
-// Confetti burst on win
+// ═══════════════════════════════════════════════════════════
+// CONFETTI
+// ═══════════════════════════════════════════════════════════
 function burstConfetti() {
   const colors = ['var(--amber)', 'var(--cyan)', 'var(--green)', '#e0a0c0', '#a0d0e8'];
   for (let i = 0; i < 28; i++) {
@@ -2528,13 +2527,6 @@ function burstConfetti() {
     document.body.appendChild(bit);
     setTimeout(() => bit.remove(), 1200);
   }
-}
-
-// Patch showResult to trigger confetti
-const _origShowResult = showResult;
-function showResult(won, attempts) {
-  _origShowResult(won, attempts);
-  if (won) setTimeout(burstConfetti, 200);
 }
 
 // ═══════════════════════════════════════════════════════════
