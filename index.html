@@ -8,29 +8,33 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #04060e;
-  --panel: #080d1c;
-  --panel2: #0d1428;
-  --amber: #ffb200;
-  --amber-dim: rgba(255,178,0,0.12);
-  --amber-glow: rgba(255,178,0,0.4);
-  --cyan: #00d4ff;
-  --cyan-dim: rgba(0,212,255,0.1);
-  --green: #00ff88;
-  --green-dim: rgba(0,255,136,0.15);
-  --red: #ff3b3b;
-  --yellow: #ffd200;
-  --yellow-dim: rgba(255,210,0,0.15);
-  --text: #c8d8f0;
-  --text-dim: #4a5878;
-  --border: #131c30;
-  --border-bright: #1e2d4a;
+  --bg: #0b0f1a;
+  --panel: #111827;
+  --panel2: #161e2e;
+  --amber: #e8a838;
+  --amber-dim: rgba(232,168,56,0.1);
+  --amber-glow: rgba(232,168,56,0.3);
+  --cyan: #5bb8d4;
+  --cyan-dim: rgba(91,184,212,0.1);
+  --green: #4db87a;
+  --green-dim: rgba(77,184,122,0.14);
+  --red: #d95b5b;
+  --yellow: #d4b44a;
+  --yellow-dim: rgba(212,180,74,0.14);
+  --text: #b8cce0;
+  --text-dim: #3e5068;
+  --border: #192030;
+  --border-bright: #243048;
+  --accent-line: rgba(232,168,56,0.15);
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(91,184,212,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 80%, rgba(232,168,56,0.03) 0%, transparent 60%);
   color: var(--text);
   font-family: 'Share Tech Mono', monospace;
   min-height: 100vh;
@@ -46,25 +50,25 @@ body::before {
   position:fixed;
   inset:0;
   background-image:
-    radial-gradient(1px 1px at 5% 12%, rgba(200,216,240,.45) 0%, transparent 100%),
-    radial-gradient(1px 1px at 12% 80%, rgba(200,216,240,.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 18% 35%, rgba(200,216,240,.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 25% 60%, rgba(200,216,240,.25) 0%, transparent 100%),
-    radial-gradient(1px 1px at 32% 18%, rgba(200,216,240,.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 38% 90%, rgba(200,216,240,.35) 0%, transparent 100%),
-    radial-gradient(1px 1px at 45% 45%, rgba(200,216,240,.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 52% 8%, rgba(200,216,240,.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 58% 72%, rgba(200,216,240,.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 65% 28%, rgba(200,216,240,.35) 0%, transparent 100%),
-    radial-gradient(1px 1px at 72% 55%, rgba(200,216,240,.45) 0%, transparent 100%),
-    radial-gradient(1px 1px at 78% 82%, rgba(200,216,240,.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 85% 15%, rgba(200,216,240,.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 91% 42%, rgba(200,216,240,.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 96% 68%, rgba(200,216,240,.35) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 8% 50%, rgba(200,216,240,.6) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 42% 25%, rgba(200,216,240,.55) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 70% 90%, rgba(200,216,240,.6) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 90% 5%, rgba(200,216,240,.55) 0%, transparent 100%);
+    radial-gradient(1px 1px at 5% 12%, rgba(184,204,224,.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 12% 80%, rgba(184,204,224,.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 18% 35%, rgba(184,204,224,.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 60%, rgba(184,204,224,.12) 0%, transparent 100%),
+    radial-gradient(1px 1px at 32% 18%, rgba(184,204,224,.18) 0%, transparent 100%),
+    radial-gradient(1px 1px at 38% 90%, rgba(184,204,224,.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 45%, rgba(184,204,224,.22) 0%, transparent 100%),
+    radial-gradient(1px 1px at 52% 8%, rgba(184,204,224,.14) 0%, transparent 100%),
+    radial-gradient(1px 1px at 58% 72%, rgba(184,204,224,.18) 0%, transparent 100%),
+    radial-gradient(1px 1px at 65% 28%, rgba(184,204,224,.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 72% 55%, rgba(184,204,224,.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 78% 82%, rgba(184,204,224,.12) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 15%, rgba(184,204,224,.22) 0%, transparent 100%),
+    radial-gradient(1px 1px at 91% 42%, rgba(184,204,224,.18) 0%, transparent 100%),
+    radial-gradient(1px 1px at 96% 68%, rgba(184,204,224,.15) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 8% 50%, rgba(184,204,224,.28) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 42% 25%, rgba(184,204,224,.24) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 90%, rgba(184,204,224,.28) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 90% 5%, rgba(184,204,224,.24) 0%, transparent 100%);
   z-index:0;
   pointer-events:none;
 }
@@ -126,46 +130,70 @@ body::after {
   max-width: 640px;
 }
 
+/* ── Filter actions row ── */
+.filter-panel-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.btn-filter-action {
+  background: transparent;
+  border: 1px solid var(--border-bright);
+  color: var(--text-dim);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.btn-filter-action:hover { border-color: var(--amber); color: var(--amber); }
+
 .start-mfr-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 8px;
   width: 100%;
-  max-width: 640px;
-  margin-bottom: 28px;
 }
 
 .mfr-chip {
   background: var(--panel);
   border: 1px solid var(--border-bright);
-  padding: 10px 14px;
+  padding: 12px 18px;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 1px;
+  font-size: 13px;
+  letter-spacing: 1.5px;
   color: var(--text-dim);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.18s;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   user-select: none;
+  line-height: 1.3;
 }
 
 .mfr-chip:hover {
-  border-color: rgba(255,178,0,0.4);
+  border-color: rgba(255,178,0,0.45);
   color: var(--text);
+  background: rgba(255,178,0,0.04);
 }
 
 .mfr-chip.selected {
   border-color: var(--amber);
   background: var(--amber-dim);
   color: var(--amber);
+  box-shadow: inset 0 0 12px rgba(255,178,0,0.05);
 }
 
 .mfr-chip-dot {
-  width: 7px; height: 7px;
+  width: 8px; height: 8px;
   border-radius: 50%;
-  border: 1px solid currentColor;
+  border: 1.5px solid currentColor;
   flex-shrink: 0;
   transition: background 0.15s;
 }
@@ -405,14 +433,7 @@ main {
 .corner-bl { bottom:8px; left:8px; border-width:0 0 2px 2px; }
 .corner-br { bottom:8px; right:8px; border-width:0 2px 2px 0; }
 
-#plane-img {
-  width:100%; height:100%;
-  object-fit:contain;
-  background:#040a14;
-  display:block;
-  transition: opacity 0.4s;
-}
-#plane-img.loading { opacity:0.3; filter: blur(4px); }
+/* plane-img styled in daily mode section above */
 
 .photo-overlay {
   position:absolute;
@@ -507,8 +528,8 @@ main {
 .guess-row .guess-cell:nth-child(2) { animation-delay: 0.15s; }
 .guess-row .guess-cell:nth-child(3) { animation-delay: 0.3s; }
 
-/* ──────────────────── LOCKED INPUT FIELD ──────────────────── */
-.field-input.locked { border-color: var(--green) !important; color: var(--green) !important; cursor: not-allowed; background: rgba(0,255,136,0.06); }
+/* ──────────────────── LOCKED SELECTOR FIELD ──────────────────── */
+.field-selector.locked { border-color: var(--green) !important; cursor: not-allowed; }
 .field-label.locked-label { color: var(--green); opacity: 1; }
 
 /* ──────────────────── RESULT MODAL ──────────────────── */
@@ -599,15 +620,35 @@ main {
 .field-wrap { position:relative; display:flex; flex-direction:column; gap:4px; }
 .field-label { font-size:8px; letter-spacing:2px; color: var(--amber); opacity:0.7; text-transform:uppercase; padding-left:2px; }
 
-.field-input {
+.field-selector {
   background: var(--panel); border: 1px solid var(--border-bright);
-  color: var(--text); font-family:'Share Tech Mono',monospace;
+  color: var(--text-dim); font-family:'Share Tech Mono',monospace;
   font-size:11px; letter-spacing:1px; padding:9px 10px; width:100%;
-  outline:none; transition: border-color 0.2s; cursor:pointer;
+  outline:none; transition: border-color 0.2s, background 0.2s;
+  cursor:pointer; user-select:none;
+  display:flex; align-items:center; justify-content:space-between; gap:6px;
+  min-height: 36px;
 }
-.field-input:focus { border-color: var(--amber); box-shadow: 0 0 0 2px rgba(255,178,0,0.08); }
-.field-input.filled { border-color: rgba(0,212,255,0.4); color: var(--cyan); }
-.field-input::placeholder { color: var(--text-dim); font-size:10px; }
+.field-selector:hover:not(.locked) { border-color: rgba(232,168,56,0.35); }
+.field-selector.open { border-color: var(--amber); box-shadow: 0 0 0 2px rgba(232,168,56,0.08); }
+.field-selector.filled { border-color: rgba(91,184,212,0.45); background: rgba(91,184,212,0.04); }
+.field-selector.locked { cursor: not-allowed; border-color: var(--green); background: rgba(77,184,122,0.06); }
+.selector-value { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.selector-placeholder { color: var(--text-dim); font-size:10px; }
+.selector-filled-val { color: var(--cyan); }
+.selector-locked-val { color: var(--green); }
+.selector-arrow { font-size:9px; color: var(--text-dim); flex-shrink:0; transition: transform 0.15s; }
+.field-selector.open .selector-arrow { transform: rotate(180deg); }
+.field-selector.filled .selector-arrow,
+.field-selector.locked .selector-arrow { display: none; }
+.selector-clear {
+  flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%;
+  background: rgba(91,184,212,0.15); border: 1px solid rgba(91,184,212,0.3);
+  color: var(--cyan); font-size: 10px; line-height: 15px; text-align: center;
+  cursor: pointer; transition: all 0.15s; display: none;
+}
+.field-selector.filled .selector-clear { display: block; }
+.selector-clear:hover { background: rgba(91,184,212,0.3); }
 
 /* Dropdown */
 .dropdown {
@@ -620,7 +661,7 @@ main {
 .dropdown::-webkit-scrollbar-track { background: var(--panel); }
 .dropdown::-webkit-scrollbar-thumb { background: var(--border-bright); }
 
-.drop-item { padding:8px 10px; font-size:10px; letter-spacing:1px; cursor:pointer; transition: background 0.15s; border-bottom: 1px solid var(--border); }
+.drop-item { padding:9px 12px; font-size:12px; letter-spacing:1px; cursor:pointer; transition: background 0.15s; border-bottom: 1px solid var(--border); }
 .drop-item:last-child { border-bottom:none; }
 .drop-item:hover, .drop-item.active { background: var(--amber-dim); color: var(--amber); }
 
@@ -675,7 +716,502 @@ main {
   z-index:2; pointer-events:none;
 }
 
-/* ──────────────────── RESPONSIVE ──────────────────── */
+/* ──────────────────── THEMES ──────────────────── */
+/* Each theme has a dark and light variant */
+
+/* ── PHOSPHOR DARK — CRT green on deep black ── */
+[data-theme="phosphor"] {
+  --bg: #07120a;
+  --panel: #0e2014;
+  --panel2: #0b1a10;
+  --amber: #00e441;
+  --amber-dim: rgba(0,228,65,0.13);
+  --amber-glow: rgba(0,228,65,0.45);
+  --cyan: #4cf582;
+  --cyan-dim: rgba(76,245,130,0.11);
+  --green: #4cf582;
+  --green-dim: rgba(76,245,130,0.14);
+  --red: #f04040;
+  --yellow: #c0f040;
+  --yellow-dim: rgba(192,240,64,0.13);
+  --text: #90d8a0;
+  --text-dim: #2a5838;
+  --border: #102818;
+  --border-bright: #1e4028;
+}
+
+/* ── PHOSPHOR LIGHT — paper + green ink ── */
+[data-theme="phosphor-light"] {
+  --bg: #f0f8f2;
+  --panel: #e0f0e6;
+  --panel2: #d0e8da;
+  --amber: #007820;
+  --amber-dim: rgba(0,120,32,0.1);
+  --amber-glow: rgba(0,120,32,0.3);
+  --cyan: #005c18;
+  --cyan-dim: rgba(0,92,24,0.09);
+  --green: #006018;
+  --green-dim: rgba(0,96,24,0.12);
+  --red: #b80000;
+  --yellow: #5c8800;
+  --yellow-dim: rgba(92,136,0,0.12);
+  --text: #1a4028;
+  --text-dim: #60987a;
+  --border: #b0d8bc;
+  --border-bright: #88b898;
+}
+
+/* ── NIGHT CITY DARK — Cyberpunk 2077 yellow + cyan ── */
+[data-theme="nightcity"] {
+  --bg: #06060e;
+  --panel: #0e0e1c;
+  --panel2: #0a0a16;
+  --amber: #f0e000;
+  --amber-dim: rgba(240,224,0,0.12);
+  --amber-glow: rgba(240,224,0,0.45);
+  --cyan: #00c8e8;
+  --cyan-dim: rgba(0,200,232,0.11);
+  --green: #00e878;
+  --green-dim: rgba(0,232,120,0.12);
+  --red: #e0003c;
+  --yellow: #e8b800;
+  --yellow-dim: rgba(232,184,0,0.13);
+  --text: #c0ccd8;
+  --text-dim: #404c60;
+  --border: #181828;
+  --border-bright: #282840;
+}
+
+/* ── NIGHT CITY LIGHT — chrome + neon on pale steel ── */
+[data-theme="nightcity-light"] {
+  --bg: #f2f4f8;
+  --panel: #e4e8f0;
+  --panel2: #d8dce8;
+  --amber: #9c7000;
+  --amber-dim: rgba(156,112,0,0.1);
+  --amber-glow: rgba(156,112,0,0.3);
+  --cyan: #006888;
+  --cyan-dim: rgba(0,104,136,0.09);
+  --green: #007840;
+  --green-dim: rgba(0,120,64,0.1);
+  --red: #b8003c;
+  --yellow: #7c5800;
+  --yellow-dim: rgba(124,88,0,0.12);
+  --text: #202840;
+  --text-dim: #7080a0;
+  --border: #c0c8d8;
+  --border-bright: #9098b0;
+}
+
+/* ── REPLICANT DARK — Blade Runner 2049 orange + noir ── */
+[data-theme="bladerunner"] {
+  --bg: #0e0804;
+  --panel: #1c1208;
+  --panel2: #160e06;
+  --amber: #f08000;
+  --amber-dim: rgba(240,128,0,0.13);
+  --amber-glow: rgba(240,128,0,0.45);
+  --cyan: #30a0b0;
+  --cyan-dim: rgba(48,160,176,0.11);
+  --green: #98b820;
+  --green-dim: rgba(152,184,32,0.12);
+  --red: #c81800;
+  --yellow: #e0b000;
+  --yellow-dim: rgba(224,176,0,0.13);
+  --text: #d0a878;
+  --text-dim: #604028;
+  --border: #281808;
+  --border-bright: #402810;
+}
+
+/* ── REPLICANT LIGHT — sepia film + amber glow ── */
+[data-theme="bladerunner-light"] {
+  --bg: #f8f0e4;
+  --panel: #ede0cc;
+  --panel2: #e4d4bc;
+  --amber: #904800;
+  --amber-dim: rgba(144,72,0,0.1);
+  --amber-glow: rgba(144,72,0,0.3);
+  --cyan: #005870;
+  --cyan-dim: rgba(0,88,112,0.09);
+  --green: #4a6800;
+  --green-dim: rgba(74,104,0,0.1);
+  --red: #980000;
+  --yellow: #6c4000;
+  --yellow-dim: rgba(108,64,0,0.12);
+  --text: #2a1a08;
+  --text-dim: #907050;
+  --border: #d0b890;
+  --border-bright: #a88860;
+}
+
+/* ── SPECTRE DARK — Mass Effect N7 electric blue ── */
+[data-theme="spectre"] {
+  --bg: #04081a;
+  --panel: #081428;
+  --panel2: #060f20;
+  --amber: #1ab0ff;
+  --amber-dim: rgba(26,176,255,0.13);
+  --amber-glow: rgba(26,176,255,0.45);
+  --cyan: #60e0ff;
+  --cyan-dim: rgba(96,224,255,0.11);
+  --green: #00f0a0;
+  --green-dim: rgba(0,240,160,0.12);
+  --red: #f03020;
+  --yellow: #e0d800;
+  --yellow-dim: rgba(224,216,0,0.12);
+  --text: #90b0d8;
+  --text-dim: #2a4060;
+  --border: #101e38;
+  --border-bright: #1c3050;
+}
+
+/* ── SPECTRE LIGHT — clean white + alliance blue ── */
+[data-theme="spectre-light"] {
+  --bg: #f0f4fc;
+  --panel: #e0e8f8;
+  --panel2: #d4dcf0;
+  --amber: #0060c0;
+  --amber-dim: rgba(0,96,192,0.1);
+  --amber-glow: rgba(0,96,192,0.3);
+  --cyan: #0040a0;
+  --cyan-dim: rgba(0,64,160,0.09);
+  --green: #007858;
+  --green-dim: rgba(0,120,88,0.1);
+  --red: #c81800;
+  --yellow: #6c7800;
+  --yellow-dim: rgba(108,120,0,0.12);
+  --text: #101830;
+  --text-dim: #5870a0;
+  --border: #b0c4e0;
+  --border-bright: #8098c0;
+}
+
+/* ── DEAD SPACE DARK — RIG orange on absolute black ── */
+[data-theme="deadspace"] {
+  --bg: #080404;
+  --panel: #140808;
+  --panel2: #0e0606;
+  --amber: #f05800;
+  --amber-dim: rgba(240,88,0,0.14);
+  --amber-glow: rgba(240,88,0,0.5);
+  --cyan: #d84800;
+  --cyan-dim: rgba(216,72,0,0.11);
+  --green: #c8e000;
+  --green-dim: rgba(200,224,0,0.12);
+  --red: #ff2000;
+  --yellow: #f08000;
+  --yellow-dim: rgba(240,128,0,0.13);
+  --text: #c08060;
+  --text-dim: #502818;
+  --border: #201008;
+  --border-bright: #381808;
+}
+
+/* ── DEAD SPACE LIGHT — sterile white + warning orange ── */
+[data-theme="deadspace-light"] {
+  --bg: #faf6f4;
+  --panel: #f0e8e4;
+  --panel2: #e8dcd8;
+  --amber: #c04000;
+  --amber-dim: rgba(192,64,0,0.1);
+  --amber-glow: rgba(192,64,0,0.3);
+  --cyan: #903000;
+  --cyan-dim: rgba(144,48,0,0.09);
+  --green: #5c7800;
+  --green-dim: rgba(92,120,0,0.1);
+  --red: #c00000;
+  --yellow: #884000;
+  --yellow-dim: rgba(136,64,0,0.12);
+  --text: #201008;
+  --text-dim: #907060;
+  --border: #d8c0b8;
+  --border-bright: #b09088;
+}
+
+/* ── DEFAULT LIGHT — Amber daylight ops ── */
+[data-theme="default-light"] {
+  --bg: #eef2f8;
+  --panel: #e0e8f4;
+  --panel2: #d4dced;
+  --amber: #b06000;
+  --amber-dim: rgba(176,96,0,0.1);
+  --amber-glow: rgba(176,96,0,0.3);
+  --cyan: #1880b0;
+  --cyan-dim: rgba(24,128,176,0.09);
+  --green: #1a8050;
+  --green-dim: rgba(26,128,80,0.1);
+  --red: #c01818;
+  --yellow: #906000;
+  --yellow-dim: rgba(144,96,0,0.12);
+  --text: #18283c;
+  --text-dim: #6080a0;
+  --border: #b8c8dc;
+  --border-bright: #8898b0;
+}
+
+/* ── Light mode: neutral image bg ── */
+[data-theme$="-light"] #plane-img {
+  background: linear-gradient(135deg, #d8dce8 0%, #c8d0e0 100%);
+}
+
+[data-theme$="-light"] body::before { opacity: 0.4; }
+[data-theme$="-light"] body::after { background: linear-gradient(to top, rgba(200,210,230,0.3), transparent); }
+
+/* ──────────────────── THEME CARDS ──────────────────── */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 640px;
+  margin-bottom: 10px;
+}
+
+/* Dark / Light mode toggle pill */
+.theme-mode-row {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.theme-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--panel);
+  border: 1px solid var(--border-bright);
+  padding: 6px 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+}
+.theme-mode-toggle:hover { border-color: var(--amber); }
+
+.mode-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  transition: color 0.2s;
+  text-transform: uppercase;
+}
+.mode-label.active { color: var(--amber); }
+
+.mode-knob {
+  width: 28px; height: 14px;
+  border: 1px solid var(--text-dim);
+  border-radius: 7px;
+  position: relative;
+  transition: all 0.2s;
+}
+.mode-knob::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  transition: all 0.2s;
+}
+body[data-light] .mode-knob::after { left: 16px; }
+body[data-light] .mode-knob { border-color: var(--amber); }
+
+.theme-card {
+  border: 1px solid var(--border-bright);
+  background: var(--panel);
+  padding: 12px 10px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  user-select: none;
+  position: relative;
+}
+
+.theme-card:hover { border-color: rgba(255,255,255,0.2); }
+
+.theme-card.selected { border-color: var(--amber); background: var(--amber-dim); }
+
+.theme-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 6px; right: 8px;
+  font-size: 9px;
+  color: var(--amber);
+}
+
+.theme-swatches {
+  display: flex;
+  gap: 4px;
+  height: 14px;
+}
+
+.theme-swatch {
+  flex: 1;
+  border-radius: 1px;
+}
+
+.theme-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text);
+  text-transform: uppercase;
+}
+
+.theme-desc {
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.theme-card.selected .theme-name { color: var(--amber); }
+
+@media (max-width: 640px) {
+  .theme-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .theme-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ──────────────────── DAILY MODE BANNER ──────────────────── */
+.daily-banner {
+  width: 100%;
+  max-width: 640px;
+  background: linear-gradient(135deg, rgba(232,168,56,0.08) 0%, rgba(91,184,212,0.06) 100%);
+  border: 1px solid rgba(232,168,56,0.25);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.daily-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--amber), transparent);
+  opacity: 0.4;
+}
+
+.daily-banner-left { display: flex; flex-direction: column; gap: 3px; }
+.daily-banner-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--amber);
+}
+.daily-banner-date { font-size: 9px; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
+.daily-banner-desc { font-size: 9px; letter-spacing: 1px; color: var(--text-dim); margin-top: 2px; }
+
+.daily-timer { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.daily-timer-label { font-size: 7px; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
+.daily-timer-val { font-family: 'Orbitron', sans-serif; font-size: 14px; color: var(--cyan); letter-spacing: 2px; }
+
+.btn-daily {
+  background: var(--amber-dim);
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 9px 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-daily:hover { background: rgba(232,168,56,0.18); }
+.btn-daily.completed { border-color: var(--green); color: var(--green); background: var(--green-dim); cursor: default; }
+
+/* ── Daily mode indicator in header ── */
+.daily-mode-badge {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--amber);
+  border: 1px solid rgba(232,168,56,0.35);
+  padding: 3px 8px;
+  background: var(--amber-dim);
+  display: none;
+  animation: dailyPulse 3s ease-in-out infinite;
+}
+.daily-mode-badge.visible { display: inline-block; }
+@keyframes dailyPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+/* ── Fun streak flame ── */
+.streak-flame {
+  display: inline-block;
+  animation: flicker 1.2s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+@keyframes flicker { 0%{transform:scaleY(1) rotate(-1deg)} 100%{transform:scaleY(1.08) rotate(1deg)} }
+
+/* ── Guess cell shimmer on correct ── */
+.guess-cell.correct::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(77,184,122,0.15) 50%, transparent 70%);
+  animation: shimmer 1.5s ease-out forwards;
+}
+@keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(150%)} }
+
+/* ── Photo panel floating hint pill ── */
+.photo-fun-label {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--amber);
+  background: rgba(11,15,26,0.7);
+  border: 1px solid rgba(232,168,56,0.2);
+  padding: 3px 8px;
+  z-index: 4;
+  backdrop-filter: blur(4px);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeInLabel 0.5s 0.8s forwards;
+}
+@keyframes fadeInLabel { to { opacity: 1; } }
+
+/* ── Fun confetti burst on win ── */
+@keyframes confettiBurst {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(-80px) rotate(720deg) scale(0); opacity: 0; }
+}
+.confetti-bit {
+  position: fixed;
+  width: 6px; height: 6px;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 1px;
+  animation: confettiBurst 0.8s ease-out forwards;
+}
+
+/* ── Improved img background so it's not stark ── */
+#plane-img {
+  width:100%; height:100%;
+  object-fit:contain;
+  background: linear-gradient(135deg, #070d1a 0%, #0d1425 100%);
+  display:block;
+  transition: opacity 0.4s;
+}
+#plane-img.loading { opacity:0.3; filter: blur(4px); }
 @media (max-width:640px) {
   .logo-title { font-size:16px; letter-spacing:3px; }
   .header-stats { gap:14px; }
@@ -707,9 +1243,11 @@ main {
   <div class="start-sub">Aircraft Identification Challenge</div>
 
   <div class="start-section-title">▸ SELECT AIRCRAFT FAMILIES TO INCLUDE</div>
-  <div class="start-mfr-grid" id="mfr-selector">
-    <!-- filled by JS -->
+  <div class="filter-panel-actions" style="width:100%;max-width:640px;margin-bottom:10px;">
+    <button class="btn-filter-action" onclick="selectAllChips('mfr')">SELECT ALL</button>
+    <button class="btn-filter-action" onclick="clearChips('mfr')">CLEAR</button>
   </div>
+  <div class="start-mfr-grid" id="mfr-selector" style="max-width:640px;margin-bottom:28px;"></div>
 
   <div class="start-section-title">▸ GAME OPTIONS</div>
   <div class="start-options">
@@ -719,6 +1257,102 @@ main {
         <div class="toggle-label">HARD MODE — Guess exact variant</div>
         <div class="toggle-desc">Distinguish 737-800 from 737-300, A320neo from A320ceo, etc.</div>
       </div>
+    </div>
+  </div>
+
+  <div class="start-section-title">▸ GAME MODE</div>
+  <div style="width:100%;max-width:640px;margin-bottom:20px;">
+    <div class="daily-banner" id="start-daily-banner">
+      <div class="daily-banner-left">
+        <div class="daily-banner-title">✦ DAILY CHALLENGE</div>
+        <div class="daily-banner-date" id="daily-date-label">—</div>
+        <div class="daily-banner-desc">One aircraft per day — same puzzle for everyone worldwide</div>
+      </div>
+      <div class="daily-timer">
+        <div class="daily-timer-label">Next in</div>
+        <div class="daily-timer-val" id="daily-countdown">—</div>
+      </div>
+      <button class="btn-daily" id="btn-start-daily" onclick="launchDailyGame()">▶ DAILY</button>
+    </div>
+  </div>
+
+  <div class="start-section-title">▸ VISUAL THEME</div>
+  <div class="theme-grid" id="theme-grid">
+
+    <div class="theme-card selected" data-theme="default" onclick="setTheme('default', this)">
+      <div class="theme-swatches">
+        <div class="theme-swatch" style="background:#e8a838"></div>
+        <div class="theme-swatch" style="background:#5bb8d4"></div>
+        <div class="theme-swatch" style="background:#4db87a"></div>
+        <div class="theme-swatch" style="background:#0b0f1a"></div>
+      </div>
+      <div class="theme-name">AMBER</div>
+      <div class="theme-desc">Radar gold · deep navy</div>
+    </div>
+
+    <div class="theme-card" data-theme="phosphor" onclick="setTheme('phosphor', this)">
+      <div class="theme-swatches">
+        <div class="theme-swatch" style="background:#00e441"></div>
+        <div class="theme-swatch" style="background:#4cf582"></div>
+        <div class="theme-swatch" style="background:#c0f040"></div>
+        <div class="theme-swatch" style="background:#07120a"></div>
+      </div>
+      <div class="theme-name">PHOSPHOR</div>
+      <div class="theme-desc">CRT green · WarGames</div>
+    </div>
+
+    <div class="theme-card" data-theme="nightcity" onclick="setTheme('nightcity', this)">
+      <div class="theme-swatches">
+        <div class="theme-swatch" style="background:#f0e000"></div>
+        <div class="theme-swatch" style="background:#00c8e8"></div>
+        <div class="theme-swatch" style="background:#00e878"></div>
+        <div class="theme-swatch" style="background:#06060e"></div>
+      </div>
+      <div class="theme-name">NIGHT CITY</div>
+      <div class="theme-desc">CP2077 yellow · cyan</div>
+    </div>
+
+    <div class="theme-card" data-theme="bladerunner" onclick="setTheme('bladerunner', this)">
+      <div class="theme-swatches">
+        <div class="theme-swatch" style="background:#f08000"></div>
+        <div class="theme-swatch" style="background:#30a0b0"></div>
+        <div class="theme-swatch" style="background:#e0b000"></div>
+        <div class="theme-swatch" style="background:#0e0804"></div>
+      </div>
+      <div class="theme-name">REPLICANT</div>
+      <div class="theme-desc">Blade Runner · noir orange</div>
+    </div>
+
+    <div class="theme-card" data-theme="spectre" onclick="setTheme('spectre', this)">
+      <div class="theme-swatches">
+        <div class="theme-swatch" style="background:#1ab0ff"></div>
+        <div class="theme-swatch" style="background:#60e0ff"></div>
+        <div class="theme-swatch" style="background:#00f0a0"></div>
+        <div class="theme-swatch" style="background:#04081a"></div>
+      </div>
+      <div class="theme-name">SPECTRE</div>
+      <div class="theme-desc">Mass Effect · N7 blue</div>
+    </div>
+
+    <div class="theme-card" data-theme="deadspace" onclick="setTheme('deadspace', this)">
+      <div class="theme-swatches">
+        <div class="theme-swatch" style="background:#f05800"></div>
+        <div class="theme-swatch" style="background:#d84800"></div>
+        <div class="theme-swatch" style="background:#c8e000"></div>
+        <div class="theme-swatch" style="background:#080404"></div>
+      </div>
+      <div class="theme-name">DEAD SPACE</div>
+      <div class="theme-desc">RIG orange · pitch black</div>
+    </div>
+
+  </div>
+
+  <div class="theme-mode-row">
+    <span style="font-size:8px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;">BRIGHTNESS</span>
+    <div class="theme-mode-toggle" id="theme-mode-toggle" onclick="toggleThemeMode()">
+      <span class="mode-label active" id="mode-label-dark">◼ DARK</span>
+      <div class="mode-knob" id="mode-knob"></div>
+      <span class="mode-label" id="mode-label-light">LIGHT ◻</span>
     </div>
   </div>
 
@@ -749,7 +1383,9 @@ main {
     </div>
   </div>
   <div class="header-right">
+    <span class="daily-mode-badge" id="daily-badge">✦ DAILY</span>
     <span class="hard-mode-badge" id="hard-badge">HARD</span>
+    <button class="btn-menu btn-lightdark" id="btn-lightdark" onclick="toggleThemeMode()" title="Toggle light/dark mode">☀</button>
     <button class="btn-menu" onclick="showStartScreen()">⚙ MENU</button>
     <button class="btn-new" onclick="startNewGame()">▶ NEW PLANE</button>
   </div>
@@ -762,6 +1398,7 @@ main {
     <div class="corner corner-bl"></div>
     <div class="corner corner-br"></div>
     <div class="scanlines"></div>
+    <div class="photo-fun-label" id="photo-fun-label">IDENTIFY AIRCRAFT</div>
 
     <div class="photo-loading-state" id="loading-state">
       <div class="radar-ring"></div>
@@ -822,17 +1459,29 @@ main {
     <div class="input-fields" id="input-fields">
       <div class="field-wrap">
         <div class="field-label" id="label-mfr">Manufacturer</div>
-        <input class="field-input" id="input-mfr" placeholder="e.g. Boeing" readonly onclick="openDropdown('mfr')" autocomplete="off">
+        <div class="field-selector" id="input-mfr" tabindex="0" onclick="openDropdown('mfr')" onkeydown="if(event.key==='Enter'||event.key===' ')openDropdown('mfr')">
+          <span class="selector-value"><span class="selector-placeholder">e.g. Boeing</span></span>
+          <span class="selector-clear" onclick="event.stopPropagation();clearSelection('mfr')">×</span>
+          <span class="selector-arrow">▾</span>
+        </div>
         <div class="dropdown" id="drop-mfr"></div>
       </div>
       <div class="field-wrap">
         <div class="field-label" id="label-model">Model</div>
-        <input class="field-input" id="input-model" placeholder="e.g. 737" readonly onclick="openDropdown('model')" autocomplete="off">
+        <div class="field-selector" id="input-model" tabindex="0" onclick="openDropdown('model')" onkeydown="if(event.key==='Enter'||event.key===' ')openDropdown('model')">
+          <span class="selector-value"><span class="selector-placeholder">e.g. 737</span></span>
+          <span class="selector-clear" onclick="event.stopPropagation();clearSelection('model')">×</span>
+          <span class="selector-arrow">▾</span>
+        </div>
         <div class="dropdown" id="drop-model"></div>
       </div>
       <div class="field-wrap">
         <div class="field-label" id="label-airline">Airline</div>
-        <input class="field-input" id="input-airline" placeholder="e.g. Ryanair" readonly onclick="openDropdown('airline')" autocomplete="off">
+        <div class="field-selector" id="input-airline" tabindex="0" onclick="openDropdown('airline')" onkeydown="if(event.key==='Enter'||event.key===' ')openDropdown('airline')">
+          <span class="selector-value"><span class="selector-placeholder">e.g. Ryanair</span></span>
+          <span class="selector-clear" onclick="event.stopPropagation();clearSelection('airline')">×</span>
+          <span class="selector-arrow">▾</span>
+        </div>
         <div class="dropdown" id="drop-airline"></div>
       </div>
       <button class="btn-submit" id="btn-submit" onclick="submitGuess()" disabled>IDENTIFY</button>
@@ -884,7 +1533,7 @@ const PLANES = [
   {id:10, mfr:"Boeing", baseModel:"737",    model:"737-800",    airline:"Norwegian Air Shuttle",      family:"B737",   alliance:"none",    type:"Narrowbody",  era:"1990s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Norwegian Air Shuttle Boeing 737-800 aircraft"},
   {id:11, mfr:"Boeing", baseModel:"737",    model:"737-800",    airline:"TUI Airways",                family:"B737",   alliance:"none",    type:"Narrowbody",  era:"1990s", range:"Medium-haul", region:"Europe",       engines:2, wikiSearch:"TUI Airways Boeing 737-800 charter aircraft"},
   {id:12, mfr:"Boeing", baseModel:"737",    model:"737-900ER",  airline:"Lion Air",                   family:"B737",   alliance:"none",    type:"Narrowbody",  era:"2000s", range:"Short-haul",  region:"Asia",         engines:2, wikiSearch:"Lion Air Boeing 737-900ER aircraft"},
-  {id:13, mfr:"Boeing", baseModel:"737",    model:"737-100",    airline:"Lufthansa",                  family:"B737",   alliance:"star",    type:"Narrowbody",  era:"1960s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Lufthansa Boeing 737-100 classic airliner"},
+  {id:13, mfr:"Boeing", baseModel:"737",    model:"737-200",    airline:"Lufthansa",                  family:"B737",   alliance:"star",    type:"Narrowbody",  era:"1960s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Lufthansa Boeing 737-200 classic airliner"},
   {id:14, mfr:"Boeing", baseModel:"737 MAX",model:"737 MAX 8",  airline:"American Airlines",          family:"B737",   alliance:"oneworld",type:"Narrowbody",  era:"2010s", range:"Medium-haul", region:"USA",          engines:2, wikiSearch:"American Airlines Boeing 737 MAX 8 aircraft"},
   {id:15, mfr:"Boeing", baseModel:"737 MAX",model:"737 MAX 8",  airline:"Southwest Airlines",         family:"B737",   alliance:"none",    type:"Narrowbody",  era:"2010s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"Southwest Airlines Boeing 737 MAX aircraft landing"},
   {id:16, mfr:"Boeing", baseModel:"737 MAX",model:"737 MAX 9",  airline:"United Airlines",            family:"B737",   alliance:"star",    type:"Narrowbody",  era:"2010s", range:"Medium-haul", region:"USA",          engines:2, wikiSearch:"United Airlines Boeing 737 MAX 9 aircraft"},
@@ -1134,6 +1783,7 @@ let state = {
   guesses: [],
   maxGuesses: 5,
   gameOver: false,
+  isDailyMode: false,
   wins: parseInt(localStorage.getItem('ag_wins')||'0'),
   streak: parseInt(localStorage.getItem('ag_streak')||'0'),
   played: parseInt(localStorage.getItem('ag_played')||'0'),
@@ -1153,18 +1803,35 @@ function buildStartScreen() {
   MFR_FAMILIES.forEach((fam, idx) => {
     const chip = document.createElement('div');
     chip.className = 'mfr-chip';
-    chip.dataset.idx = idx;
+    chip.dataset.value = fam.label;
+    chip.dataset.tab = 'mfr';
     chip.innerHTML = `<div class="mfr-chip-dot"></div><span>${fam.label}</span>`;
-    chip.addEventListener('click', () => toggleFamily(chip, idx));
+    chip.addEventListener('click', () => toggleChip(chip, 'mfr', fam.label));
     grid.appendChild(chip);
   });
 }
 
-function toggleFamily(chip, idx) {
+function toggleChip(chip, tab, value) {
   chip.classList.toggle('selected');
+  const idx = MFR_FAMILIES.findIndex(f => f.label === value);
   const i = settings.selectedFamilies.indexOf(idx);
   if (i === -1) settings.selectedFamilies.push(idx);
   else settings.selectedFamilies.splice(i, 1);
+}
+
+function selectAllChips(tab) {
+  document.querySelectorAll('#mfr-selector .mfr-chip').forEach(chip => {
+    if (!chip.classList.contains('selected')) {
+      chip.classList.add('selected');
+      const idx = MFR_FAMILIES.findIndex(f => f.label === chip.dataset.value);
+      if (!settings.selectedFamilies.includes(idx)) settings.selectedFamilies.push(idx);
+    }
+  });
+}
+
+function clearChips(tab) {
+  document.querySelectorAll('#mfr-selector .mfr-chip').forEach(chip => chip.classList.remove('selected'));
+  settings.selectedFamilies = [];
 }
 
 function toggleHardMode() {
@@ -1190,11 +1857,11 @@ function launchGame() {
   state.activePlanes = active;
   state.usedIds = [];
 
+  state.isDailyMode = false;
+  document.getElementById('daily-badge').classList.remove('visible');
+
   // Update hard mode badge
   document.getElementById('hard-badge').classList.toggle('visible', settings.hardMode);
-
-  // Update input placeholder
-  document.getElementById('input-model').placeholder = settings.hardMode ? 'e.g. 737-800' : 'e.g. 737';
 
   // Hide start screen
   document.getElementById('start-screen').classList.add('hidden');
@@ -1252,6 +1919,11 @@ async function fetchWikiImage(plane) {
   const modelTokens  = plane.model.toLowerCase().replace(/[^a-z0-9]/g,' ').split(/\s+/).filter(Boolean);
   const mfrToken     = plane.mfr.toLowerCase().split(/\s+/)[0];
 
+  // Build a set of ALL airline name words in the database to detect wrong-airline images
+  const ALL_AIRLINE_WORDS = new Set(
+    PLANES.flatMap(p => p.airline.toLowerCase().split(/\s+/).filter(w => w.length > 3))
+  );
+
   function scoreFile(title) {
     const t = title.toLowerCase().replace(/^file:/i,'');
     if (!/\.(jpg|jpeg)$/i.test(title)) return -999;
@@ -1265,6 +1937,14 @@ async function fetchWikiImage(plane) {
     if (/\b[a-z]{1,2}[-_][a-z0-9]{3,5}\b/.test(t)) score += 4;
     // Penalty for static display / museum
     if (/(museum|preserved|static|stored|scrap|retirement)/i.test(t)) score -= 6;
+    // Penalty: if a word from a DIFFERENT airline appears in the filename, it's the wrong plane
+    const targetWords = new Set(airlineWords);
+    const titleWords = t.split(/[\s_\-]+/);
+    for (const w of titleWords) {
+      if (w.length > 3 && ALL_AIRLINE_WORDS.has(w) && !targetWords.has(w)) {
+        score -= 12; // strong penalty — this is someone else's livery
+      }
+    }
     return score;
   }
 
@@ -1327,6 +2007,8 @@ async function fetchWikiImage(plane) {
 // START NEW GAME
 // ═══════════════════════════════════════════════════════════
 async function startNewGame() {
+  state.isDailyMode = false;
+  document.getElementById('daily-badge').classList.remove('visible');
   // Pick random plane from active set, avoid repeats
   const available = state.activePlanes.filter(p => !state.usedIds.includes(p.id));
   if (available.length === 0) {
@@ -1352,15 +2034,14 @@ async function startNewGame() {
   document.getElementById('type-badge').textContent = '? ? ?';
 
   ['mfr','model','airline'].forEach(f => {
-    const inputMap = { mfr:'input-mfr', model:'input-model', airline:'input-airline' };
     const labelMap = { mfr:'label-mfr', model:'label-model', airline:'label-airline' };
-    const input = document.getElementById(inputMap[f]);
     const label = document.getElementById(labelMap[f]);
-    input.value = '';
-    input.classList.remove('filled','locked');
-    input.readOnly = true;
+    const el = document.getElementById(`input-${f}`);
+    el.classList.remove('locked');
+    setSelectorValue(f, null);
     if (label) label.classList.remove('locked-label');
     document.getElementById(`drop-${f}`).classList.remove('open');
+    el.classList.remove('open');
   });
   document.getElementById('btn-submit').disabled = true;
   document.getElementById('input-fields').style.opacity = '1';
@@ -1541,13 +2222,23 @@ function submitGuess() {
     localStorage.setItem('ag_played', state.played);
     localStorage.setItem('ag_dist', JSON.stringify(state.dist));
     state.gameOver = true;
-    setTimeout(() => { showResult(true, state.guesses.length); renderScoreboard(state.guesses.length); }, 600);
+    if (state.isDailyMode) {
+      localStorage.setItem('ag_daily_date', getDailyDateKey());
+      const db = document.getElementById('btn-start-daily');
+      if (db) { db.textContent = '✓ DONE'; db.classList.add('completed'); }
+    }
+    setTimeout(() => { showResult(true, state.guesses.length); renderScoreboard(state.guesses.length); setTimeout(burstConfetti, 200); }, 600);
   } else if (state.guesses.length >= state.maxGuesses) {
     state.streak = 0;
     state.played++;
     localStorage.setItem('ag_streak', state.streak);
     localStorage.setItem('ag_played', state.played);
     state.gameOver = true;
+    if (state.isDailyMode) {
+      localStorage.setItem('ag_daily_date', getDailyDateKey());
+      const db = document.getElementById('btn-start-daily');
+      if (db) { db.textContent = '✓ DONE'; db.classList.add('completed'); }
+    }
     setTimeout(() => { showResult(false, state.guesses.length); renderScoreboard(null); }, 600);
   }
 
@@ -1629,19 +2320,25 @@ function closeModalAndNext() {
 }
 
 function shareResult() {
-  const p = state.currentPlane;
-  const modelKey = settings.hardMode ? 'model' : 'baseModel';
   const won = state.guesses.length > 0 && (() => {
     const r = state.guesses[state.guesses.length-1].result;
     return r.mfr==='correct' && r.model==='correct' && r.airline==='correct';
   })();
 
   const emojiRows = state.guesses.map(({result}) => {
-    const cell = c => c === 'correct' ? '🟩' : c === 'close' ? '🟨' : '⬛';
+    const cell = c => c === 'correct' ? '✅' : c === 'close' ? '🟨' : '❌';
     return cell(result.mfr) + cell(result.model) + cell(result.airline);
   }).join('\n');
 
-  const text = `✈ AEROGUESS${settings.hardMode ? ' [HARD]' : ''}\n${p.mfr} ${p[modelKey]} — ${p.airline}\n${won ? `Identified in ${state.guesses.length}/${state.maxGuesses}` : `Unidentified (${state.maxGuesses}/${state.maxGuesses})`}\n\n${emojiRows}\n\nMFR • MODEL • AIRLINE`;
+  const modeTag = state.isDailyMode
+    ? getDailyDateKey()
+    : `Infinite${settings.hardMode ? ' [Hard]' : ''}`;
+
+  const score = won
+    ? `in ${state.guesses.length}/${state.maxGuesses} guesses!`
+    : `X/${state.maxGuesses} guesses!`;
+
+  const text = `AeroGuess ${modeTag} ${score}\n\n${emojiRows}\n\nhttps://nickdotjpg.github.io/AEROGUESS/`;
 
   const btn = document.getElementById('btn-share');
   if (navigator.clipboard) {
@@ -1740,16 +2437,75 @@ function hideScoreboard() {
 }
 
 // ═══════════════════════════════════════════════════════════
+// SELECTOR HELPERS
+// ═══════════════════════════════════════════════════════════
+function setSelectorValue(field, value) {
+  const el = document.getElementById(`input-${field}`);
+  const valSpan = el.querySelector('.selector-value');
+  if (value) {
+    el.classList.add('filled');
+    el.classList.remove('open');
+    valSpan.innerHTML = `<span class="selector-filled-val">${value}</span>`;
+  } else {
+    el.classList.remove('filled');
+    const placeholders = { mfr: 'e.g. Boeing', model: 'e.g. 737', airline: 'e.g. Ryanair' };
+    valSpan.innerHTML = `<span class="selector-placeholder">${placeholders[field]}</span>`;
+  }
+}
+
+function setSelectorLocked(field, value) {
+  const el = document.getElementById(`input-${field}`);
+  const valSpan = el.querySelector('.selector-value');
+  el.classList.add('locked');
+  el.classList.remove('filled', 'open');
+  valSpan.innerHTML = `<span class="selector-locked-val">${value}</span>`;
+}
+
+function clearSelection(field) {
+  if (state.gameOver) return;
+  const el = document.getElementById(`input-${field}`);
+  if (el.classList.contains('locked')) return;
+  state.selections[field] = null;
+  setSelectorValue(field, null);
+  if (field === 'mfr') {
+    state.selections.model = null;
+    setSelectorValue('model', null);
+  }
+  closeAllDropdowns(null);
+  updateSubmitButton();
+}
+
+// ═══════════════════════════════════════════════════════════
 // AUTOCOMPLETE DROPDOWNS
 // ═══════════════════════════════════════════════════════════
+function populateDropdown(field, items) {
+  const drop = document.getElementById(`drop-${field}`);
+  drop.innerHTML = '';
+
+  if (items.length === 0) {
+    drop.innerHTML = '<div class="drop-item" style="color:var(--text-dim);cursor:default;font-size:10px">— NO MATCHES —</div>';
+  } else {
+    items.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'drop-item';
+      div.textContent = item;
+      div.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        selectOption(field, item);
+      });
+      drop.appendChild(div);
+    });
+  }
+  drop.classList.add('open');
+  document.getElementById(`input-${field}`).classList.add('open');
+}
+
 function openDropdown(field) {
   if (state.gameOver) return;
-  const inputMap = { mfr:'input-mfr', model:'input-model', airline:'input-airline' };
-  if (document.getElementById(inputMap[field]).classList.contains('locked')) return;
+  const el = document.getElementById(`input-${field}`);
+  if (el.classList.contains('locked')) return;
   closeAllDropdowns(field);
 
-  const dropId = `drop-${field}`;
-  const drop = document.getElementById(dropId);
   const lists = getActiveLists();
 
   let items;
@@ -1760,71 +2516,57 @@ function openDropdown(field) {
     )].sort();
     if (items.length === 0) items = lists.ALL_MODELS;
   } else if (field === 'model' && !state.selections.mfr) {
-    drop.innerHTML = '<div class="drop-item" style="color:var(--amber);opacity:0.7;cursor:default">— Select manufacturer first —</div>';
+    const drop = document.getElementById('drop-model');
+    drop.innerHTML = '<div class="drop-item" style="color:var(--amber);opacity:0.7;cursor:default;font-size:11px">— Select manufacturer first —</div>';
     drop.classList.add('open');
+    el.classList.add('open');
     return;
   } else {
     const listMap = { mfr: lists.ALL_MFR, airline: lists.ALL_AIRLINES };
     items = listMap[field];
   }
 
-  drop.innerHTML = '';
-  items.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'drop-item';
-    div.textContent = item;
-    div.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      selectOption(field, item);
-    });
-    drop.appendChild(div);
-  });
-
-  drop.classList.add('open');
+  populateDropdown(field, items);
 }
 
 function closeAllDropdowns(except) {
   ['mfr','model','airline'].forEach(f => {
-    if (f !== except) document.getElementById(`drop-${f}`).classList.remove('open');
+    if (f !== except) {
+      document.getElementById(`drop-${f}`).classList.remove('open');
+      document.getElementById(`input-${f}`).classList.remove('open');
+    }
   });
 }
 
 function selectOption(field, value) {
   state.selections[field] = value;
-  const inputMap = { mfr:'input-mfr', model:'input-model', airline:'input-airline' };
-  const input = document.getElementById(inputMap[field]);
-  input.value = value;
-  input.classList.add('filled');
+  setSelectorValue(field, value);
 
   if (field === 'mfr') {
     state.selections.model = null;
-    const modelInput = document.getElementById('input-model');
-    modelInput.value = '';
-    modelInput.classList.remove('filled');
+    setSelectorValue('model', null);
   }
 
   document.getElementById(`drop-${field}`).classList.remove('open');
+  document.getElementById(`input-${field}`).classList.remove('open');
   updateSubmitButton();
 }
 
 function resetInputs(lastResult) {
   const fields = ['mfr', 'model', 'airline'];
-  const inputMap = { mfr:'input-mfr', model:'input-model', airline:'input-airline' };
   const labelMap = { mfr:'label-mfr', model:'label-model', airline:'label-airline' };
 
   fields.forEach(f => {
     const isCorrect = lastResult && lastResult[f] === 'correct';
-    const input = document.getElementById(inputMap[f]);
     const label = document.getElementById(labelMap[f]);
     if (isCorrect) {
-      input.classList.add('filled', 'locked');
-      input.readOnly = true;
+      setSelectorLocked(f, state.selections[f]);
       if (label) label.classList.add('locked-label');
     } else {
       state.selections[f] = null;
-      input.value = '';
-      input.classList.remove('filled', 'locked');
-      input.readOnly = true;
+      const el = document.getElementById(`input-${f}`);
+      el.classList.remove('locked');
+      setSelectorValue(f, null);
       if (label) label.classList.remove('locked-label');
     }
     document.getElementById(`drop-${f}`).classList.remove('open');
@@ -1844,10 +2586,232 @@ document.addEventListener('click', (e) => {
   if (!e.target.closest('.field-wrap')) closeAllDropdowns(null);
 });
 
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeAllDropdowns(null);
+  if (e.key === 'Enter') {
+    const btn = document.getElementById('btn-submit');
+    if (!btn.disabled) submitGuess();
+  }
+});
+
+// ═══════════════════════════════════════════════════════════
+// THEME SYSTEM
+// ═══════════════════════════════════════════════════════════
+// Each theme has a dark variant (e.g. "spectre") and a light variant ("spectre-light").
+// The theme-grid cards always show the dark swatches; the mode toggle switches between dark/light.
+
+const LIGHT_THEMES = {
+  'default':    'default-light',
+  'phosphor':   'phosphor-light',
+  'nightcity':  'nightcity-light',
+  'bladerunner':'bladerunner-light',
+  'spectre':    'spectre-light',
+  'deadspace':  'deadspace-light',
+};
+
+function getBaseTheme(theme) {
+  // Strip -light suffix to get the base name
+  return theme.endsWith('-light') ? theme.slice(0, -6) : theme;
+}
+
+function applyTheme(baseTheme, isLight) {
+  const theme = isLight ? (LIGHT_THEMES[baseTheme] || baseTheme) : baseTheme;
+  if (theme === 'default') {
+    document.body.removeAttribute('data-theme');
+  } else {
+    document.body.setAttribute('data-theme', theme);
+  }
+  // Light indicator on body
+  if (isLight) document.body.setAttribute('data-light', '');
+  else document.body.removeAttribute('data-light');
+  // Update toggle UI
+  updateToggleUI(isLight);
+  updateLightDarkBtn(isLight);
+}
+
+function setTheme(baseTheme, cardEl) {
+  const isLight = document.body.hasAttribute('data-light');
+  // Update card selected states
+  document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
+  if (cardEl) cardEl.classList.add('selected');
+  applyTheme(baseTheme, isLight);
+  localStorage.setItem('ag_base_theme', baseTheme);
+}
+
+function toggleThemeMode() {
+  const isLight = !document.body.hasAttribute('data-light');
+  const baseTheme = localStorage.getItem('ag_base_theme') || 'default';
+  applyTheme(baseTheme, isLight);
+  localStorage.setItem('ag_light_mode', isLight ? '1' : '0');
+}
+
+function updateToggleUI(isLight) {
+  const darkLbl = document.getElementById('mode-label-dark');
+  const lightLbl = document.getElementById('mode-label-light');
+  if (darkLbl) darkLbl.classList.toggle('active', !isLight);
+  if (lightLbl) lightLbl.classList.toggle('active', isLight);
+}
+
+function updateLightDarkBtn(isLight) {
+  const btn = document.getElementById('btn-lightdark');
+  if (btn) btn.textContent = isLight ? '☾' : '☀';
+}
+
+function initTheme() {
+  const baseTheme = localStorage.getItem('ag_base_theme') || 'default';
+  const isLight = localStorage.getItem('ag_light_mode') === '1';
+  // Select the right card
+  document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('selected'));
+  const card = document.querySelector(`.theme-card[data-theme="${baseTheme}"]`);
+  if (card) card.classList.add('selected');
+  applyTheme(baseTheme, isLight);
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// DAILY MODE
+// ═══════════════════════════════════════════════════════════
+function getDailyDateKey() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+}
+
+function getDailyDateLabel() {
+  const now = new Date();
+  return now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+}
+
+function getDailyPlane() {
+  // Deterministic pick: use PLANES array with a date-seeded index
+  const key = getDailyDateKey();
+  let hash = 0;
+  for (let i = 0; i < key.length; i++) {
+    hash = ((hash << 5) - hash) + key.charCodeAt(i);
+    hash |= 0;
+  }
+  const idx = Math.abs(hash) % PLANES.length;
+  return PLANES[idx];
+}
+
+function isDailyCompleted() {
+  return localStorage.getItem('ag_daily_date') === getDailyDateKey();
+}
+
+function initDailyBanner() {
+  const dateLabel = document.getElementById('daily-date-label');
+  const btn = document.getElementById('btn-start-daily');
+  if (dateLabel) dateLabel.textContent = getDailyDateLabel();
+
+  if (isDailyCompleted()) {
+    if (btn) { btn.textContent = '✓ DONE'; btn.classList.add('completed'); }
+  }
+
+  updateDailyCountdown();
+  setInterval(updateDailyCountdown, 1000);
+}
+
+function updateDailyCountdown() {
+  const el = document.getElementById('daily-countdown');
+  if (!el) return;
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0);
+  const diff = midnight - now;
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  el.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+function launchDailyGame() {
+  if (isDailyCompleted()) return; // Already done today
+  state.isDailyMode = true;
+  state.activePlanes = [...PLANES];
+  state.usedIds = [];
+
+  document.getElementById('daily-badge').classList.add('visible');
+  document.getElementById('hard-badge').classList.remove('visible');
+  document.getElementById('start-screen').classList.add('hidden');
+
+  startDailyGame();
+}
+
+async function startDailyGame() {
+  const plane = getDailyPlane();
+  state.currentPlane = plane;
+  state.guesses = [];
+  state.gameOver = false;
+  state.imageUrl = null;
+  state.imgRetries = 0;
+  state.selections = { mfr: null, model: null, airline: null };
+
+  document.getElementById('result-modal-backdrop').classList.remove('visible');
+  hideScoreboard();
+  document.getElementById('guess-history').innerHTML = '<div class="no-guesses" id="no-guesses-msg">▸ DAILY CHALLENGE — MAKE YOUR IDENTIFICATION</div>';
+  document.getElementById('round-info').textContent = `DAILY · ${getDailyDateKey()}`;
+  document.getElementById('type-badge').textContent = '? ? ?';
+
+  ['mfr','model','airline'].forEach(f => {
+    const labelMap = { mfr:'label-mfr', model:'label-model', airline:'label-airline' };
+    const label = document.getElementById(labelMap[f]);
+    const el = document.getElementById(`input-${f}`);
+    el.classList.remove('locked');
+    setSelectorValue(f, null);
+    if (label) label.classList.remove('locked-label');
+    document.getElementById(`drop-${f}`).classList.remove('open');
+    el.classList.remove('open');
+  });
+  document.getElementById('btn-submit').disabled = true;
+  document.getElementById('input-fields').style.opacity = '1';
+  renderPips();
+  showHints(plane, 0);
+  updateStats();
+
+  showLoading(true);
+  const img = document.getElementById('plane-img');
+  img.style.display = 'none';
+  document.getElementById('error-state').classList.add('hidden');
+
+  const imageUrl = await fetchWikiImage(plane);
+  if (imageUrl) {
+    state.imageUrl = imageUrl;
+    img.className = 'loading';
+    img.style.display = 'block';
+    img.src = imageUrl;
+  } else {
+    showLoading(false);
+    document.getElementById('error-state').classList.remove('hidden');
+    setTimeout(() => tryLoadAltImage(plane), 2000);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// CONFETTI
+// ═══════════════════════════════════════════════════════════
+function burstConfetti() {
+  const colors = ['var(--amber)', 'var(--cyan)', 'var(--green)', '#e0a0c0', '#a0d0e8'];
+  for (let i = 0; i < 28; i++) {
+    const bit = document.createElement('div');
+    bit.className = 'confetti-bit';
+    bit.style.cssText = `
+      left: ${35 + Math.random() * 30}vw;
+      top: 40vh;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      animation-delay: ${Math.random() * 0.3}s;
+      animation-duration: ${0.6 + Math.random() * 0.6}s;
+      transform: rotate(${Math.random()*360}deg);
+    `;
+    document.body.appendChild(bit);
+    setTimeout(() => bit.remove(), 1200);
+  }
+}
+
 // ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 buildStartScreen();
+initTheme();
+initDailyBanner();
 updateStats();
 renderPips();
 // Don't auto-start — show start screen first
