@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AEROGUESS — AIRCRAFT IDENTIFICATION SYSTEM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #04060e;
@@ -27,49 +27,424 @@
   --border-bright: #1e2d4a;
 }
 
-/* ──────────────────── THEMES ──────────────────── */
-:root[data-theme="phosphor"] {
-  --bg: #040a04;
-  --panel: #070d07;
-  --panel2: #0a120a;
-  --amber: #3ec96a;
-  --amber-dim: rgba(62,201,106,0.12);
-  --amber-glow: rgba(62,201,106,0.4);
-  --cyan: #6ddc96;
-  --cyan-dim: rgba(109,220,150,0.1);
-  --green: #6ddc96;
-  --green-dim: rgba(109,220,150,0.15);
-  --border: #0d1a0d;
-  --border-bright: #152415;
+/* ══════════════════════════════════════════════════════════
+   UI THEMES — these change the actual look and feel of the
+   interface: borders, shapes, fonts, decorations, layout feel.
+   Colors follow the aesthetic; aesthetics drive the design.
+   ══════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────
+   THEME: GLASSMORPHISM
+   Frosted glass cards, blurred panels, soft glows, rounded
+   ───────────────────────────────────────────────────────── */
+:root[data-theme="glass"] {
+  --bg: #0d0f1a;
+  --panel: rgba(255,255,255,0.04);
+  --panel2: rgba(255,255,255,0.06);
+  --amber: #a78bfa;
+  --amber-dim: rgba(167,139,250,0.15);
+  --amber-glow: rgba(167,139,250,0.5);
+  --cyan: #67e8f9;
+  --cyan-dim: rgba(103,232,249,0.12);
+  --green: #6ee7b7;
+  --green-dim: rgba(110,231,183,0.15);
+  --red: #f87171;
+  --yellow: #fcd34d;
+  --yellow-dim: rgba(252,211,77,0.15);
+  --text: #e2e8f0;
+  --text-dim: #475569;
+  --border: rgba(255,255,255,0.06);
+  --border-bright: rgba(255,255,255,0.12);
 }
-:root[data-theme="arctic"] {
-  --bg: #050c14;
-  --panel: #080f1c;
-  --panel2: #0c1528;
-  --amber: #3aaec8;
-  --amber-dim: rgba(58,174,200,0.12);
-  --amber-glow: rgba(58,174,200,0.4);
-  --cyan: #7acce0;
-  --cyan-dim: rgba(122,204,224,0.1);
-  --green: #4ad4ba;
-  --green-dim: rgba(74,212,186,0.15);
-  --border: #0d1828;
-  --border-bright: #152638;
+:root[data-theme="glass"] body {
+  background: radial-gradient(ellipse at 20% 20%, #1e1040 0%, #0d0f1a 50%, #0a1628 100%);
 }
-:root[data-theme="dusk"] {
-  --bg: #0e0a14;
-  --panel: #130d1c;
-  --panel2: #180f24;
-  --amber: #b078d8;
-  --amber-dim: rgba(176,120,216,0.12);
-  --amber-glow: rgba(176,120,216,0.4);
-  --cyan: #d88fc8;
-  --cyan-dim: rgba(216,143,200,0.1);
-  --green: #78c8a0;
-  --green-dim: rgba(120,200,160,0.15);
-  --border: #1c1228;
-  --border-bright: #2a1a3a;
+:root[data-theme="glass"] body::before {
+  background-image:
+    radial-gradient(circle at 15% 25%, rgba(167,139,250,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 85% 70%, rgba(103,232,249,0.1) 0%, transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(110,231,183,0.08) 0%, transparent 35%);
 }
+:root[data-theme="glass"] body::after { background: none; }
+
+/* glass: all panels use backdrop-filter blur */
+:root[data-theme="glass"] header,
+:root[data-theme="glass"] .photo-panel,
+:root[data-theme="glass"] .hint-chip,
+:root[data-theme="glass"] .result-modal,
+:root[data-theme="glass"] .input-bar,
+:root[data-theme="glass"] .scoreboard,
+:root[data-theme="glass"] .mfr-chip,
+:root[data-theme="glass"] .theme-chip,
+:root[data-theme="glass"] .start-toggle,
+:root[data-theme="glass"] .dropdown {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.1);
+}
+:root[data-theme="glass"] .photo-panel,
+:root[data-theme="glass"] .hint-chip,
+:root[data-theme="glass"] .result-modal,
+:root[data-theme="glass"] .mfr-chip,
+:root[data-theme="glass"] .theme-chip,
+:root[data-theme="glass"] .start-toggle,
+:root[data-theme="glass"] .scoreboard,
+:root[data-theme="glass"] .field-input,
+:root[data-theme="glass"] .guess-cell,
+:root[data-theme="glass"] .btn-submit,
+:root[data-theme="glass"] .btn-new,
+:root[data-theme="glass"] .btn-menu,
+:root[data-theme="glass"] .btn-launch,
+:root[data-theme="glass"] .btn-next-screen,
+:root[data-theme="glass"] .custom-theme-builder,
+:root[data-theme="glass"] .dropdown {
+  border-radius: 12px;
+}
+:root[data-theme="glass"] .result-modal::before,
+:root[data-theme="glass"] .result-modal::after { display: none; }
+:root[data-theme="glass"] .corner { display: none; }
+:root[data-theme="glass"] .scanlines { display: none; }
+:root[data-theme="glass"] .logo-title,
+:root[data-theme="glass"] .start-logo {
+  font-weight: 400;
+  letter-spacing: 12px;
+  text-shadow: 0 0 40px rgba(167,139,250,0.6), 0 0 80px rgba(167,139,250,0.2);
+}
+:root[data-theme="glass"] .guess-cell.wrong {
+  border-color: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+:root[data-theme="glass"] .pip { border-radius: 3px; }
+:root[data-theme="glass"] .field-input {
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+}
+:root[data-theme="glass"] .stat-val {
+  text-shadow: 0 0 20px rgba(103,232,249,0.6);
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   THEME: BRUTALIST
+   No frills. Heavy borders, ALL CAPS everywhere, stark
+   white-on-black newspaper brutalism with bold geometry
+   ───────────────────────────────────────────────────────── */
+:root[data-theme="brutal"] {
+  --bg: #0a0a0a;
+  --panel: #111111;
+  --panel2: #1a1a1a;
+  --amber: #ffffff;
+  --amber-dim: rgba(255,255,255,0.08);
+  --amber-glow: rgba(255,255,255,0.2);
+  --cyan: #ffffff;
+  --cyan-dim: rgba(255,255,255,0.06);
+  --green: #ffffff;
+  --green-dim: rgba(255,255,255,0.08);
+  --red: #ffffff;
+  --yellow: #cccccc;
+  --yellow-dim: rgba(204,204,204,0.1);
+  --text: #e0e0e0;
+  --text-dim: #444444;
+  --border: #2a2a2a;
+  --border-bright: #444444;
+}
+:root[data-theme="brutal"] body::before { background: none; }
+:root[data-theme="brutal"] body::after  { background: none; }
+:root[data-theme="brutal"] body {
+  background: #0a0a0a;
+  background-image: repeating-linear-gradient(
+    90deg, transparent, transparent 119px, #1a1a1a 119px, #1a1a1a 120px
+  );
+}
+/* brutal: thick borders everywhere, sharp corners, no radius */
+:root[data-theme="brutal"] .photo-panel,
+:root[data-theme="brutal"] .hint-chip,
+:root[data-theme="brutal"] .guess-cell,
+:root[data-theme="brutal"] .field-input,
+:root[data-theme="brutal"] .result-modal,
+:root[data-theme="brutal"] .scoreboard,
+:root[data-theme="brutal"] .mfr-chip,
+:root[data-theme="brutal"] .theme-chip,
+:root[data-theme="brutal"] .start-toggle {
+  border-radius: 0;
+  border-width: 2px;
+}
+:root[data-theme="brutal"] header {
+  border-bottom: 3px solid #444;
+}
+:root[data-theme="brutal"] .photo-panel { border: 3px solid #444; }
+:root[data-theme="brutal"] .corner { display: none; }
+:root[data-theme="brutal"] .scanlines { display: none; }
+:root[data-theme="brutal"] .result-modal::before,
+:root[data-theme="brutal"] .result-modal::after { display: none; }
+/* brutal: photo panel gets an offset shadow instead */
+:root[data-theme="brutal"] .photo-panel {
+  box-shadow: 6px 6px 0 #ffffff22;
+}
+:root[data-theme="brutal"] .result-modal {
+  border: 3px solid #fff;
+  box-shadow: 8px 8px 0 rgba(255,255,255,0.15);
+}
+:root[data-theme="brutal"] .logo-title,
+:root[data-theme="brutal"] .start-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 14px;
+  text-shadow: none;
+  color: #fff;
+}
+:root[data-theme="brutal"] .stat-val {
+  text-shadow: none;
+  color: #fff;
+}
+:root[data-theme="brutal"] .guess-cell.correct {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+:root[data-theme="brutal"] .guess-cell.close {
+  background: #555555;
+  color: #ffffff;
+  border-color: #888;
+}
+:root[data-theme="brutal"] .btn-submit,
+:root[data-theme="brutal"] .btn-new {
+  border-width: 2px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+:root[data-theme="brutal"] .pip { border-radius: 0; border-width: 2px; }
+:root[data-theme="brutal"] .type-badge { border-width: 2px; }
+:root[data-theme="brutal"] .hint-chip { border-width: 2px; }
+
+
+/* ─────────────────────────────────────────────────────────
+   THEME: PAPER
+   Light mode. Soft cream background, ink-dark text,
+   feels like a flight logbook or printed dossier
+   ───────────────────────────────────────────────────────── */
+:root[data-theme="paper"] {
+  --bg: #f5f0e8;
+  --panel: #ede8de;
+  --panel2: #e6e0d4;
+  --amber: #8b4513;
+  --amber-dim: rgba(139,69,19,0.1);
+  --amber-glow: rgba(139,69,19,0.3);
+  --cyan: #2c5f8a;
+  --cyan-dim: rgba(44,95,138,0.1);
+  --green: #2d6a4f;
+  --green-dim: rgba(45,106,79,0.12);
+  --red: #c0392b;
+  --yellow: #b8860b;
+  --yellow-dim: rgba(184,134,11,0.15);
+  --text: #2c2416;
+  --text-dim: #9a8f7a;
+  --border: #c8bfa8;
+  --border-bright: #a89880;
+}
+:root[data-theme="paper"] body {
+  background: var(--bg);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23f5f0e8'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23d4c9b0' opacity='0.5'/%3E%3C/svg%3E");
+}
+:root[data-theme="paper"] body::before {
+  background-image:
+    repeating-linear-gradient(
+      to bottom, transparent 0px, transparent 27px,
+      rgba(139,69,19,0.06) 27px, rgba(139,69,19,0.06) 28px
+    );
+}
+:root[data-theme="paper"] body::after { background: none; }
+:root[data-theme="paper"] .logo-title,
+:root[data-theme="paper"] .start-logo {
+  font-family: 'Orbitron', sans-serif;
+  color: #5c3010;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.15);
+  letter-spacing: 6px;
+}
+:root[data-theme="paper"] .start-sub,
+:root[data-theme="paper"] .logo-sub { color: #7a6a50; }
+:root[data-theme="paper"] .corner { border-color: #8b4513; opacity: 0.4; }
+:root[data-theme="paper"] .scanlines { display: none; }
+:root[data-theme="paper"] .photo-panel { border: 1px solid #a89880; }
+:root[data-theme="paper"] .result-modal::before,
+:root[data-theme="paper"] .result-modal::after { border-color: #8b4513; opacity: 0.3; }
+:root[data-theme="paper"] header { border-bottom-color: #c8bfa8; }
+:root[data-theme="paper"] .input-bar {
+  background: linear-gradient(to top, #ede8de, #f0ebe2);
+  border-top-color: #c8bfa8;
+}
+:root[data-theme="paper"] .stat-val {
+  color: var(--cyan);
+  text-shadow: none;
+}
+:root[data-theme="paper"] .guess-cell.wrong {
+  border-color: #c8bfa8;
+  background: rgba(0,0,0,0.03);
+  color: #9a8f7a;
+}
+:root[data-theme="paper"] .radar-ring { border-color: rgba(44,95,138,0.2); border-top-color: #2c5f8a; }
+:root[data-theme="paper"] .field-input { color: var(--text); }
+:root[data-theme="paper"] .dropdown { background: var(--panel); }
+
+
+/* ─────────────────────────────────────────────────────────
+   THEME: TACTICAL
+   Military DAGR / field device aesthetic. Olive drab,
+   chunky dashed borders, stencil uppercase feel
+   ───────────────────────────────────────────────────────── */
+:root[data-theme="tactical"] {
+  --bg: #0e1008;
+  --panel: #161a0c;
+  --panel2: #1c2010;
+  --amber: #a0c020;
+  --amber-dim: rgba(160,192,32,0.12);
+  --amber-glow: rgba(160,192,32,0.4);
+  --cyan: #c8d840;
+  --cyan-dim: rgba(200,216,64,0.1);
+  --green: #60d050;
+  --green-dim: rgba(96,208,80,0.13);
+  --red: #e04020;
+  --yellow: #d8b820;
+  --yellow-dim: rgba(216,184,32,0.15);
+  --text: #b0c080;
+  --text-dim: #3a4820;
+  --border: #283014;
+  --border-bright: #384520;
+}
+:root[data-theme="tactical"] body::before {
+  background-image:
+    repeating-linear-gradient(
+      to right, transparent 0, transparent 39px,
+      rgba(160,192,32,0.04) 39px, rgba(160,192,32,0.04) 40px
+    ),
+    repeating-linear-gradient(
+      to bottom, transparent 0, transparent 39px,
+      rgba(160,192,32,0.04) 39px, rgba(160,192,32,0.04) 40px
+    );
+}
+:root[data-theme="tactical"] body::after {
+  background: linear-gradient(to top, rgba(5,10,0,0.5), transparent);
+}
+/* tactical: dashed borders on key containers */
+:root[data-theme="tactical"] .photo-panel { border: 2px dashed #384520; }
+:root[data-theme="tactical"] .hint-chip   { border: 1px dashed #384520; }
+:root[data-theme="tactical"] .scoreboard  { border: 2px dashed #384520; }
+:root[data-theme="tactical"] .result-modal { border: 2px dashed #a0c020; }
+:root[data-theme="tactical"] .corner {
+  width: 16px; height: 16px;
+  border-color: #a0c020; border-style: dashed; opacity: 0.9;
+}
+:root[data-theme="tactical"] .scanlines { opacity: 0.5; }
+:root[data-theme="tactical"] .logo-title,
+:root[data-theme="tactical"] .start-logo {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 12px;
+  text-shadow: 0 0 10px rgba(160,192,32,0.5);
+}
+:root[data-theme="tactical"] .result-modal::before,
+:root[data-theme="tactical"] .result-modal::after {
+  border-style: dashed;
+  border-color: #a0c020;
+  width: 24px; height: 24px;
+}
+:root[data-theme="tactical"] .type-badge { border-style: dashed; }
+:root[data-theme="tactical"] .stat-val { text-shadow: 0 0 8px rgba(160,192,32,0.5); }
+:root[data-theme="tactical"] .field-input { border-style: dashed; }
+:root[data-theme="tactical"] .btn-submit { border-style: dashed; }
+:root[data-theme="tactical"] .btn-new { border-style: dashed; }
+:root[data-theme="tactical"] .mfr-chip { border-style: dashed; }
+
+
+/* ─────────────────────────────────────────────────────────
+   THEME: RETRO
+   80s home computer. Magenta/cyan, pixel-chunky, no AA feel,
+   bright saturated colors, thick inset shadows
+   ───────────────────────────────────────────────────────── */
+:root[data-theme="retro"] {
+  --bg: #1a0030;
+  --panel: #220040;
+  --panel2: #2a0050;
+  --amber: #ff44cc;
+  --amber-dim: rgba(255,68,204,0.15);
+  --amber-glow: rgba(255,68,204,0.6);
+  --cyan: #00ffff;
+  --cyan-dim: rgba(0,255,255,0.12);
+  --green: #00ff44;
+  --green-dim: rgba(0,255,68,0.15);
+  --red: #ff2244;
+  --yellow: #ffff00;
+  --yellow-dim: rgba(255,255,0,0.15);
+  --text: #ffccff;
+  --text-dim: #662288;
+  --border: #440066;
+  --border-bright: #660099;
+}
+:root[data-theme="retro"] body {
+  background: #1a0030;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 4px);
+  image-rendering: pixelated;
+}
+:root[data-theme="retro"] body::before {
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(255,68,204,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, rgba(0,255,255,0.1) 0%, transparent 40%),
+    radial-gradient(ellipse at 100% 100%, rgba(0,255,68,0.1) 0%, transparent 40%);
+}
+:root[data-theme="retro"] body::after {
+  background: linear-gradient(to top, rgba(26,0,48,0.7), transparent);
+}
+:root[data-theme="retro"] .logo-title,
+:root[data-theme="retro"] .start-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 6px;
+  text-shadow:
+    3px 3px 0 #00ffff,
+    -1px -1px 0 rgba(0,255,255,0.3),
+    0 0 20px rgba(255,68,204,0.8);
+}
+/* retro: thick inset borders, box shadows */
+:root[data-theme="retro"] .photo-panel {
+  border: 3px solid #660099;
+  box-shadow: inset 0 0 30px rgba(255,68,204,0.1), 0 0 20px rgba(255,68,204,0.15);
+}
+:root[data-theme="retro"] .corner { display: none; }
+:root[data-theme="retro"] .result-modal {
+  border: 3px solid #ff44cc;
+  box-shadow: 0 0 40px rgba(255,68,204,0.3), inset 0 0 20px rgba(255,68,204,0.05);
+}
+:root[data-theme="retro"] .result-modal::before,
+:root[data-theme="retro"] .result-modal::after { display: none; }
+:root[data-theme="retro"] .guess-cell.correct {
+  box-shadow: 0 0 10px rgba(0,255,68,0.4);
+}
+:root[data-theme="retro"] .guess-cell.close {
+  box-shadow: 0 0 10px rgba(255,255,0,0.3);
+}
+:root[data-theme="retro"] .field-input:focus {
+  box-shadow: 0 0 0 2px rgba(255,68,204,0.4), 0 0 12px rgba(255,68,204,0.2);
+}
+:root[data-theme="retro"] .btn-submit:not(:disabled):hover {
+  box-shadow: 0 0 20px rgba(255,68,204,0.4);
+}
+:root[data-theme="retro"] .stat-val {
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0,255,255,0.7), 2px 2px 0 rgba(255,68,204,0.4);
+}
+:root[data-theme="retro"] .pip { border-radius: 0; }
+:root[data-theme="retro"] .hint-chip {
+  border-color: #660099;
+  box-shadow: 0 0 6px rgba(255,68,204,0.15);
+}
+:root[data-theme="retro"] .type-badge {
+  border-color: #00ffff;
+  color: #00ffff;
+  box-shadow: 0 0 8px rgba(0,255,255,0.3);
+}
+:root[data-theme="retro"] .scanlines { opacity: 0.6; }
 /* ──────────────────── THEME CHIPS ──────────────────── */
 .theme-grid {
   display: flex;
@@ -109,6 +484,7 @@
   margin-bottom: 28px;
   background: var(--panel);
   border: 1px solid var(--border-bright);
+  overflow: hidden;
   transition: border-color 0.2s;
 }
 .custom-theme-builder.active-theme {
@@ -309,18 +685,12 @@ body::after {
   inset: 0;
   z-index: 500;
   background: var(--bg);
-  overflow-y: scroll;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-}
-
-.start-screen-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 20px 80px;
-  min-height: 100%;
-  width: 100%;
+  padding: 40px 20px 60px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #start-screen.hidden { display: none; }
@@ -514,6 +884,261 @@ body::after {
   max-width: 400px;
   line-height: 1.6;
 }
+
+/* ──────────────────── THEME SCREEN ──────────────────── */
+#theme-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 60px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#theme-screen.hidden { display: none; }
+
+.theme-screen-layout {
+  display: flex;
+  gap: 36px;
+  width: 100%;
+  max-width: 900px;
+  align-items: flex-start;
+}
+
+.theme-screen-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.theme-screen-right {
+  width: 340px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (max-width: 760px) {
+  .theme-screen-layout { flex-direction: column; }
+  .theme-screen-right { width: 100%; }
+}
+
+.theme-preview-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--amber);
+  opacity: 0.7;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* Mini gameplay preview */
+.mini-preview {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border-bright);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-bright);
+  background: var(--panel);
+}
+.mini-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--amber);
+  text-shadow: 0 0 10px var(--amber-glow);
+}
+.mini-stats {
+  display: flex;
+  gap: 10px;
+}
+.mini-stat-val {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+.mini-photo {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--panel2);
+  position: relative;
+  overflow: hidden;
+}
+.mini-photo-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  display: block;
+}
+.mini-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--bg) 0%, transparent 60%);
+  z-index: 1;
+}
+.mini-photo-badge {
+  position: absolute;
+  bottom: 6px; right: 8px;
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  border: 1px solid rgba(0,212,255,0.3);
+  background: rgba(0,212,255,0.06);
+  padding: 2px 6px;
+  z-index: 2;
+}
+.mini-photo-round {
+  position: absolute;
+  bottom: 6px; left: 8px;
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: var(--amber);
+  opacity: 0.8;
+  z-index: 2;
+}
+.mini-corner { position: absolute; width: 10px; height: 10px; border-color: var(--amber); border-style: solid; z-index: 3; opacity: 0.5; }
+.mini-corner-tl { top: 4px; left: 4px; border-width: 1px 0 0 1px; }
+.mini-corner-tr { top: 4px; right: 4px; border-width: 1px 1px 0 0; }
+.mini-corner-bl { bottom: 4px; left: 4px; border-width: 0 0 1px 1px; }
+.mini-corner-br { bottom: 4px; right: 4px; border-width: 0 1px 1px 0; }
+
+.mini-hints {
+  display: flex;
+  gap: 4px;
+  padding: 6px 8px;
+  background: var(--panel);
+  border-top: 1px solid var(--border-bright);
+  flex-wrap: wrap;
+}
+.mini-hint {
+  font-size: 7px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+  border: 1px solid var(--border-bright);
+  padding: 2px 5px;
+  background: var(--panel2);
+}
+.mini-hint span { color: var(--amber); opacity: 0.6; margin-right: 3px; }
+
+.mini-guesses {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px 8px;
+  background: var(--panel2);
+}
+.mini-guess-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3px;
+}
+.mini-cell {
+  padding: 4px 6px;
+  border: 1px solid;
+  font-size: 7px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.mini-cell.correct { border-color: var(--green); background: var(--green-dim); color: var(--green); }
+.mini-cell.close   { border-color: var(--yellow); background: var(--yellow-dim); color: var(--yellow); }
+.mini-cell.wrong   { border-color: #2a3050; background: rgba(20,25,40,0.5); color: var(--text-dim); }
+
+.mini-input-bar {
+  display: flex;
+  gap: 3px;
+  padding: 6px 8px;
+  background: var(--panel);
+  border-top: 1px solid var(--border-bright);
+}
+.mini-input {
+  flex: 1;
+  height: 22px;
+  background: var(--panel2);
+  border: 1px solid var(--border-bright);
+}
+.mini-btn {
+  height: 22px;
+  padding: 0 8px;
+  background: var(--amber-dim);
+  border: 1px solid var(--amber);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--amber);
+  white-space: nowrap;
+}
+
+.btn-next-screen {
+  background: var(--amber-dim);
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  padding: 14px 48px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  align-self: center;
+  margin-top: 12px;
+}
+.btn-next-screen:hover {
+  background: rgba(255,178,0,0.22);
+  text-shadow: 0 0 12px var(--amber-glow);
+  box-shadow: 0 0 30px rgba(255,178,0,0.15);
+}
+
+/* ──────────────────── SETUP SCREEN ──────────────────── */
+#setup-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 60px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#setup-screen.hidden { display: none; }
+
+.btn-back {
+  background: transparent;
+  border: 1px solid var(--border-bright);
+  color: var(--text-dim);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 8px 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  align-self: flex-start;
+  margin-bottom: 24px;
+}
+.btn-back:hover { border-color: var(--amber); color: var(--amber); }
 
 /* ──────────────────── HEADER ──────────────────── */
 header {
@@ -930,116 +1555,221 @@ main {
 <body>
 
 <!-- ══════════════════════════════════════════════════════ -->
-<!-- START SCREEN -->
+<!-- SCREEN 1: THEME SELECTION -->
 <!-- ══════════════════════════════════════════════════════ -->
-<div id="start-screen">
-  <div class="start-screen-inner">
+<div id="theme-screen">
   <div class="start-logo">✈ AEROGUESS</div>
   <div class="start-sub">Aircraft Identification Challenge</div>
 
-  <div class="start-section-title">▸ DISPLAY THEME</div>
-  <div class="theme-grid" id="theme-selector">
-    <div class="theme-chip selected" data-theme="default" onclick="selectTheme('default', this)">
-      <div class="theme-chip-name">Default</div>
-      <div class="theme-chip-swatches">
-        <div class="theme-swatch" style="background:#ffb200"></div>
-        <div class="theme-swatch" style="background:#00d4ff"></div>
-        <div class="theme-swatch" style="background:#00ff88"></div>
-        <div class="theme-swatch" style="background:#04060e"></div>
+  <div class="theme-screen-layout">
+    <!-- Left: theme pickers -->
+    <div class="theme-screen-left">
+      <div class="start-section-title">▸ CHOOSE YOUR DISPLAY THEME</div>
+      <div class="theme-grid" id="theme-selector" style="max-width:100%">
+        <div class="theme-chip selected" data-theme="default" onclick="selectTheme('default', this)">
+          <div class="theme-chip-name">Default</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Sci-fi radar ops. Sharp corners, amber glow, star field.</div>
+          <div class="theme-chip-swatches">
+            <div class="theme-swatch" style="background:#ffb200"></div>
+            <div class="theme-swatch" style="background:#00d4ff"></div>
+            <div class="theme-swatch" style="background:#04060e"></div>
+          </div>
+        </div>
+        <div class="theme-chip" data-theme="glass" onclick="selectTheme('glass', this)">
+          <div class="theme-chip-name">Glass</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Frosted glass panels, blurred depth, rounded everything, soft purple glows.</div>
+          <div class="theme-chip-swatches">
+            <div class="theme-swatch" style="background:#a78bfa"></div>
+            <div class="theme-swatch" style="background:#67e8f9"></div>
+            <div class="theme-swatch" style="background:#0d0f1a"></div>
+          </div>
+        </div>
+        <div class="theme-chip" data-theme="brutal" onclick="selectTheme('brutal', this)">
+          <div class="theme-chip-name">Brutalist</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Black &amp; white, thick 2px borders, offset box shadows, zero decoration.</div>
+          <div class="theme-chip-swatches">
+            <div class="theme-swatch" style="background:#ffffff"></div>
+            <div class="theme-swatch" style="background:#555555"></div>
+            <div class="theme-swatch" style="background:#0a0a0a"></div>
+          </div>
+        </div>
+        <div class="theme-chip" data-theme="paper" onclick="selectTheme('paper', this)">
+          <div class="theme-chip-name">Paper</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Light mode. Cream &amp; ink, ruled lines, printed flight dossier feel.</div>
+          <div class="theme-chip-swatches">
+            <div class="theme-swatch" style="background:#8b4513"></div>
+            <div class="theme-swatch" style="background:#2c5f8a"></div>
+            <div class="theme-swatch" style="background:#f5f0e8"></div>
+          </div>
+        </div>
+        <div class="theme-chip" data-theme="tactical" onclick="selectTheme('tactical', this)">
+          <div class="theme-chip-name">Tactical</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Olive drab, dashed borders on all panels, military field device look.</div>
+          <div class="theme-chip-swatches">
+            <div class="theme-swatch" style="background:#a0c020"></div>
+            <div class="theme-swatch" style="background:#c8d840"></div>
+            <div class="theme-swatch" style="background:#0e1008"></div>
+          </div>
+        </div>
+        <div class="theme-chip" data-theme="retro" onclick="selectTheme('retro', this)">
+          <div class="theme-chip-name">Retro</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">80s home computer. Magenta/cyan, scanlines, chromatic text shadow, glowing boxes.</div>
+          <div class="theme-chip-swatches">
+            <div class="theme-swatch" style="background:#ff44cc"></div>
+            <div class="theme-swatch" style="background:#00ffff"></div>
+            <div class="theme-swatch" style="background:#1a0030"></div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="theme-chip" data-theme="phosphor" onclick="selectTheme('phosphor', this)">
-      <div class="theme-chip-name">Phosphor</div>
-      <div class="theme-chip-swatches">
-        <div class="theme-swatch" style="background:#3ec96a"></div>
-        <div class="theme-swatch" style="background:#6ddc96"></div>
-        <div class="theme-swatch" style="background:#6ddc96"></div>
-        <div class="theme-swatch" style="background:#040a04"></div>
+
+      <!-- Custom Theme Builder -->
+      <div class="custom-theme-builder" id="custom-theme-builder" style="max-width:100%">
+        <div class="custom-theme-toggle" onclick="toggleCustomThemePanel()">
+          <div class="custom-theme-toggle-left">
+            <div class="custom-theme-preview-swatches">
+              <div class="theme-swatch" id="ctp-s1" style="background:#ffb200"></div>
+              <div class="theme-swatch" id="ctp-s2" style="background:#00d4ff"></div>
+              <div class="theme-swatch" id="ctp-s3" style="background:#00ff88"></div>
+              <div class="theme-swatch" id="ctp-s4" style="background:#04060e"></div>
+            </div>
+            <span class="custom-theme-label" id="custom-theme-label">Build Your Own Theme</span>
+          </div>
+          <span class="custom-theme-chevron">▼</span>
+        </div>
+        <div class="custom-theme-body" id="custom-theme-body">
+          <div class="color-row">
+            <div class="color-row-info">
+              <div class="color-row-name">Accent / Primary</div>
+              <div class="color-row-desc">Logo, borders, buttons, pip fills</div>
+            </div>
+            <div class="color-row-right">
+              <input class="color-hex-input" id="ct-amber" maxlength="7" placeholder="#FFAA00" oninput="onHexInput('amber',this)" />
+              <div class="color-picker-swatch" id="swatch-amber"><input type="color" id="cp-amber" oninput="onPickerInput('amber',this)" /></div>
+            </div>
+          </div>
+          <div class="color-row">
+            <div class="color-row-info">
+              <div class="color-row-name">Secondary / Stats</div>
+              <div class="color-row-desc">Stat numbers, filled inputs, type badge</div>
+            </div>
+            <div class="color-row-right">
+              <input class="color-hex-input" id="ct-cyan" maxlength="7" placeholder="#00D4FF" oninput="onHexInput('cyan',this)" />
+              <div class="color-picker-swatch" id="swatch-cyan"><input type="color" id="cp-cyan" oninput="onPickerInput('cyan',this)" /></div>
+            </div>
+          </div>
+          <div class="color-row">
+            <div class="color-row-info">
+              <div class="color-row-name">Correct / Green</div>
+              <div class="color-row-desc">Correct guess cells, win text</div>
+            </div>
+            <div class="color-row-right">
+              <input class="color-hex-input" id="ct-green" maxlength="7" placeholder="#00FF88" oninput="onHexInput('green',this)" />
+              <div class="color-picker-swatch" id="swatch-green"><input type="color" id="cp-green" oninput="onPickerInput('green',this)" /></div>
+            </div>
+          </div>
+          <div class="color-row">
+            <div class="color-row-info">
+              <div class="color-row-name">Background</div>
+              <div class="color-row-desc">Page and panel backgrounds</div>
+            </div>
+            <div class="color-row-right">
+              <input class="color-hex-input" id="ct-bg" maxlength="7" placeholder="#04060E" oninput="onHexInput('bg',this)" />
+              <div class="color-picker-swatch" id="swatch-bg"><input type="color" id="cp-bg" oninput="onPickerInput('bg',this)" /></div>
+            </div>
+          </div>
+          <div class="custom-theme-actions">
+            <span style="font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text-dim);flex:1;display:flex;align-items:center;">✦ Changes apply instantly</span>
+            <button class="btn-reset-theme" onclick="resetCustomTheme()">↺ RESET DEFAULTS</button>
+          </div>
+        </div>
       </div>
+
+      <button class="btn-next-screen" onclick="goToSetupScreen()" style="align-self:flex-start;margin-top:20px;">▶ CONTINUE</button>
     </div>
-    <div class="theme-chip" data-theme="arctic" onclick="selectTheme('arctic', this)">
-      <div class="theme-chip-name">Arctic</div>
-      <div class="theme-chip-swatches">
-        <div class="theme-swatch" style="background:#3aaec8"></div>
-        <div class="theme-swatch" style="background:#7acce0"></div>
-        <div class="theme-swatch" style="background:#4ad4ba"></div>
-        <div class="theme-swatch" style="background:#050c14"></div>
+
+    <!-- Right: live mini gameplay preview -->
+    <div class="theme-screen-right">
+      <div class="theme-preview-label">▸ PREVIEW</div>
+      <div class="mini-preview">
+        <!-- header -->
+        <div class="mini-preview-header">
+          <div class="mini-logo">✈ AEROGUESS</div>
+          <div class="mini-stats">
+            <div class="mini-stat-val">3</div>
+            <div style="font-size:7px;letter-spacing:2px;color:var(--text-dim)">SOLVED</div>
+            <div class="mini-stat-val" style="margin-left:6px">2</div>
+            <div style="font-size:7px;letter-spacing:2px;color:var(--text-dim)">STREAK</div>
+          </div>
+        </div>
+        <!-- photo area -->
+        <div class="mini-photo">
+          <div class="mini-corner mini-corner-tl"></div>
+          <div class="mini-corner mini-corner-tr"></div>
+          <div class="mini-corner mini-corner-bl"></div>
+          <div class="mini-corner mini-corner-br"></div>
+          <div class="mini-photo-overlay"></div>
+          <!-- SVG plane silhouette as stand-in -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 191" style="width:100%;height:100%;display:block;opacity:0.12">
+            <rect width="340" height="191" fill="var(--panel2)"/>
+            <g fill="var(--amber)" opacity="0.8">
+              <path d="M170 60 L260 110 L240 110 L235 130 L210 120 L200 130 L200 145 L140 145 L140 130 L130 120 L105 130 L100 110 L80 110 Z"/>
+              <rect x="145" y="145" width="50" height="8" rx="2"/>
+              <rect x="160" y="153" width="20" height="5" rx="2"/>
+            </g>
+          </svg>
+          <div class="mini-photo-round">ROUND 4</div>
+          <div class="mini-photo-badge">WIDEBODY</div>
+        </div>
+        <!-- hints -->
+        <div class="mini-hints">
+          <div class="mini-hint"><span>ERA</span>1990s</div>
+          <div class="mini-hint"><span>RANGE</span>Long-haul</div>
+          <div class="mini-hint"><span>ENGINES</span>2</div>
+          <div class="mini-hint"><span>ORIGIN</span>Europe</div>
+        </div>
+        <!-- guess history -->
+        <div class="mini-guesses">
+          <div class="mini-guess-row">
+            <div class="mini-cell correct">Boeing</div>
+            <div class="mini-cell close">767</div>
+            <div class="mini-cell wrong">Lufthansa</div>
+          </div>
+          <div class="mini-guess-row">
+            <div class="mini-cell correct">Boeing</div>
+            <div class="mini-cell correct">777</div>
+            <div class="mini-cell close">Air France</div>
+          </div>
+        </div>
+        <!-- input bar -->
+        <div class="mini-input-bar">
+          <div class="mini-input"></div>
+          <div class="mini-input"></div>
+          <div class="mini-input"></div>
+          <div class="mini-btn">IDENTIFY</div>
+        </div>
       </div>
-    </div>
-    <div class="theme-chip" data-theme="dusk" onclick="selectTheme('dusk', this)">
-      <div class="theme-chip-name">Dusk</div>
-      <div class="theme-chip-swatches">
-        <div class="theme-swatch" style="background:#b078d8"></div>
-        <div class="theme-swatch" style="background:#d88fc8"></div>
-        <div class="theme-swatch" style="background:#78c8a0"></div>
-        <div class="theme-swatch" style="background:#0e0a14"></div>
+      <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);line-height:1.6;text-align:center;opacity:0.7">
+        Preview updates live as you select a theme above.
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Custom Theme Builder -->
-  <div class="custom-theme-builder" id="custom-theme-builder">
-    <div class="custom-theme-toggle" onclick="toggleCustomThemePanel()">
-      <div class="custom-theme-toggle-left">
-        <div class="custom-theme-preview-swatches">
-          <div class="theme-swatch" id="ctp-s1" style="background:#ffb200"></div>
-          <div class="theme-swatch" id="ctp-s2" style="background:#00d4ff"></div>
-          <div class="theme-swatch" id="ctp-s3" style="background:#00ff88"></div>
-          <div class="theme-swatch" id="ctp-s4" style="background:#04060e"></div>
-        </div>
-        <span class="custom-theme-label" id="custom-theme-label">Build Your Own Theme</span>
-      </div>
-      <span class="custom-theme-chevron">▼</span>
-    </div>
-    <div class="custom-theme-body" id="custom-theme-body">
-      <div class="color-row">
-        <div class="color-row-info">
-          <div class="color-row-name">Accent / Primary</div>
-          <div class="color-row-desc">Logo, borders, buttons, pip fills</div>
-        </div>
-        <div class="color-row-right">
-          <input class="color-hex-input" id="ct-amber" maxlength="7" placeholder="#FFAA00" oninput="onHexInput('amber',this)" />
-          <div class="color-picker-swatch" id="swatch-amber"><input type="color" id="cp-amber" oninput="onPickerInput('amber',this)" /></div>
-        </div>
-      </div>
-      <div class="color-row">
-        <div class="color-row-info">
-          <div class="color-row-name">Secondary / Stats</div>
-          <div class="color-row-desc">Stat numbers, filled inputs, type badge</div>
-        </div>
-        <div class="color-row-right">
-          <input class="color-hex-input" id="ct-cyan" maxlength="7" placeholder="#00D4FF" oninput="onHexInput('cyan',this)" />
-          <div class="color-picker-swatch" id="swatch-cyan"><input type="color" id="cp-cyan" oninput="onPickerInput('cyan',this)" /></div>
-        </div>
-      </div>
-      <div class="color-row">
-        <div class="color-row-info">
-          <div class="color-row-name">Correct / Green</div>
-          <div class="color-row-desc">Correct guess cells, win text</div>
-        </div>
-        <div class="color-row-right">
-          <input class="color-hex-input" id="ct-green" maxlength="7" placeholder="#00FF88" oninput="onHexInput('green',this)" />
-          <div class="color-picker-swatch" id="swatch-green"><input type="color" id="cp-green" oninput="onPickerInput('green',this)" /></div>
-        </div>
-      </div>
-      <div class="color-row">
-        <div class="color-row-info">
-          <div class="color-row-name">Background</div>
-          <div class="color-row-desc">Page and panel backgrounds</div>
-        </div>
-        <div class="color-row-right">
-          <input class="color-hex-input" id="ct-bg" maxlength="7" placeholder="#04060E" oninput="onHexInput('bg',this)" />
-          <div class="color-picker-swatch" id="swatch-bg"><input type="color" id="cp-bg" oninput="onPickerInput('bg',this)" /></div>
-        </div>
-      </div>
-      <div class="custom-theme-actions">
-        <span style="font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text-dim);flex:1;display:flex;align-items:center;">✦ Changes apply instantly</span>
-        <button class="btn-reset-theme" onclick="resetCustomTheme()">↺ RESET DEFAULTS</button>
-      </div>
-    </div>
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SCREEN 2: SETUP (planes + mode) -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div id="setup-screen" class="hidden">
+  <div class="start-logo">✈ AEROGUESS</div>
+  <div class="start-sub">Mission Configuration</div>
+
+  <div style="width:100%;max-width:640px;">
+    <button class="btn-back" onclick="goToThemeScreen()">◂ BACK TO THEMES</button>
   </div>
 
-  <div class="start-section-title">▸ SELECT AIRCRAFT FAMILIES TO INCLUDE</div>
+  <div class="start-section-title" style="display:flex;align-items:center;justify-content:space-between;max-width:640px;width:100%;">
+    <span>▸ SELECT AIRCRAFT FAMILIES TO INCLUDE</span>
+    <button id="btn-select-all" onclick="toggleSelectAll()" style="background:transparent;border:1px solid var(--border-bright);color:var(--text-dim);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;padding:4px 10px;cursor:pointer;text-transform:uppercase;transition:all 0.2s;white-space:nowrap;" onmouseover="this.style.borderColor='var(--amber)';this.style.color='var(--amber)'" onmouseout="this.style.borderColor='var(--border-bright)';this.style.color='var(--text-dim)'">SELECT ALL</button>
+  </div>
   <div class="start-mfr-grid" id="mfr-selector">
     <!-- filled by JS -->
   </div>
@@ -1057,8 +1787,10 @@ main {
 
   <button class="btn-launch" id="btn-launch" onclick="launchGame()">▶ BEGIN MISSION</button>
   <div class="start-note" id="start-note">Select at least one manufacturer family above, or leave all unselected to use the full database.</div>
-  </div><!-- end .start-screen-inner -->
 </div>
+
+<!-- legacy id kept for showStartScreen() compatibility -->
+<div id="start-screen" style="display:none"></div>
 
 <!-- ══════════════════════════════════════════════════════ -->
 <!-- MAIN GAME UI -->
@@ -1404,6 +2136,105 @@ const PLANES = [
   // ── SMALL TURBOPROPS ──────────────────────────────────────
   {id:161, mfr:"Cessna",    baseModel:"208",   model:"208B Grand Caravan", airline:"FedEx Feeder",  family:"C208",   alliance:"none",    type:"Turboprop",   era:"1980s", range:"Short-haul",  region:"USA",          engines:1, wikiSearch:"FedEx Cessna 208 Grand Caravan feeder aircraft approach"},
   {id:162, mfr:"Beechcraft",baseModel:"1900",  model:"1900D",              airline:"Mesa Air",       family:"B1900",  alliance:"none",    type:"Turboprop",   era:"1980s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"Mesa Air Beechcraft 1900D commuter aircraft approach"},
+
+  // ── BOEING 737 CLASSIC EXPANSIONS ────────────────────────
+  {id:163, mfr:"Boeing", baseModel:"737",    model:"737-300",    airline:"Southwest Airlines",         family:"B737",   alliance:"none",    type:"Narrowbody",  era:"1980s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"Southwest Airlines Boeing 737-300 classic aircraft approach landing"},
+  {id:164, mfr:"Boeing", baseModel:"737",    model:"737-400",    airline:"Ryanair",                    family:"B737",   alliance:"none",    type:"Narrowbody",  era:"1980s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Ryanair Boeing 737-400 aircraft approach landing"},
+  {id:165, mfr:"Boeing", baseModel:"737",    model:"737-500",    airline:"Lufthansa",                  family:"B737",   alliance:"star",    type:"Narrowbody",  era:"1980s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Lufthansa Boeing 737-500 aircraft approach landing"},
+  {id:166, mfr:"Boeing", baseModel:"737",    model:"737-600",    airline:"SAS",                        family:"B737",   alliance:"star",    type:"Narrowbody",  era:"1990s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"SAS Scandinavian Airlines Boeing 737-600 aircraft approach"},
+  {id:167, mfr:"Boeing", baseModel:"737 MAX",model:"737 MAX 8",  airline:"Ryanair",                    family:"B737",   alliance:"none",    type:"Narrowbody",  era:"2010s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Ryanair Boeing 737 MAX 8 aircraft approach landing"},
+
+  // ── BOEING 747 EXPANSIONS ─────────────────────────────────
+  {id:168, mfr:"Boeing", baseModel:"747",    model:"747-300",    airline:"Japan Airlines",             family:"B747",   alliance:"oneworld",type:"Widebody",    era:"1980s", range:"Long-haul",   region:"Asia",         engines:4, wikiSearch:"Japan Airlines Boeing 747-300 aircraft approach landing"},
+  {id:169, mfr:"Boeing", baseModel:"747",    model:"747-400",    airline:"Japan Airlines",             family:"B747",   alliance:"oneworld",type:"Widebody",    era:"1980s", range:"Long-haul",   region:"Asia",         engines:4, wikiSearch:"Japan Airlines Boeing 747-400 aircraft landing approach"},
+  {id:170, mfr:"Boeing", baseModel:"747",    model:"747-400",    airline:"Singapore Airlines",         family:"B747",   alliance:"star",    type:"Widebody",    era:"1980s", range:"Long-haul",   region:"Asia",         engines:4, wikiSearch:"Singapore Airlines Boeing 747-400 aircraft approach landing"},
+
+  // ── BOEING 757 EXPANSIONS ─────────────────────────────────
+  {id:171, mfr:"Boeing", baseModel:"757",    model:"757-200",    airline:"United Airlines",            family:"B757",   alliance:"star",    type:"Narrowbody",  era:"1980s", range:"Medium-haul", region:"USA",          engines:2, wikiSearch:"United Airlines Boeing 757-200 aircraft approach landing"},
+  {id:172, mfr:"Boeing", baseModel:"757",    model:"757-200",    airline:"Delta Air Lines",            family:"B757",   alliance:"skyteam", type:"Narrowbody",  era:"1980s", range:"Medium-haul", region:"USA",          engines:2, wikiSearch:"Delta Air Lines Boeing 757-200 aircraft approach landing"},
+
+  // ── BOEING 767 EXPANSIONS ─────────────────────────────────
+  {id:173, mfr:"Boeing", baseModel:"767",    model:"767-300ER",  airline:"Japan Airlines",             family:"B767",   alliance:"oneworld",type:"Widebody",    era:"1980s", range:"Long-haul",   region:"Asia",         engines:2, wikiSearch:"Japan Airlines Boeing 767-300 widebody aircraft approach"},
+  {id:174, mfr:"Boeing", baseModel:"767",    model:"767-300F",   airline:"FedEx Express",              family:"B767",   alliance:"none",    type:"Freighter",   era:"1980s", range:"Long-haul",   region:"USA",          engines:2, wikiSearch:"FedEx Express Boeing 767-300F cargo freighter aircraft landing"},
+
+  // ── BOEING 777 EXPANSIONS ─────────────────────────────────
+  {id:175, mfr:"Boeing", baseModel:"777",    model:"777-300",    airline:"Singapore Airlines",         family:"B777",   alliance:"star",    type:"Widebody",    era:"1990s", range:"Long-haul",   region:"Asia",         engines:2, wikiSearch:"Singapore Airlines Boeing 777-300 aircraft approach Changi"},
+  {id:176, mfr:"Boeing", baseModel:"777",    model:"777-300ER",  airline:"Qatar Airways",              family:"B777",   alliance:"oneworld",type:"Widebody",    era:"1990s", range:"Long-haul",   region:"Middle East",  engines:2, wikiSearch:"Qatar Airways Boeing 777-300ER aircraft approach Doha landing"},
+  {id:177, mfr:"Boeing", baseModel:"777",    model:"777-300ER",  airline:"Cathay Pacific",             family:"B777",   alliance:"oneworld",type:"Widebody",    era:"1990s", range:"Long-haul",   region:"Asia",         engines:2, wikiSearch:"Cathay Pacific Boeing 777-300ER aircraft landing approach"},
+  {id:178, mfr:"Boeing", baseModel:"777",    model:"777-300ER",  airline:"Turkish Airlines",           family:"B777",   alliance:"star",    type:"Widebody",    era:"1990s", range:"Long-haul",   region:"Middle East",  engines:2, wikiSearch:"Turkish Airlines Boeing 777-300ER aircraft approach landing"},
+
+  // ── BOEING 787 EXPANSIONS ─────────────────────────────────
+  {id:179, mfr:"Boeing", baseModel:"787",    model:"787-8",      airline:"Japan Airlines",             family:"B787",   alliance:"oneworld",type:"Widebody",    era:"2010s", range:"Long-haul",   region:"Asia",         engines:2, wikiSearch:"Japan Airlines Boeing 787-8 Dreamliner aircraft approach"},
+  {id:180, mfr:"Boeing", baseModel:"787",    model:"787-9",      airline:"Qantas",                     family:"B787",   alliance:"oneworld",type:"Widebody",    era:"2010s", range:"Long-haul",   region:"Oceania",      engines:2, wikiSearch:"Qantas Boeing 787-9 Dreamliner aircraft approach landing"},
+  {id:181, mfr:"Boeing", baseModel:"787",    model:"787-10",     airline:"United Airlines",            family:"B787",   alliance:"star",    type:"Widebody",    era:"2010s", range:"Long-haul",   region:"USA",          engines:2, wikiSearch:"United Airlines Boeing 787-10 aircraft landing approach"},
+
+  // ── AIRBUS A300/A310 EXPANSIONS ───────────────────────────
+  {id:182, mfr:"Airbus", baseModel:"A300",  model:"A300-600",   airline:"FedEx Express",              family:"A300",   alliance:"none",    type:"Freighter",   era:"1980s", range:"Medium-haul", region:"USA",          engines:2, wikiSearch:"FedEx Express Airbus A300-600 cargo freighter aircraft"},
+  {id:183, mfr:"Airbus", baseModel:"A310",  model:"A310-300",   airline:"Air Transat",                family:"A310",   alliance:"none",    type:"Widebody",    era:"1980s", range:"Long-haul",   region:"Canada",       engines:2, wikiSearch:"Air Transat Airbus A310-300 charter aircraft approach landing"},
+
+  // ── AIRBUS A319/A320/A321 EXPANSIONS ─────────────────────
+  {id:184, mfr:"Airbus", baseModel:"A319",  model:"A319-100",   airline:"United Airlines",            family:"A320F",  alliance:"star",    type:"Narrowbody",  era:"1990s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"United Airlines Airbus A319-100 aircraft approach landing"},
+  {id:185, mfr:"Airbus", baseModel:"A319",  model:"A319-100",   airline:"Delta Air Lines",            family:"A320F",  alliance:"skyteam", type:"Narrowbody",  era:"1990s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"Delta Air Lines Airbus A319 aircraft approach landing"},
+  {id:186, mfr:"Airbus", baseModel:"A320",  model:"A320-200",   airline:"United Airlines",            family:"A320F",  alliance:"star",    type:"Narrowbody",  era:"1980s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"United Airlines Airbus A320-200 aircraft approach landing"},
+  {id:187, mfr:"Airbus", baseModel:"A320",  model:"A320neo",    airline:"Lufthansa",                  family:"A320F",  alliance:"star",    type:"Narrowbody",  era:"2010s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Lufthansa Airbus A320neo aircraft approach landing"},
+  {id:188, mfr:"Airbus", baseModel:"A320",  model:"A320neo",    airline:"British Airways",            family:"A320F",  alliance:"oneworld",type:"Narrowbody",  era:"2010s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"British Airways Airbus A320neo aircraft approach Heathrow"},
+  {id:189, mfr:"Airbus", baseModel:"A321",  model:"A321neo",    airline:"American Airlines",          family:"A320F",  alliance:"oneworld",type:"Narrowbody",  era:"2010s", range:"Medium-haul", region:"USA",          engines:2, wikiSearch:"American Airlines Airbus A321neo aircraft approach landing"},
+  {id:190, mfr:"Airbus", baseModel:"A321",  model:"A321neo",    airline:"Lufthansa",                  family:"A320F",  alliance:"star",    type:"Narrowbody",  era:"2010s", range:"Medium-haul", region:"Europe",       engines:2, wikiSearch:"Lufthansa Airbus A321neo aircraft approach landing"},
+  {id:191, mfr:"Airbus", baseModel:"A321",  model:"A321-200",   airline:"Iberia",                     family:"A320F",  alliance:"oneworld",type:"Narrowbody",  era:"1990s", range:"Medium-haul", region:"Europe",       engines:2, wikiSearch:"Iberia Airbus A321-200 aircraft approach landing Spain"},
+
+  // ── AIRBUS A330 EXPANSIONS ────────────────────────────────
+  {id:192, mfr:"Airbus", baseModel:"A330",  model:"A330-300",   airline:"Malaysia Airlines",          family:"A330",   alliance:"oneworld",type:"Widebody",    era:"1990s", range:"Long-haul",   region:"Asia",         engines:2, wikiSearch:"Malaysia Airlines Airbus A330-300 aircraft approach landing"},
+  {id:193, mfr:"Airbus", baseModel:"A330",  model:"A330-300",   airline:"Singapore Airlines",         family:"A330",   alliance:"star",    type:"Widebody",    era:"1990s", range:"Long-haul",   region:"Asia",         engines:2, wikiSearch:"Singapore Airlines Airbus A330-300 aircraft approach Changi"},
+  {id:194, mfr:"Airbus", baseModel:"A330",  model:"A330-200",   airline:"Turkish Airlines",           family:"A330",   alliance:"star",    type:"Widebody",    era:"1990s", range:"Long-haul",   region:"Middle East",  engines:2, wikiSearch:"Turkish Airlines Airbus A330-200 aircraft approach landing"},
+  {id:195, mfr:"Airbus", baseModel:"A330",  model:"A330-900neo",airline:"KLM",                        family:"A330",   alliance:"skyteam", type:"Widebody",    era:"2010s", range:"Long-haul",   region:"Europe",       engines:2, wikiSearch:"KLM Airbus A330-900neo aircraft approach landing Schiphol"},
+
+  // ── AIRBUS A350 EXPANSIONS ────────────────────────────────
+  {id:196, mfr:"Airbus", baseModel:"A350",  model:"A350-900",   airline:"British Airways",            family:"A350",   alliance:"oneworld",type:"Widebody",    era:"2010s", range:"Long-haul",   region:"Europe",       engines:2, wikiSearch:"British Airways Airbus A350-900 XWB aircraft approach Heathrow"},
+  {id:197, mfr:"Airbus", baseModel:"A350",  model:"A350-900",   airline:"Turkish Airlines",           family:"A350",   alliance:"star",    type:"Widebody",    era:"2010s", range:"Long-haul",   region:"Middle East",  engines:2, wikiSearch:"Turkish Airlines Airbus A350-900 aircraft approach landing"},
+  {id:198, mfr:"Airbus", baseModel:"A350",  model:"A350-900",   airline:"Japan Airlines",             family:"A350",   alliance:"oneworld",type:"Widebody",    era:"2010s", range:"Long-haul",   region:"Asia",         engines:2, wikiSearch:"Japan Airlines Airbus A350-900 aircraft approach landing"},
+  {id:199, mfr:"Airbus", baseModel:"A350",  model:"A350-900ULR",airline:"Singapore Airlines",         family:"A350",   alliance:"star",    type:"Widebody",    era:"2010s", range:"Ultra-long",  region:"Asia",         engines:2, wikiSearch:"Singapore Airlines Airbus A350-900ULR ultra long range aircraft"},
+  {id:200, mfr:"Airbus", baseModel:"A350",  model:"A350-1000",  airline:"Virgin Atlantic",            family:"A350",   alliance:"none",    type:"Widebody",    era:"2010s", range:"Long-haul",   region:"Europe",       engines:2, wikiSearch:"Virgin Atlantic Airbus A350-1000 aircraft approach landing Heathrow"},
+
+  // ── AIRBUS A380 EXPANSIONS ────────────────────────────────
+  {id:201, mfr:"Airbus", baseModel:"A380",  model:"A380-800",   airline:"Malaysia Airlines",          family:"A380",   alliance:"oneworld",type:"Widebody",    era:"2000s", range:"Long-haul",   region:"Asia",         engines:4, wikiSearch:"Malaysia Airlines Airbus A380 aircraft approach landing Kuala Lumpur"},
+  {id:202, mfr:"Airbus", baseModel:"A380",  model:"A380-800",   airline:"Thai Airways",               family:"A380",   alliance:"star",    type:"Widebody",    era:"2000s", range:"Long-haul",   region:"Asia",         engines:4, wikiSearch:"Thai Airways Airbus A380-800 aircraft approach Bangkok"},
+  {id:203, mfr:"Airbus", baseModel:"A380",  model:"A380-800",   airline:"China Southern Airlines",    family:"A380",   alliance:"skyteam", type:"Widebody",    era:"2000s", range:"Long-haul",   region:"Asia",         engines:4, wikiSearch:"China Southern Airlines Airbus A380-800 aircraft approach landing"},
+
+  // ── McDONNELL DOUGLAS EXPANSIONS ─────────────────────────
+  {id:204, mfr:"McDonnell Douglas", baseModel:"DC-10", model:"DC-10-10", airline:"United Airlines",   family:"DC10",   alliance:"star",    type:"Widebody",    era:"1970s", range:"Long-haul",   region:"USA",          engines:3, wikiSearch:"United Airlines DC-10-10 widebody trijet aircraft approach"},
+  {id:205, mfr:"McDonnell Douglas", baseModel:"MD-11", model:"MD-11F",   airline:"FedEx Express",     family:"MD11",   alliance:"none",    type:"Freighter",   era:"1980s", range:"Long-haul",   region:"USA",          engines:3, wikiSearch:"FedEx Express McDonnell Douglas MD-11F cargo freighter aircraft landing"},
+
+  // ── EMBRAER EXPANSIONS ────────────────────────────────────
+  {id:206, mfr:"Embraer", baseModel:"E-Jet",   model:"E175",    airline:"American Eagle",             family:"EJet",  alliance:"oneworld",type:"Regional Jet",era:"2000s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"American Eagle Embraer E175 regional jet aircraft landing"},
+  {id:207, mfr:"Embraer", baseModel:"E-Jet",   model:"E190",    airline:"Lufthansa CityLine",         family:"EJet",  alliance:"star",    type:"Regional Jet",era:"2000s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Lufthansa CityLine Embraer E190 aircraft approach landing"},
+  {id:208, mfr:"Embraer", baseModel:"E-Jet E2",model:"E175-E2", airline:"KLM Cityhopper",            family:"EJet2", alliance:"skyteam", type:"Regional Jet",era:"2010s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"KLM Cityhopper Embraer E175-E2 aircraft approach Schiphol"},
+
+  // ── ATR EXPANSIONS ────────────────────────────────────────
+  {id:209, mfr:"ATR",   baseModel:"ATR 42", model:"ATR 42-500", airline:"Flybe",                     family:"ATR42",  alliance:"none",    type:"Turboprop",   era:"1990s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Flybe ATR 42-500 turboprop aircraft approach landing"},
+  {id:210, mfr:"ATR",   baseModel:"ATR 72", model:"ATR 72-500", airline:"Air France Regional",       family:"ATR72",  alliance:"skyteam", type:"Turboprop",   era:"1990s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Air France Hop ATR 72-500 turboprop aircraft approach landing"},
+
+  // ── BOMBARDIER EXPANSIONS ─────────────────────────────────
+  {id:211, mfr:"Bombardier", baseModel:"CRJ",    model:"CRJ-700",     airline:"American Eagle",      family:"CRJ",    alliance:"oneworld",type:"Regional Jet",era:"1990s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"American Eagle CRJ-700 Bombardier regional jet aircraft approach"},
+  {id:212, mfr:"Bombardier", baseModel:"Dash 8", model:"Dash 8 Q400", airline:"Porter Airlines",     family:"Q400",   alliance:"none",    type:"Turboprop",   era:"1990s", range:"Short-haul",  region:"Canada",       engines:2, wikiSearch:"Porter Airlines Bombardier Q400 turboprop Toronto Island aircraft"},
+
+  // ── FOKKER EXPANSIONS ─────────────────────────────────────
+  {id:213, mfr:"Fokker", baseModel:"Fokker F27",  model:"Fokker F27",  airline:"KLM",               family:"F27",    alliance:"skyteam", type:"Turboprop",   era:"1950s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"KLM Fokker F27 Friendship turboprop Netherlands aircraft landing"},
+
+  // ── LOCKHEED L-1011 TRISTAR ───────────────────────────────
+  {id:214, mfr:"Lockheed", baseModel:"L-1011",  model:"L-1011 TriStar", airline:"Delta Air Lines",   family:"L1011",  alliance:"skyteam", type:"Widebody",    era:"1970s", range:"Long-haul",   region:"USA",          engines:3, wikiSearch:"Delta Air Lines Lockheed L-1011 TriStar widebody aircraft landing"},
+  {id:215, mfr:"Lockheed", baseModel:"L-1011",  model:"L-1011 TriStar", airline:"British Airways",   family:"L1011",  alliance:"oneworld",type:"Widebody",    era:"1970s", range:"Long-haul",   region:"Europe",       engines:3, wikiSearch:"British Airways Lockheed L-1011 TriStar aircraft approach landing"},
+  {id:216, mfr:"Lockheed", baseModel:"L-1011",  model:"L-1011 TriStar", airline:"TWA",               family:"L1011",  alliance:"none",    type:"Widebody",    era:"1970s", range:"Long-haul",   region:"USA",          engines:3, wikiSearch:"TWA Trans World Airlines Lockheed L-1011 TriStar aircraft approach"},
+
+  // ── BOEING 737 ADDITIONAL ─────────────────────────────────
+  {id:217, mfr:"Boeing", baseModel:"737",    model:"737-200",    airline:"Alaska Airlines",            family:"B737",   alliance:"oneworld",type:"Narrowbody",  era:"1960s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"Alaska Airlines Boeing 737-200 aircraft approach landing"},
+  {id:218, mfr:"Boeing", baseModel:"737",    model:"737-800",    airline:"Ryanair",                    family:"B737",   alliance:"none",    type:"Narrowbody",  era:"1990s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Ryanair Boeing 737-800 aircraft approach landing"},
+  {id:219, mfr:"Boeing", baseModel:"737",    model:"737-800",    airline:"Southwest Airlines",         family:"B737",   alliance:"none",    type:"Narrowbody",  era:"1990s", range:"Short-haul",  region:"USA",          engines:2, wikiSearch:"Southwest Airlines Boeing 737-800 aircraft approach landing"},
+  {id:220, mfr:"Boeing", baseModel:"737",    model:"737-800",    airline:"KLM",                        family:"B737",   alliance:"skyteam", type:"Narrowbody",  era:"1990s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"KLM Boeing 737-800 aircraft approach landing Schiphol"},
+
+  // ── AIRBUS A320 ADDITIONAL ────────────────────────────────
+  {id:221, mfr:"Airbus", baseModel:"A320",  model:"A320-200",   airline:"Ryanair",                    family:"A320F",  alliance:"none",    type:"Narrowbody",  era:"1980s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Ryanair Airbus A320 aircraft approach landing Ireland"},
+  {id:222, mfr:"Airbus", baseModel:"A320",  model:"A320neo",    airline:"easyJet",                    family:"A320F",  alliance:"none",    type:"Narrowbody",  era:"2010s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"easyJet Airbus A320neo aircraft approach landing"},
+  {id:223, mfr:"Airbus", baseModel:"A320",  model:"A320neo",    airline:"Air France",                 family:"A320F",  alliance:"skyteam", type:"Narrowbody",  era:"2010s", range:"Short-haul",  region:"Europe",       engines:2, wikiSearch:"Air France Airbus A320neo aircraft approach landing Paris"},
 ];
 
 // ═══════════════════════════════════════════════════════════
@@ -1422,7 +2253,7 @@ const MFR_FAMILIES = [
   { label: "Soviet / Russian",   mfrs: ["Ilyushin", "Tupolev", "Yakovlev", "Antonov", "Sukhoi"] },
   { label: "Concorde",           mfrs: ["Aérospatiale/BAC"] },
   { label: "COMAC",              mfrs: ["COMAC"] },
-  { label: "Classic / Vintage",  mfrs: ["Vickers", "Hawker Siddeley", "Dornier", "Cessna", "Beechcraft"] },
+  { label: "Classic / Vintage",  mfrs: ["Vickers", "Hawker Siddeley", "Dornier", "Cessna", "Beechcraft", "Lockheed"] },
 ];
 
 // ═══════════════════════════════════════════════════════════
@@ -1447,8 +2278,8 @@ const MFR_GROUPS = {
 
 const ALLIANCE_MAP = {
   "star":     ["Lufthansa","United Airlines","Air Canada","Singapore Airlines","All Nippon Airways","SAS","Thai Airways","Turkish Airlines","TAP Air Portugal","Swiss","Finnair","South African Airways","LOT Polish Airlines","Austrian Airlines","WestJet","Ethiopian Airlines","Air New Zealand","Wideroe"],
-  "oneworld": ["British Airways","American Airlines","Cathay Pacific","Japan Airlines","Iberia","Qantas","Royal Jordanian","Finnair","Air Baltic","Vueling","American Eagle","British Regional Airlines","Malmo Aviation","Air Nostrum","Helvetic Airways"],
-  "skyteam":  ["Air France","KLM","Delta Air Lines","Delta Connection","Alitalia","Korean Air","Aeromexico","China Eastern Airlines","Air France Regional","KLM Cityhopper","China Eastern Airlines"],
+  "oneworld": ["British Airways","American Airlines","Cathay Pacific","Japan Airlines","Iberia","Qantas","Royal Jordanian","Finnair","Air Baltic","Vueling","American Eagle","British Regional Airlines","Malmo Aviation","Air Nostrum","Helvetic Airways","Malaysia Airlines","Alaska Airlines"],
+  "skyteam":  ["Air France","KLM","Delta Air Lines","Delta Connection","Alitalia","Korean Air","Aeromexico","China Eastern Airlines","Air France Regional","KLM Cityhopper","China Southern Airlines"],
 };
 
 // ═══════════════════════════════════════════════════════════
@@ -1641,7 +2472,7 @@ function loadCustomThemeIfSaved() {
 }
 
 function buildStartScreen() {
-  // Sync theme chip with saved preference
+  // Sync theme chip with saved preference (theme chips are on theme-screen)
   const savedTheme = localStorage.getItem('ag_theme') || 'default';
   document.querySelectorAll('.theme-chip').forEach(chip => {
     chip.classList.toggle('selected', chip.dataset.theme === savedTheme && savedTheme !== 'custom');
@@ -1660,11 +2491,42 @@ function buildStartScreen() {
   });
 }
 
+function toggleSelectAll() {
+  const allCount = MFR_FAMILIES.length;
+  const allSelected = settings.selectedFamilies.length === allCount;
+
+  if (allSelected) {
+    // Deselect all → empty array means "use all planes" but visually show nothing selected
+    settings.selectedFamilies = [];
+    document.querySelectorAll('#mfr-selector .mfr-chip').forEach(c => c.classList.remove('selected'));
+  } else {
+    // Select all families explicitly
+    settings.selectedFamilies = MFR_FAMILIES.map((_, i) => i);
+    document.querySelectorAll('#mfr-selector .mfr-chip').forEach(c => c.classList.add('selected'));
+  }
+  syncSelectAllBtn();
+}
+
+function syncSelectAllBtn() {
+  const btn = document.getElementById('btn-select-all');
+  if (!btn) return;
+  const allSelected = settings.selectedFamilies.length === MFR_FAMILIES.length;
+  btn.textContent = allSelected ? 'DESELECT ALL' : 'SELECT ALL';
+  if (allSelected) {
+    btn.style.borderColor = 'var(--amber)';
+    btn.style.color = 'var(--amber)';
+  } else {
+    btn.style.borderColor = 'var(--border-bright)';
+    btn.style.color = 'var(--text-dim)';
+  }
+}
+
 function toggleFamily(chip, idx) {
   chip.classList.toggle('selected');
   const i = settings.selectedFamilies.indexOf(idx);
   if (i === -1) settings.selectedFamilies.push(idx);
   else settings.selectedFamilies.splice(i, 1);
+  syncSelectAllBtn();
 }
 
 function toggleHardMode() {
@@ -1673,7 +2535,8 @@ function toggleHardMode() {
 }
 
 function getActivePlanes() {
-  if (settings.selectedFamilies.length === 0) return [...PLANES];
+  // Empty selection OR all families selected → use full database
+  if (settings.selectedFamilies.length === 0 || settings.selectedFamilies.length === MFR_FAMILIES.length) return [...PLANES];
   const allowedMfrs = new Set();
   settings.selectedFamilies.forEach(idx => {
     MFR_FAMILIES[idx].mfrs.forEach(m => allowedMfrs.add(m));
@@ -1696,15 +2559,28 @@ function launchGame() {
   // Update input placeholder
   document.getElementById('input-model').placeholder = settings.hardMode ? 'e.g. 737-800' : 'e.g. 737';
 
-  // Hide start screen
-  document.getElementById('start-screen').classList.add('hidden');
+  // Hide setup/theme screens
+  document.getElementById('theme-screen').classList.add('hidden');
+  document.getElementById('setup-screen').classList.add('hidden');
 
   startNewGame();
 }
 
 function showStartScreen() {
-  document.getElementById('start-screen').classList.remove('hidden');
+  // Go back to theme screen when "MENU" is pressed during gameplay
+  document.getElementById('theme-screen').classList.remove('hidden');
+  document.getElementById('setup-screen').classList.add('hidden');
   document.getElementById('result-modal-backdrop').classList.remove('visible');
+}
+
+function goToSetupScreen() {
+  document.getElementById('theme-screen').classList.add('hidden');
+  document.getElementById('setup-screen').classList.remove('hidden');
+}
+
+function goToThemeScreen() {
+  document.getElementById('setup-screen').classList.add('hidden');
+  document.getElementById('theme-screen').classList.remove('hidden');
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -2340,7 +3216,7 @@ document.addEventListener('click', (e) => {
 buildStartScreen();
 updateStats();
 renderPips();
-// Don't auto-start — show start screen first
+// Start on the theme screen — game doesn't begin until user goes through both setup screens
 </script>
 </body>
 </html>
