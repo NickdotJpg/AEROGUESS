@@ -102,6 +102,155 @@
 .theme-chip-swatches { display: flex; gap: 4px; align-items: center; }
 .theme-swatch { width: 16px; height: 16px; border-radius: 2px; flex-shrink: 0; }
 
+/* ──────────────────── CUSTOM THEME BUILDER ──────────────────── */
+.custom-theme-builder {
+  width: 100%;
+  max-width: 640px;
+  margin-bottom: 28px;
+  background: var(--panel);
+  border: 1px solid var(--border-bright);
+  transition: border-color 0.2s;
+}
+.custom-theme-builder.active-theme {
+  border-color: var(--amber);
+}
+.custom-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  cursor: pointer;
+  user-select: none;
+  gap: 10px;
+}
+.custom-theme-toggle:hover { background: rgba(255,255,255,0.02); }
+.custom-theme-toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.custom-theme-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.custom-theme-builder.active-theme .custom-theme-label {
+  color: var(--amber);
+}
+.custom-theme-preview-swatches {
+  display: flex;
+  gap: 4px;
+}
+.custom-theme-chevron {
+  font-size: 9px;
+  color: var(--text-dim);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.custom-theme-builder.open .custom-theme-chevron {
+  transform: rotate(180deg);
+}
+.custom-theme-body {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--border-bright);
+}
+.custom-theme-builder.open .custom-theme-body {
+  display: flex;
+}
+.color-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.color-row:last-child { border-bottom: none; }
+.color-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.color-row-name {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+.color-row-desc {
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+.color-row-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.color-hex-input {
+  background: var(--panel2);
+  border: 1px solid var(--border-bright);
+  color: var(--text);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 5px 8px;
+  width: 80px;
+  outline: none;
+  text-transform: uppercase;
+  transition: border-color 0.2s;
+}
+.color-hex-input:focus {
+  border-color: var(--amber);
+}
+.color-picker-swatch {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border-bright);
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.color-picker-swatch:hover { border-color: rgba(255,255,255,0.4); }
+.color-picker-swatch input[type="color"] {
+  position: absolute;
+  inset: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+.custom-theme-actions {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--border-bright);
+  background: var(--panel2);
+}
+.btn-reset-theme {
+  background: transparent;
+  border: 1px solid var(--border-bright);
+  color: var(--text-dim);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 9px 12px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.btn-reset-theme:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
+
 * { margin:0; padding:0; box-sizing:border-box; }
 
 body {
@@ -160,12 +309,18 @@ body::after {
   inset: 0;
   z-index: 500;
   background: var(--bg);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.start-screen-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow-y: auto;
+  padding: 40px 20px 80px;
+  min-height: 100%;
+  width: 100%;
 }
 
 #start-screen.hidden { display: none; }
@@ -778,6 +933,7 @@ main {
 <!-- START SCREEN -->
 <!-- ══════════════════════════════════════════════════════ -->
 <div id="start-screen">
+  <div class="start-screen-inner">
   <div class="start-logo">✈ AEROGUESS</div>
   <div class="start-sub">Aircraft Identification Challenge</div>
 
@@ -821,6 +977,68 @@ main {
     </div>
   </div>
 
+  <!-- Custom Theme Builder -->
+  <div class="custom-theme-builder" id="custom-theme-builder">
+    <div class="custom-theme-toggle" onclick="toggleCustomThemePanel()">
+      <div class="custom-theme-toggle-left">
+        <div class="custom-theme-preview-swatches">
+          <div class="theme-swatch" id="ctp-s1" style="background:#ffb200"></div>
+          <div class="theme-swatch" id="ctp-s2" style="background:#00d4ff"></div>
+          <div class="theme-swatch" id="ctp-s3" style="background:#00ff88"></div>
+          <div class="theme-swatch" id="ctp-s4" style="background:#04060e"></div>
+        </div>
+        <span class="custom-theme-label" id="custom-theme-label">Build Your Own Theme</span>
+      </div>
+      <span class="custom-theme-chevron">▼</span>
+    </div>
+    <div class="custom-theme-body" id="custom-theme-body">
+      <div class="color-row">
+        <div class="color-row-info">
+          <div class="color-row-name">Accent / Primary</div>
+          <div class="color-row-desc">Logo, borders, buttons, pip fills</div>
+        </div>
+        <div class="color-row-right">
+          <input class="color-hex-input" id="ct-amber" maxlength="7" placeholder="#FFAA00" oninput="onHexInput('amber',this)" />
+          <div class="color-picker-swatch" id="swatch-amber"><input type="color" id="cp-amber" oninput="onPickerInput('amber',this)" /></div>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-row-info">
+          <div class="color-row-name">Secondary / Stats</div>
+          <div class="color-row-desc">Stat numbers, filled inputs, type badge</div>
+        </div>
+        <div class="color-row-right">
+          <input class="color-hex-input" id="ct-cyan" maxlength="7" placeholder="#00D4FF" oninput="onHexInput('cyan',this)" />
+          <div class="color-picker-swatch" id="swatch-cyan"><input type="color" id="cp-cyan" oninput="onPickerInput('cyan',this)" /></div>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-row-info">
+          <div class="color-row-name">Correct / Green</div>
+          <div class="color-row-desc">Correct guess cells, win text</div>
+        </div>
+        <div class="color-row-right">
+          <input class="color-hex-input" id="ct-green" maxlength="7" placeholder="#00FF88" oninput="onHexInput('green',this)" />
+          <div class="color-picker-swatch" id="swatch-green"><input type="color" id="cp-green" oninput="onPickerInput('green',this)" /></div>
+        </div>
+      </div>
+      <div class="color-row">
+        <div class="color-row-info">
+          <div class="color-row-name">Background</div>
+          <div class="color-row-desc">Page and panel backgrounds</div>
+        </div>
+        <div class="color-row-right">
+          <input class="color-hex-input" id="ct-bg" maxlength="7" placeholder="#04060E" oninput="onHexInput('bg',this)" />
+          <div class="color-picker-swatch" id="swatch-bg"><input type="color" id="cp-bg" oninput="onPickerInput('bg',this)" /></div>
+        </div>
+      </div>
+      <div class="custom-theme-actions">
+        <span style="font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text-dim);flex:1;display:flex;align-items:center;">✦ Changes apply instantly</span>
+        <button class="btn-reset-theme" onclick="resetCustomTheme()">↺ RESET DEFAULTS</button>
+      </div>
+    </div>
+  </div>
+
   <div class="start-section-title">▸ SELECT AIRCRAFT FAMILIES TO INCLUDE</div>
   <div class="start-mfr-grid" id="mfr-selector">
     <!-- filled by JS -->
@@ -839,6 +1057,7 @@ main {
 
   <button class="btn-launch" id="btn-launch" onclick="launchGame()">▶ BEGIN MISSION</button>
   <div class="start-note" id="start-note">Select at least one manufacturer family above, or leave all unselected to use the full database.</div>
+  </div><!-- end .start-screen-inner -->
 </div>
 
 <!-- ══════════════════════════════════════════════════════ -->
@@ -1273,20 +1492,161 @@ function selectTheme(theme, el) {
   } else {
     document.documentElement.setAttribute('data-theme', theme);
   }
+  // Clear any custom theme inline styles
+  const cssVars = ['--bg','--panel','--panel2','--border','--border-bright','--amber','--amber-dim','--amber-glow','--cyan','--cyan-dim','--green','--green-dim'];
+  cssVars.forEach(v => document.documentElement.style.removeProperty(v));
+  // Clear custom theme active state
+  const builder = document.getElementById('custom-theme-builder');
+  if (builder) {
+    builder.classList.remove('active-theme');
+    const lbl = document.getElementById('custom-theme-label');
+    if (lbl) lbl.textContent = 'Build Your Own Theme';
+  }
   localStorage.setItem('ag_theme', theme);
 }
 // Apply saved theme immediately on load
 (function() {
   const saved = localStorage.getItem('ag_theme');
-  if (saved && saved !== 'default') document.documentElement.setAttribute('data-theme', saved);
+  if (saved && saved !== 'default' && saved !== 'custom') document.documentElement.setAttribute('data-theme', saved);
 })();
+
+// ═══════════════════════════════════════════════════════════
+// CUSTOM THEME BUILDER
+// ═══════════════════════════════════════════════════════════
+const CUSTOM_THEME_DEFAULTS = {
+  amber: '#ffb200',
+  cyan:  '#00d4ff',
+  green: '#00ff88',
+  bg:    '#04060e',
+};
+
+let customColors = Object.assign({}, CUSTOM_THEME_DEFAULTS);
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return {r,g,b};
+}
+
+function isValidHex(h) { return /^#[0-9a-fA-F]{6}$/.test(h); }
+
+function syncSwatchUi(key, hex) {
+  const swatch = document.getElementById('swatch-' + key);
+  const picker = document.getElementById('cp-' + key);
+  const hexInp = document.getElementById('ct-' + key);
+  if (swatch) swatch.style.background = hex;
+  if (picker) picker.value = hex;
+  if (hexInp && document.activeElement !== hexInp) hexInp.value = hex.toUpperCase();
+}
+
+function updatePreviewSwatches() {
+  const map = {s1:'amber', s2:'cyan', s3:'green', s4:'bg'};
+  Object.entries(map).forEach(([id, key]) => {
+    const el = document.getElementById('ctp-' + id);
+    if (el) el.style.background = customColors[key];
+  });
+}
+
+// Core: push current customColors to CSS vars immediately (live preview)
+function applyCustomThemeLive() {
+  // Deselect preset chips and clear preset data-theme
+  document.querySelectorAll('.theme-chip').forEach(c => c.classList.remove('selected'));
+  document.documentElement.removeAttribute('data-theme');
+
+  const {r:ar, g:ag, b:ab} = hexToRgb(customColors.amber);
+  const {r:cr, g:cg, b:cb} = hexToRgb(customColors.cyan);
+  const {r:gr, g:gg, b:gb} = hexToRgb(customColors.green);
+  const {r:br, g:bg2, b:bb} = hexToRgb(customColors.bg);
+
+  // Derive panels/borders from bg
+  const panel   = '#' + [br,bg2,bb].map(v => Math.min(255,Math.round(v*1.5+10)).toString(16).padStart(2,'0')).join('');
+  const panel2  = '#' + [br,bg2,bb].map(v => Math.min(255,Math.round(v*1.9+16)).toString(16).padStart(2,'0')).join('');
+  const border  = '#' + [br,bg2,bb].map(v => Math.min(255,Math.round(v*2.5+10)).toString(16).padStart(2,'0')).join('');
+  const borderB = '#' + [br,bg2,bb].map(v => Math.min(255,Math.round(v*3.5+16)).toString(16).padStart(2,'0')).join('');
+
+  const root = document.documentElement;
+  root.style.setProperty('--bg',            customColors.bg);
+  root.style.setProperty('--panel',         panel);
+  root.style.setProperty('--panel2',        panel2);
+  root.style.setProperty('--border',        border);
+  root.style.setProperty('--border-bright', borderB);
+  root.style.setProperty('--amber',         customColors.amber);
+  root.style.setProperty('--amber-dim',     `rgba(${ar},${ag},${ab},0.12)`);
+  root.style.setProperty('--amber-glow',    `rgba(${ar},${ag},${ab},0.4)`);
+  root.style.setProperty('--cyan',          customColors.cyan);
+  root.style.setProperty('--cyan-dim',      `rgba(${cr},${cg},${cb},0.1)`);
+  root.style.setProperty('--green',         customColors.green);
+  root.style.setProperty('--green-dim',     `rgba(${gr},${gg},${gb},0.15)`);
+
+  // Mark builder as active
+  const builder = document.getElementById('custom-theme-builder');
+  if (builder) builder.classList.add('active-theme');
+  const lbl = document.getElementById('custom-theme-label');
+  if (lbl) lbl.textContent = 'Custom Theme ✦ Live';
+
+  // Persist
+  localStorage.setItem('ag_theme', 'custom');
+  localStorage.setItem('ag_custom_colors', JSON.stringify(customColors));
+}
+
+function onHexInput(key, input) {
+  let val = input.value.trim();
+  if (!val.startsWith('#')) val = '#' + val;
+  if (val.length <= 7) input.value = val.toUpperCase();
+  if (isValidHex(val)) {
+    customColors[key] = val;
+    syncSwatchUi(key, val);
+    updatePreviewSwatches();
+    applyCustomThemeLive();
+  }
+}
+
+function onPickerInput(key, input) {
+  const hex = input.value;
+  customColors[key] = hex;
+  const hexInp = document.getElementById('ct-' + key);
+  if (hexInp) hexInp.value = hex.toUpperCase();
+  const swatch = document.getElementById('swatch-' + key);
+  if (swatch) swatch.style.background = hex;
+  updatePreviewSwatches();
+  applyCustomThemeLive();
+}
+
+function toggleCustomThemePanel() {
+  const builder = document.getElementById('custom-theme-builder');
+  builder.classList.toggle('open');
+}
+
+function resetCustomTheme() {
+  customColors = Object.assign({}, CUSTOM_THEME_DEFAULTS);
+  Object.keys(customColors).forEach(k => syncSwatchUi(k, customColors[k]));
+  updatePreviewSwatches();
+  applyCustomThemeLive();
+}
+
+function loadCustomThemeIfSaved() {
+  const saved = localStorage.getItem('ag_custom_colors');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      customColors = Object.assign({}, CUSTOM_THEME_DEFAULTS, parsed);
+    } catch(e) {}
+  }
+  Object.keys(customColors).forEach(k => syncSwatchUi(k, customColors[k]));
+  updatePreviewSwatches();
+  if (localStorage.getItem('ag_theme') === 'custom') {
+    applyCustomThemeLive();
+  }
+}
 
 function buildStartScreen() {
   // Sync theme chip with saved preference
   const savedTheme = localStorage.getItem('ag_theme') || 'default';
   document.querySelectorAll('.theme-chip').forEach(chip => {
-    chip.classList.toggle('selected', chip.dataset.theme === savedTheme);
+    chip.classList.toggle('selected', chip.dataset.theme === savedTheme && savedTheme !== 'custom');
   });
+  loadCustomThemeIfSaved();
 
   const grid = document.getElementById('mfr-selector');
   grid.innerHTML = '';
