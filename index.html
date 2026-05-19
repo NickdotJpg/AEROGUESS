@@ -35,37 +35,48 @@
 
 /* ─────────────────────────────────────────────────────────
    THEME: GLASSMORPHISM
-   Frosted glass cards, blurred panels, soft glows, rounded
+   Crisp spotlight follows cursor. Prism light streaks drift
+   across the frozen surface. Ice-crystal, cold, sharp.
    ───────────────────────────────────────────────────────── */
 :root[data-theme="glass"] {
-  --bg: #0d0f1a;
-  --panel: rgba(255,255,255,0.04);
-  --panel2: rgba(255,255,255,0.06);
-  --amber: #a78bfa;
-  --amber-dim: rgba(167,139,250,0.15);
-  --amber-glow: rgba(167,139,250,0.5);
-  --cyan: #67e8f9;
-  --cyan-dim: rgba(103,232,249,0.12);
-  --green: #6ee7b7;
-  --green-dim: rgba(110,231,183,0.15);
-  --red: #f87171;
-  --yellow: #fcd34d;
-  --yellow-dim: rgba(252,211,77,0.15);
-  --text: #e2e8f0;
-  --text-dim: #475569;
-  --border: rgba(255,255,255,0.06);
-  --border-bright: rgba(255,255,255,0.12);
+  --bg: #06080f;
+  --panel: rgba(255,255,255,0.03);
+  --panel2: rgba(255,255,255,0.055);
+  --amber: #e0d7ff;
+  --amber-dim: rgba(224,215,255,0.12);
+  --amber-glow: rgba(180,165,255,0.55);
+  --cyan: #a5f3ff;
+  --cyan-dim: rgba(165,243,255,0.1);
+  --green: #86efac;
+  --green-dim: rgba(134,239,172,0.14);
+  --red: #fca5a5;
+  --yellow: #fde68a;
+  --yellow-dim: rgba(253,230,138,0.13);
+  --text: #f0f4ff;
+  --text-dim: #3a4460;
+  --border: rgba(255,255,255,0.05);
+  --border-bright: rgba(255,255,255,0.11);
 }
 :root[data-theme="glass"] body {
-  background: radial-gradient(ellipse at 20% 20%, #1e1040 0%, #0d0f1a 50%, #0a1628 100%);
+  background: #06080f;
 }
 :root[data-theme="glass"] body::before {
+  /* Crisp spotlight cone that follows cursor precisely */
   background-image:
-    radial-gradient(circle at 15% 25%, rgba(167,139,250,0.15) 0%, transparent 40%),
-    radial-gradient(circle at 85% 70%, rgba(103,232,249,0.1) 0%, transparent 40%),
-    radial-gradient(circle at 50% 90%, rgba(110,231,183,0.08) 0%, transparent 35%);
+    radial-gradient(ellipse 28% 22% at var(--glass-spot-x, 50%) var(--glass-spot-y, 50%), rgba(224,215,255,0.18) 0%, rgba(165,243,255,0.06) 40%, transparent 70%),
+    radial-gradient(ellipse 90% 90% at 50% 50%, rgba(30,20,60,0.6) 0%, transparent 80%);
+  transition: none;
 }
-:root[data-theme="glass"] body::after { background: none; }
+:root[data-theme="glass"] body::after {
+  background: none;
+}
+/* Prism light streak canvas */
+#glass-prism-canvas {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 1; pointer-events: none; opacity: 0;
+  transition: opacity 1s ease;
+}
+:root[data-theme="glass"] #glass-prism-canvas { opacity: 1; }
 
 /* glass: all panels use backdrop-filter blur */
 :root[data-theme="glass"] header,
@@ -78,10 +89,10 @@
 :root[data-theme="glass"] .theme-chip,
 :root[data-theme="glass"] .start-toggle,
 :root[data-theme="glass"] .dropdown {
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px) saturate(200%) brightness(1.08);
+  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(1.08);
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.09);
 }
 :root[data-theme="glass"] .photo-panel,
 :root[data-theme="glass"] .hint-chip,
@@ -99,7 +110,7 @@
 :root[data-theme="glass"] .btn-next-screen,
 :root[data-theme="glass"] .custom-theme-builder,
 :root[data-theme="glass"] .dropdown {
-  border-radius: 12px;
+  border-radius: 14px;
 }
 :root[data-theme="glass"] .result-modal::before,
 :root[data-theme="glass"] .result-modal::after { display: none; }
@@ -107,13 +118,22 @@
 :root[data-theme="glass"] .scanlines { display: none; }
 :root[data-theme="glass"] .logo-title,
 :root[data-theme="glass"] .start-logo {
-  font-weight: 400;
-  letter-spacing: 12px;
-  text-shadow: 0 0 40px rgba(167,139,250,0.6), 0 0 80px rgba(167,139,250,0.2);
+  font-weight: 300;
+  letter-spacing: 14px;
+  background: linear-gradient(120deg, #e0d7ff 0%, #a5f3ff 50%, #e0d7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  animation: glass-logo-shimmer 6s ease-in-out infinite alternate;
+}
+@keyframes glass-logo-shimmer {
+  0%   { filter: drop-shadow(0 0 12px rgba(224,215,255,0.7)) drop-shadow(0 0 40px rgba(165,243,255,0.2)); }
+  100% { filter: drop-shadow(0 0 18px rgba(165,243,255,0.8)) drop-shadow(0 0 50px rgba(224,215,255,0.2)); }
 }
 :root[data-theme="glass"] .guess-cell.wrong {
-  border-color: rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.02);
+  border-color: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.015);
 }
 :root[data-theme="glass"] .pip { border-radius: 3px; }
 :root[data-theme="glass"] .field-input {
@@ -121,41 +141,51 @@
   border-radius: 8px;
 }
 :root[data-theme="glass"] .stat-val {
-  text-shadow: 0 0 20px rgba(103,232,249,0.6);
+  text-shadow: 0 0 20px rgba(165,243,255,0.7);
+}
+/* Ice-crack highlight line on panels */
+:root[data-theme="glass"] .photo-panel::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 15%; width: 30%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  z-index: 5;
 }
 
 
 /* ─────────────────────────────────────────────────────────
    THEME: BRUTALIST
-   No frills. Heavy borders, ALL CAPS everywhere, stark
-   white-on-black newspaper brutalism with bold geometry
+   Industrial no-mercy. White/red on black. Heavy 3px ruled
+   grid, diagonal hazard stripes on panels, zero decoration,
+   aggressive typography. UI as construction-site signage.
    ───────────────────────────────────────────────────────── */
 :root[data-theme="brutal"] {
   --bg: #0a0a0a;
   --panel: #111111;
-  --panel2: #1a1a1a;
-  --amber: #ffffff;
-  --amber-dim: rgba(255,255,255,0.08);
-  --amber-glow: rgba(255,255,255,0.2);
+  --panel2: #181818;
+  --amber: #ff2200;
+  --amber-dim: rgba(255,34,0,0.1);
+  --amber-glow: rgba(255,34,0,0.35);
   --cyan: #ffffff;
-  --cyan-dim: rgba(255,255,255,0.06);
-  --green: #ffffff;
-  --green-dim: rgba(255,255,255,0.08);
-  --red: #ffffff;
-  --yellow: #cccccc;
-  --yellow-dim: rgba(204,204,204,0.1);
-  --text: #e0e0e0;
+  --cyan-dim: rgba(255,255,255,0.07);
+  --green: #00ff00;
+  --green-dim: rgba(0,255,0,0.1);
+  --red: #ff2200;
+  --yellow: #ffee00;
+  --yellow-dim: rgba(255,238,0,0.12);
+  --text: #f0f0f0;
   --text-dim: #444444;
   --border: #2a2a2a;
   --border-bright: #444444;
 }
-:root[data-theme="brutal"] body::before { background: none; }
+:root[data-theme="brutal"] body::before {
+  background-image:
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px),
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px);
+}
 :root[data-theme="brutal"] body::after  { background: none; }
 :root[data-theme="brutal"] body {
   background: #0a0a0a;
-  background-image: repeating-linear-gradient(
-    90deg, transparent, transparent 119px, #1a1a1a 119px, #1a1a1a 120px
-  );
 }
 /* brutal: thick borders everywhere, sharp corners, no radius */
 :root[data-theme="brutal"] .photo-panel,
@@ -171,31 +201,43 @@
   border-width: 2px;
 }
 :root[data-theme="brutal"] header {
-  border-bottom: 3px solid #444;
+  border-bottom: 4px solid #ff2200;
 }
-:root[data-theme="brutal"] .photo-panel { border: 3px solid #444; }
+:root[data-theme="brutal"] .photo-panel {
+  border: 3px solid #444;
+  box-shadow: 8px 8px 0 rgba(255,34,0,0.3);
+  overflow: visible;
+}
+/* Hazard-tape stripe across photo panel top */
+:root[data-theme="brutal"] .photo-panel::before {
+  content: '';
+  position: absolute; top: -3px; left: -3px; right: -3px;
+  height: 8px; z-index: 6;
+  background: repeating-linear-gradient(
+    -45deg,
+    #ff2200 0px, #ff2200 8px,
+    #0a0a0a 8px, #0a0a0a 16px
+  );
+}
 :root[data-theme="brutal"] .corner { display: none; }
 :root[data-theme="brutal"] .scanlines { display: none; }
 :root[data-theme="brutal"] .result-modal::before,
 :root[data-theme="brutal"] .result-modal::after { display: none; }
-/* brutal: photo panel gets an offset shadow instead */
-:root[data-theme="brutal"] .photo-panel {
-  box-shadow: 6px 6px 0 #ffffff22;
-}
 :root[data-theme="brutal"] .result-modal {
-  border: 3px solid #fff;
-  box-shadow: 8px 8px 0 rgba(255,255,255,0.15);
+  border: 4px solid #ff2200;
+  box-shadow: 10px 10px 0 rgba(255,34,0,0.2);
 }
 :root[data-theme="brutal"] .logo-title,
 :root[data-theme="brutal"] .start-logo {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
-  letter-spacing: 14px;
-  text-shadow: none;
-  color: #fff;
+  letter-spacing: 16px;
+  color: #ffffff;
+  text-shadow: 4px 0 0 #ff2200;
+  animation: brutal-glitch 5s step-end infinite;
 }
 :root[data-theme="brutal"] .stat-val {
-  text-shadow: none;
+  text-shadow: 3px 0 0 rgba(255,34,0,0.5);
   color: #fff;
 }
 :root[data-theme="brutal"] .guess-cell.correct {
@@ -204,157 +246,234 @@
   border-color: #ffffff;
 }
 :root[data-theme="brutal"] .guess-cell.close {
-  background: #555555;
-  color: #ffffff;
-  border-color: #888;
+  background: #ffee00;
+  color: #000000;
+  border-color: #ffee00;
 }
 :root[data-theme="brutal"] .btn-submit,
 :root[data-theme="brutal"] .btn-new {
-  border-width: 2px;
+  border-width: 3px;
   font-weight: 900;
   letter-spacing: 3px;
 }
+:root[data-theme="brutal"] .btn-submit:not(:disabled) {
+  border-color: #ff2200;
+  color: #ff2200;
+  box-shadow: 4px 4px 0 rgba(255,34,0,0.3);
+}
+:root[data-theme="brutal"] .btn-submit:not(:disabled):hover {
+  background: #ff2200;
+  color: #000;
+}
 :root[data-theme="brutal"] .pip { border-radius: 0; border-width: 2px; }
-:root[data-theme="brutal"] .type-badge { border-width: 2px; }
+:root[data-theme="brutal"] .type-badge { border-width: 2px; border-color: #ff2200; color: #ff2200; }
 :root[data-theme="brutal"] .hint-chip { border-width: 2px; }
+/* Brutal: thick left-border accent on hint chips */
+:root[data-theme="brutal"] .hint-chip.revealed {
+  border-left: 4px solid #ff2200;
+  padding-left: 8px;
+}
+/* Brutal: heavy horizontal rule decorations */
+:root[data-theme="brutal"] .input-bar {
+  border-top: 4px solid #ff2200;
+}
+:root[data-theme="brutal"] .scoreboard {
+  border: 3px solid #444;
+  border-left: 6px solid #ff2200;
+}
 
 
 /* ─────────────────────────────────────────────────────────
    THEME: PAPER
-   Light mode. Soft cream background, ink-dark text,
-   feels like a flight logbook or printed dossier
+   Light mode. Aged vellum, ink-dark text, horizontal rules.
+   You can DRAW on the background with your cursor — scrawl
+   notes, underline things, doodle. Sepia brush ink.
    ───────────────────────────────────────────────────────── */
 :root[data-theme="paper"] {
-  --bg: #f5f0e8;
-  --panel: #ede8de;
-  --panel2: #e6e0d4;
-  --amber: #8b4513;
-  --amber-dim: rgba(139,69,19,0.1);
-  --amber-glow: rgba(139,69,19,0.3);
-  --cyan: #2c5f8a;
-  --cyan-dim: rgba(44,95,138,0.1);
-  --green: #2d6a4f;
-  --green-dim: rgba(45,106,79,0.12);
-  --red: #c0392b;
-  --yellow: #b8860b;
-  --yellow-dim: rgba(184,134,11,0.15);
-  --text: #2c2416;
-  --text-dim: #9a8f7a;
-  --border: #c8bfa8;
-  --border-bright: #a89880;
+  --bg: #f4ede0;
+  --panel: #ede4d2;
+  --panel2: #e6dbc8;
+  --amber: #7a3410;
+  --amber-dim: rgba(122,52,16,0.1);
+  --amber-glow: rgba(122,52,16,0.3);
+  --cyan: #1e4d7a;
+  --cyan-dim: rgba(30,77,122,0.1);
+  --green: #1e5c38;
+  --green-dim: rgba(30,92,56,0.12);
+  --red: #b02020;
+  --yellow: #a07800;
+  --yellow-dim: rgba(160,120,0,0.15);
+  --text: #1a140a;
+  --text-dim: #8a7a60;
+  --border: #c0b090;
+  --border-bright: #a09070;
 }
 :root[data-theme="paper"] body {
   background: var(--bg);
+  /* Subtle paper fibre texture */
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23f5f0e8'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23d4c9b0' opacity='0.5'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
 :root[data-theme="paper"] body::before {
   background-image:
     repeating-linear-gradient(
       to bottom, transparent 0px, transparent 27px,
-      rgba(139,69,19,0.06) 27px, rgba(139,69,19,0.06) 28px
+      rgba(122,52,16,0.07) 27px, rgba(122,52,16,0.07) 28px
     );
 }
 :root[data-theme="paper"] body::after { background: none; }
 :root[data-theme="paper"] .logo-title,
 :root[data-theme="paper"] .start-logo {
   font-family: 'Orbitron', sans-serif;
-  color: #5c3010;
-  text-shadow: 1px 1px 0 rgba(0,0,0,0.15);
-  letter-spacing: 6px;
+  color: #4a1e08;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.18), -1px -1px 0 rgba(255,255,255,0.4);
+  letter-spacing: 8px;
 }
 :root[data-theme="paper"] .start-sub,
 :root[data-theme="paper"] .logo-sub { color: #7a6a50; }
-:root[data-theme="paper"] .corner { border-color: #8b4513; opacity: 0.4; }
+:root[data-theme="paper"] .corner { border-color: #7a3410; opacity: 0.4; }
 :root[data-theme="paper"] .scanlines { display: none; }
-:root[data-theme="paper"] .photo-panel { border: 1px solid #a89880; }
+:root[data-theme="paper"] .photo-panel {
+  border: 2px solid #a09070;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.12);
+}
 :root[data-theme="paper"] .result-modal::before,
-:root[data-theme="paper"] .result-modal::after { border-color: #8b4513; opacity: 0.3; }
-:root[data-theme="paper"] header { border-bottom-color: #c8bfa8; }
+:root[data-theme="paper"] .result-modal::after { border-color: #7a3410; opacity: 0.3; }
+:root[data-theme="paper"] header {
+  border-bottom: 2px solid #a09070;
+  background: linear-gradient(to bottom, #f4ede0, #ede4d2);
+}
 :root[data-theme="paper"] .input-bar {
-  background: linear-gradient(to top, #ede8de, #f0ebe2);
-  border-top-color: #c8bfa8;
+  background: linear-gradient(to top, #ede4d2, #f0e8d8);
+  border-top: 2px solid #a09070;
 }
 :root[data-theme="paper"] .stat-val {
   color: var(--cyan);
   text-shadow: none;
 }
 :root[data-theme="paper"] .guess-cell.wrong {
-  border-color: #c8bfa8;
+  border-color: #c0b090;
   background: rgba(0,0,0,0.03);
   color: #9a8f7a;
 }
-:root[data-theme="paper"] .radar-ring { border-color: rgba(44,95,138,0.2); border-top-color: #2c5f8a; }
-:root[data-theme="paper"] .field-input { color: var(--text); }
+:root[data-theme="paper"] .radar-ring { border-color: rgba(30,77,122,0.2); border-top-color: #1e4d7a; }
+:root[data-theme="paper"] .field-input { color: var(--text); background: rgba(255,255,255,0.5); }
 :root[data-theme="paper"] .dropdown { background: var(--panel); }
+/* Stamped / ink-bleed on correct cells */
+:root[data-theme="paper"] .guess-cell.correct {
+  border-color: #1e5c38;
+  background: rgba(30,92,56,0.08);
+  color: #1e5c38;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.4);
+}
+:root[data-theme="paper"] .guess-cell.close {
+  border-color: #a07800;
+  background: rgba(160,120,0,0.08);
+  color: #7a5c00;
+}
+/* Paper draw canvas */
+#paper-draw-canvas {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 3; pointer-events: none; opacity: 0;
+  transition: opacity 0.5s ease;
+}
+:root[data-theme="paper"] #paper-draw-canvas {
+  opacity: 1;
+  pointer-events: all;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='3' cy='17' r='2' fill='%237a3410'/%3E%3Cline x1='3' y1='17' x2='16' y2='4' stroke='%237a3410' stroke-width='1.5'/%3E%3Cpolygon points='16,4 18,2 20,4 18,6' fill='%23c87040'/%3E%3C/svg%3E") 3 17, crosshair;
+}
+/* Paper toolbar for drawing controls */
+#paper-toolbar {
+  position: fixed; bottom: 80px; right: 16px;
+  z-index: 200; display: none; flex-direction: column; gap: 6px;
+}
+:root[data-theme="paper"] #paper-toolbar { display: flex; }
+.paper-tool-btn {
+  width: 36px; height: 36px;
+  background: var(--panel); border: 1px solid var(--border-bright);
+  color: var(--text); font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+  font-family: sans-serif;
+}
+.paper-tool-btn:hover { background: var(--panel2); border-color: var(--amber); }
+.paper-tool-btn.active { background: var(--amber-dim); border-color: var(--amber); color: var(--amber); }
 
 
 /* ─────────────────────────────────────────────────────────
    THEME: TACTICAL
    Military DAGR / field device aesthetic. Olive drab,
-   chunky dashed borders, stencil uppercase feel
+   chunky dashed borders, stencil uppercase feel.
+   Full-screen radar sweep. Click to send a ping.
    ───────────────────────────────────────────────────────── */
 :root[data-theme="tactical"] {
-  --bg: #0e1008;
-  --panel: #161a0c;
-  --panel2: #1c2010;
-  --amber: #a0c020;
-  --amber-dim: rgba(160,192,32,0.12);
-  --amber-glow: rgba(160,192,32,0.4);
-  --cyan: #c8d840;
-  --cyan-dim: rgba(200,216,64,0.1);
-  --green: #60d050;
-  --green-dim: rgba(96,208,80,0.13);
-  --red: #e04020;
-  --yellow: #d8b820;
-  --yellow-dim: rgba(216,184,32,0.15);
-  --text: #b0c080;
-  --text-dim: #3a4820;
-  --border: #283014;
-  --border-bright: #384520;
+  --bg: #0b0e06;
+  --panel: #141804;
+  --panel2: #1a1f08;
+  --amber: #a8c828;
+  --amber-dim: rgba(168,200,40,0.12);
+  --amber-glow: rgba(168,200,40,0.45);
+  --cyan: #d0e850;
+  --cyan-dim: rgba(208,232,80,0.1);
+  --green: #68d858;
+  --green-dim: rgba(104,216,88,0.13);
+  --red: #f04828;
+  --yellow: #e0c028;
+  --yellow-dim: rgba(224,192,40,0.15);
+  --text: #b8cc88;
+  --text-dim: #384020;
+  --border: #242c10;
+  --border-bright: #344018;
 }
 :root[data-theme="tactical"] body::before {
   background-image:
     repeating-linear-gradient(
       to right, transparent 0, transparent 39px,
-      rgba(160,192,32,0.04) 39px, rgba(160,192,32,0.04) 40px
+      rgba(168,200,40,0.05) 39px, rgba(168,200,40,0.05) 40px
     ),
     repeating-linear-gradient(
       to bottom, transparent 0, transparent 39px,
-      rgba(160,192,32,0.04) 39px, rgba(160,192,32,0.04) 40px
+      rgba(168,200,40,0.05) 39px, rgba(168,200,40,0.05) 40px
     );
 }
 :root[data-theme="tactical"] body::after {
   background: linear-gradient(to top, rgba(5,10,0,0.5), transparent);
 }
 /* tactical: dashed borders on key containers */
-:root[data-theme="tactical"] .photo-panel { border: 2px dashed #384520; }
-:root[data-theme="tactical"] .hint-chip   { border: 1px dashed #384520; }
-:root[data-theme="tactical"] .scoreboard  { border: 2px dashed #384520; }
-:root[data-theme="tactical"] .result-modal { border: 2px dashed #a0c020; }
+:root[data-theme="tactical"] .photo-panel { border: 2px dashed #344018; }
+:root[data-theme="tactical"] .hint-chip   { border: 1px dashed #344018; }
+:root[data-theme="tactical"] .scoreboard  { border: 2px dashed #344018; }
+:root[data-theme="tactical"] .result-modal { border: 2px dashed #a8c828; }
 :root[data-theme="tactical"] .corner {
-  width: 16px; height: 16px;
-  border-color: #a0c020; border-style: dashed; opacity: 0.9;
+  width: 18px; height: 18px;
+  border-color: #a8c828; border-style: solid; opacity: 0.9;
 }
-:root[data-theme="tactical"] .scanlines { opacity: 0.5; }
+:root[data-theme="tactical"] .scanlines { opacity: 0.4; }
 :root[data-theme="tactical"] .logo-title,
 :root[data-theme="tactical"] .start-logo {
   font-family: 'Orbitron', sans-serif;
-  letter-spacing: 12px;
-  text-shadow: 0 0 10px rgba(160,192,32,0.5);
+  letter-spacing: 14px;
+  text-shadow: 0 0 12px rgba(168,200,40,0.6), 0 0 30px rgba(168,200,40,0.2);
 }
 :root[data-theme="tactical"] .result-modal::before,
 :root[data-theme="tactical"] .result-modal::after {
   border-style: dashed;
-  border-color: #a0c020;
-  width: 24px; height: 24px;
+  border-color: #a8c828;
+  width: 26px; height: 26px;
 }
-:root[data-theme="tactical"] .type-badge { border-style: dashed; }
-:root[data-theme="tactical"] .stat-val { text-shadow: 0 0 8px rgba(160,192,32,0.5); }
+:root[data-theme="tactical"] .type-badge { border-style: dashed; border-color: #a8c828; color: #a8c828; }
+:root[data-theme="tactical"] .stat-val { text-shadow: 0 0 10px rgba(168,200,40,0.6); }
 :root[data-theme="tactical"] .field-input { border-style: dashed; }
 :root[data-theme="tactical"] .btn-submit { border-style: dashed; }
 :root[data-theme="tactical"] .btn-new { border-style: dashed; }
 :root[data-theme="tactical"] .mfr-chip { border-style: dashed; }
+/* Tactical ping canvas for cursor-click ripples */
+#tactical-ping-canvas {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 2; pointer-events: none; opacity: 0;
+  transition: opacity 0.5s ease;
+}
+:root[data-theme="tactical"] #tactical-ping-canvas { opacity: 1; }
 
 
 /* ─────────────────────────────────────────────────────────
@@ -444,7 +563,211 @@
   color: #00ffff;
   box-shadow: 0 0 8px rgba(0,255,255,0.3);
 }
-:root[data-theme="retro"] .scanlines { opacity: 0.6; }
+:root[data-theme="retro"] .scanlines { opacity: 0.6; animation: crt-flicker 0.11s step-end infinite; }
+:root[data-theme="retro"] body::before { animation: retro-hue 12s ease-in-out infinite alternate; }
+@keyframes crt-flicker {
+  0%   { opacity: 0.6; }
+  20%  { opacity: 0.52; }
+  40%  { opacity: 0.63; }
+  60%  { opacity: 0.55; }
+  80%  { opacity: 0.61; }
+  100% { opacity: 0.6; }
+}
+@keyframes retro-hue {
+  0%   { filter: hue-rotate(0deg) brightness(1); }
+  50%  { filter: hue-rotate(15deg) brightness(1.05); }
+  100% { filter: hue-rotate(-10deg) brightness(0.95); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   THEME: AURORA
+   Northern lights. Deep midnight navy, cursor-reactive aurora
+   blobs (green/violet/ice-blue) that drift with your mouse.
+   ───────────────────────────────────────────────────────── */
+:root[data-theme="aurora"] {
+  --bg: #06080f;
+  --panel: #09101f;
+  --panel2: #0d1526;
+  --amber: #00e5a0;
+  --amber-dim: rgba(0,229,160,0.1);
+  --amber-glow: rgba(0,229,160,0.45);
+  --cyan: #52d9f0;
+  --cyan-dim: rgba(82,217,240,0.1);
+  --green: #b56bff;
+  --green-dim: rgba(181,107,255,0.13);
+  --red: #ff6b9d;
+  --yellow: #f8c842;
+  --yellow-dim: rgba(248,200,66,0.12);
+  --text: #c4e0f0;
+  --text-dim: #2a4060;
+  --border: #0d1828;
+  --border-bright: #162338;
+}
+:root[data-theme="aurora"] body {
+  background: #06080f;
+}
+:root[data-theme="aurora"] body::before {
+  background-image:
+    radial-gradient(ellipse 70% 55% at var(--aurora-x1, 30%) var(--aurora-y1, 38%), rgba(0,229,160,0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 58% 65% at var(--aurora-x2, 72%) var(--aurora-y2, 62%), rgba(181,107,255,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 48% 42% at var(--aurora-x3, 52%) var(--aurora-y3, 18%), rgba(82,217,240,0.09) 0%, transparent 45%);
+  animation: aurora-breathe 9s ease-in-out infinite;
+}
+@keyframes aurora-breathe {
+  0%,100% { opacity: 1; }
+  45%     { opacity: 0.78; }
+}
+:root[data-theme="aurora"] body::after {
+  background: linear-gradient(to top, rgba(0,10,20,0.6), transparent);
+}
+:root[data-theme="aurora"] .corner { border-color: #00e5a0; opacity: 0.5; }
+:root[data-theme="aurora"] .scanlines { display: none; }
+:root[data-theme="aurora"] .logo-title,
+:root[data-theme="aurora"] .start-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 8px;
+  background: linear-gradient(100deg, #00e5a0 0%, #52d9f0 48%, #b56bff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: aurora-logo-glow 5s ease-in-out infinite alternate;
+}
+@keyframes aurora-logo-glow {
+  0%   { filter: drop-shadow(0 0 14px rgba(0,229,160,0.7))  drop-shadow(0 0 40px rgba(0,229,160,0.25)); }
+  50%  { filter: drop-shadow(0 0 18px rgba(82,217,240,0.7)) drop-shadow(0 0 50px rgba(82,217,240,0.25)); }
+  100% { filter: drop-shadow(0 0 16px rgba(181,107,255,0.65)) drop-shadow(0 0 45px rgba(181,107,255,0.2)); }
+}
+:root[data-theme="aurora"] .stat-val {
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(82,217,240,0.6);
+}
+:root[data-theme="aurora"] .result-modal::before,
+:root[data-theme="aurora"] .result-modal::after {
+  border-color: #00e5a0;
+  opacity: 0.5;
+}
+:root[data-theme="aurora"] .guess-cell.correct {
+  box-shadow: 0 0 10px rgba(0,229,160,0.35);
+}
+:root[data-theme="aurora"] .guess-cell.wrong {
+  border-color: #162338;
+  background: rgba(6,8,15,0.6);
+}
+
+/* ─────────────────────────────────────────────────────────
+   TACTICAL: full-screen animated radar sweep overlay
+   ───────────────────────────────────────────────────────── */
+#theme-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+:root[data-theme="tactical"] #theme-overlay {
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(168,200,40,0.10) 0deg,
+    rgba(168,200,40,0.04) 18deg,
+    transparent 42deg,
+    transparent 360deg
+  ),
+  conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(168,200,40,0.22) 0deg,
+    rgba(168,200,40,0.0) 4deg,
+    transparent 6deg,
+    transparent 360deg
+  );
+  animation: radar-sweep 8s linear infinite;
+  opacity: 1;
+}
+@keyframes radar-sweep {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   BRUTAL: glitch shimmer on logo
+   ───────────────────────────────────────────────────────── */
+@keyframes brutal-glitch {
+  0%, 88%, 100% { text-shadow: 4px 0 0 #ff2200; clip-path: none; }
+  90% { text-shadow: -4px 0 rgba(255,34,0,0.9), 4px 0 rgba(0,255,255,0.5); transform: translateX(2px); }
+  91% { text-shadow: 4px 0 rgba(255,34,0,0.9), -3px 0 rgba(0,255,255,0.4); clip-path: inset(8% 0 45% 0); transform: translateX(-2px); }
+  92% { text-shadow: -2px 0 rgba(255,34,0,0.8), 2px 0 rgba(0,255,255,0.5); clip-path: inset(52% 0 8% 0); transform: translateX(1px); }
+  93% { text-shadow: 4px 0 0 #ff2200; clip-path: none; transform: none; }
+  95% { text-shadow: -6px 0 rgba(255,34,0,0.7), 2px 0 rgba(255,238,0,0.4); clip-path: inset(30% 0 30% 0); }
+  97% { text-shadow: 4px 0 0 #ff2200; clip-path: none; }
+}
+
+/* ─────────────────────────────────────────────────────────
+   THEME: PHANTOM
+   Cursor-reactive constellation: particles float in the void,
+   connected by glowing lines. Cursor draws them near, pulling
+   threads of light that snap and reform behind you.
+   ───────────────────────────────────────────────────────── */
+:root[data-theme="phantom"] {
+  --bg: #030407;
+  --panel: #07090f;
+  --panel2: #0b0e18;
+  --amber: #c8d4f0;
+  --amber-dim: rgba(200,212,240,0.08);
+  --amber-glow: rgba(200,212,240,0.28);
+  --cyan: #6aaccc;
+  --cyan-dim: rgba(106,172,204,0.09);
+  --green: #4aa090;
+  --green-dim: rgba(74,160,144,0.1);
+  --red: #b07080;
+  --yellow: #b0a870;
+  --yellow-dim: rgba(176,168,112,0.1);
+  --text: #a0b8d0;
+  --text-dim: #1c2838;
+  --border: #0a0e18;
+  --border-bright: #121828;
+}
+:root[data-theme="phantom"] body { background: #030407; }
+:root[data-theme="phantom"] body::before {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(40,60,120,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(74,160,144,0.04) 0%, transparent 50%);
+}
+:root[data-theme="phantom"] body::after {
+  background: linear-gradient(to top, rgba(1,2,8,0.9), transparent);
+}
+:root[data-theme="phantom"] .scanlines { display: none; }
+:root[data-theme="phantom"] .corner { border-color: #6aaccc; opacity: 0.2; }
+:root[data-theme="phantom"] .logo-title,
+:root[data-theme="phantom"] .start-logo {
+  letter-spacing: 14px;
+  color: #c8d4f0;
+  text-shadow: 0 0 30px rgba(200,212,240,0.3), 0 0 80px rgba(106,172,204,0.12);
+  font-weight: 900;
+}
+:root[data-theme="phantom"] .stat-val {
+  color: var(--cyan);
+  text-shadow: 0 0 10px rgba(106,172,204,0.45);
+}
+:root[data-theme="phantom"] .guess-cell.wrong {
+  border-color: #121828;
+  background: rgba(3,4,7,0.5);
+  color: #1c2838;
+}
+:root[data-theme="phantom"] .result-modal::before,
+:root[data-theme="phantom"] .result-modal::after { border-color: #6aaccc; opacity: 0.3; }
+:root[data-theme="phantom"] header,
+:root[data-theme="phantom"] .photo-panel,
+:root[data-theme="phantom"] .input-bar,
+:root[data-theme="phantom"] .result-modal {
+  backdrop-filter: blur(4px) brightness(0.92);
+  -webkit-backdrop-filter: blur(4px) brightness(0.92);
+}
+/* constellation canvas */
+#phantom-canvas { position:fixed;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:0;transition:opacity 1.2s ease; }
+:root[data-theme="phantom"] #phantom-canvas { opacity:1; }
+/* keep smoke canvas hidden in phantom now */
+#smoke-canvas { display: none !important; }
+
 /* ──────────────────── THEME CHIPS ──────────────────── */
 .theme-grid {
   display: flex;
@@ -1554,6 +1877,28 @@ main {
 </head>
 <body>
 
+<!-- Paper draw canvas (only active in paper theme) -->
+<canvas id="paper-draw-canvas"></canvas>
+
+<!-- Paper drawing toolbar -->
+<div id="paper-toolbar">
+  <button class="paper-tool-btn active" id="paper-pen-btn" title="Pen" onclick="setPaperTool('pen')">✒</button>
+  <button class="paper-tool-btn" id="paper-eraser-btn" title="Eraser" onclick="setPaperTool('eraser')">◻</button>
+  <button class="paper-tool-btn" id="paper-clear-btn" title="Clear" onclick="clearPaperCanvas()" style="font-size:11px;letter-spacing:1px;width:auto;padding:0 8px;">CLR</button>
+</div>
+
+<!-- Glass prism light effect canvas -->
+<canvas id="glass-prism-canvas"></canvas>
+
+<!-- Tactical ping ripple canvas -->
+<canvas id="tactical-ping-canvas"></canvas>
+
+<!-- Phantom constellation canvas -->
+<canvas id="phantom-canvas"></canvas>
+
+<!-- Tactical radar sweep overlay -->
+<div id="theme-overlay" aria-hidden="true"></div>
+
 <!-- ══════════════════════════════════════════════════════ -->
 <!-- SCREEN 1: THEME SELECTION -->
 <!-- ══════════════════════════════════════════════════════ -->
@@ -1566,7 +1911,7 @@ main {
     <div class="theme-screen-left">
       <div class="start-section-title">▸ CHOOSE YOUR DISPLAY THEME</div>
       <div class="theme-grid" id="theme-selector" style="max-width:100%">
-        <div class="theme-chip selected" data-theme="default" onclick="selectTheme('default', this)">
+        <div class="theme-chip" data-theme="default" onclick="selectTheme('default', this)">
           <div class="theme-chip-name">Default</div>
           <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Sci-fi radar ops. Sharp corners, amber glow, star field.</div>
           <div class="theme-chip-swatches">
@@ -1575,49 +1920,67 @@ main {
             <div class="theme-swatch" style="background:#04060e"></div>
           </div>
         </div>
+        <div class="theme-chip selected" data-theme="aurora" onclick="selectTheme('aurora', this)">
+          <div class="theme-chip-name">Aurora</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Northern lights. Three cursor-reactive aurora blobs drift and breathe across deep midnight navy.</div>
+          <div class="theme-chip-swatches">
+            <div class="theme-swatch" style="background:#00e5a0"></div>
+            <div class="theme-swatch" style="background:#b56bff"></div>
+            <div class="theme-swatch" style="background:#52d9f0"></div>
+          </div>
+        </div>
         <div class="theme-chip" data-theme="glass" onclick="selectTheme('glass', this)">
           <div class="theme-chip-name">Glass</div>
-          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Frosted glass panels, blurred depth, rounded everything, soft purple glows.</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Ice-crystal void. Sharp spotlight cone tracks your cursor. Prismatic light beams sweep the frozen surface.</div>
           <div class="theme-chip-swatches">
-            <div class="theme-swatch" style="background:#a78bfa"></div>
-            <div class="theme-swatch" style="background:#67e8f9"></div>
-            <div class="theme-swatch" style="background:#0d0f1a"></div>
+            <div class="theme-swatch" style="background:#e0d7ff"></div>
+            <div class="theme-swatch" style="background:#a5f3ff"></div>
+            <div class="theme-swatch" style="background:#06080f"></div>
           </div>
         </div>
         <div class="theme-chip" data-theme="brutal" onclick="selectTheme('brutal', this)">
           <div class="theme-chip-name">Brutalist</div>
-          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Black &amp; white, thick 2px borders, offset box shadows, zero decoration.</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Construction-site aggression. Red/black, hazard stripes, offset box shadows, heavy grid, zero mercy.</div>
           <div class="theme-chip-swatches">
+            <div class="theme-swatch" style="background:#ff2200"></div>
             <div class="theme-swatch" style="background:#ffffff"></div>
-            <div class="theme-swatch" style="background:#555555"></div>
             <div class="theme-swatch" style="background:#0a0a0a"></div>
           </div>
         </div>
         <div class="theme-chip" data-theme="paper" onclick="selectTheme('paper', this)">
           <div class="theme-chip-name">Paper</div>
-          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Light mode. Cream &amp; ink, ruled lines, printed flight dossier feel.</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Aged vellum &amp; sepia ink. Draw on the background — scrawl, annotate, doodle. Eraser included.</div>
           <div class="theme-chip-swatches">
-            <div class="theme-swatch" style="background:#8b4513"></div>
-            <div class="theme-swatch" style="background:#2c5f8a"></div>
-            <div class="theme-swatch" style="background:#f5f0e8"></div>
+            <div class="theme-swatch" style="background:#7a3410"></div>
+            <div class="theme-swatch" style="background:#1e4d7a"></div>
+            <div class="theme-swatch" style="background:#f4ede0"></div>
           </div>
         </div>
         <div class="theme-chip" data-theme="tactical" onclick="selectTheme('tactical', this)">
           <div class="theme-chip-name">Tactical</div>
-          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Olive drab, dashed borders on all panels, military field device look.</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Olive drab, dashed panels, full-screen radar sweep. Click anywhere to send a sonar ping.</div>
           <div class="theme-chip-swatches">
-            <div class="theme-swatch" style="background:#a0c020"></div>
-            <div class="theme-swatch" style="background:#c8d840"></div>
-            <div class="theme-swatch" style="background:#0e1008"></div>
+            <div class="theme-swatch" style="background:#a8c828"></div>
+            <div class="theme-swatch" style="background:#d0e850"></div>
+            <div class="theme-swatch" style="background:#0b0e06"></div>
           </div>
         </div>
         <div class="theme-chip" data-theme="retro" onclick="selectTheme('retro', this)">
           <div class="theme-chip-name">Retro</div>
-          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">80s home computer. Magenta/cyan, scanlines, chromatic text shadow, glowing boxes.</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">80s home computer. Magenta/cyan, animated CRT flicker, hue-shifting scanlines, glowing boxes.</div>
           <div class="theme-chip-swatches">
             <div class="theme-swatch" style="background:#ff44cc"></div>
             <div class="theme-swatch" style="background:#00ffff"></div>
             <div class="theme-swatch" style="background:#1a0030"></div>
+          </div>
+        </div>
+        <div class="theme-chip" data-theme="phantom" onclick="selectTheme('phantom', this)">
+          <div class="theme-chip-name">Phantom</div>
+          <div style="font-size:8px;letter-spacing:1px;color:var(--text-dim);opacity:0.8;line-height:1.4">Constellation void. Particles float in darkness, drawn to your cursor — threads of light connect and snap.</div>
+          <div class="theme-chip-swatches">
+            <div class="theme-swatch" style="background:#c8d4f0"></div>
+            <div class="theme-swatch" style="background:#6aaccc"></div>
+            <div class="theme-swatch" style="background:#030407"></div>
           </div>
         </div>
       </div>
@@ -2337,8 +2700,14 @@ function selectTheme(theme, el) {
 }
 // Apply saved theme immediately on load
 (function() {
-  const saved = localStorage.getItem('ag_theme');
+  const saved = localStorage.getItem('ag_theme') || 'aurora';
   if (saved && saved !== 'default' && saved !== 'custom') document.documentElement.setAttribute('data-theme', saved);
+  // Sync the selected chip
+  const chip = document.querySelector(`.theme-chip[data-theme="${saved}"]`);
+  if (chip) {
+    document.querySelectorAll('.theme-chip').forEach(c => c.classList.remove('selected'));
+    chip.classList.add('selected');
+  }
 })();
 
 // ═══════════════════════════════════════════════════════════
@@ -3217,6 +3586,516 @@ buildStartScreen();
 updateStats();
 renderPips();
 // Start on the theme screen — game doesn't begin until user goes through both setup screens
+
+// ═══════════════════════════════════════════════════════════
+// CURSOR-REACTIVE AURORA EFFECT (unchanged) + GLASS SPOTLIGHT
+// ═══════════════════════════════════════════════════════════
+(function() {
+  let mX = 50, mY = 50;
+  // Aurora blobs
+  let ax1=30, ay1=38, ax2=72, ay2=62, ax3=52, ay3=18;
+  // Glass spotlight
+  let gSpotX=50, gSpotY=50;
+
+  document.addEventListener('mousemove', e => {
+    mX = (e.clientX / window.innerWidth) * 100;
+    mY = (e.clientY / window.innerHeight) * 100;
+  });
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function tick() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const root = document.documentElement;
+
+    if (theme === 'aurora') {
+      ax1 = lerp(ax1, mX * 0.75 + 12, 0.012);
+      ay1 = lerp(ay1, mY * 0.72 + 14, 0.012);
+      ax2 = lerp(ax2, 100 - mX * 0.65 + 8, 0.025);
+      ay2 = lerp(ay2, 100 - mY * 0.58 + 8, 0.025);
+      ax3 = lerp(ax3, mX * 0.7 + 15, 0.055);
+      ay3 = lerp(ay3, mY * 0.6 + 20, 0.055);
+      root.style.setProperty('--aurora-x1', ax1.toFixed(2) + '%');
+      root.style.setProperty('--aurora-y1', ay1.toFixed(2) + '%');
+      root.style.setProperty('--aurora-x2', ax2.toFixed(2) + '%');
+      root.style.setProperty('--aurora-y2', ay2.toFixed(2) + '%');
+      root.style.setProperty('--aurora-x3', ax3.toFixed(2) + '%');
+      root.style.setProperty('--aurora-y3', ay3.toFixed(2) + '%');
+    }
+
+    if (theme === 'glass') {
+      // Crisp spotlight — snappy follow
+      gSpotX = lerp(gSpotX, mX, 0.12);
+      gSpotY = lerp(gSpotY, mY, 0.12);
+      root.style.setProperty('--glass-spot-x', gSpotX.toFixed(2) + '%');
+      root.style.setProperty('--glass-spot-y', gSpotY.toFixed(2) + '%');
+    }
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// ═══════════════════════════════════════════════════════════
+// GLASS — PRISM LIGHT STREAK SYSTEM
+// ═══════════════════════════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('glass-prism-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Prismatic streaks — diagonal light beams that drift across
+  class Streak {
+    constructor() { this.reset(true); }
+    reset(init) {
+      this.x   = init ? Math.random() * W : -200;
+      this.y   = Math.random() * H * 1.5 - H * 0.25;
+      this.vx  = 0.4 + Math.random() * 0.5;
+      this.vy  = -0.15 + Math.random() * 0.3;
+      this.len = 80 + Math.random() * 180;
+      this.w   = 0.5 + Math.random() * 1.5;
+      this.a   = 0.0;
+      this.maxA= 0.06 + Math.random() * 0.08;
+      this.hue = [210, 230, 270, 190, 250][Math.floor(Math.random() * 5)];
+      this.phase = 'fadein';
+      this.life = 0;
+      this.maxLife = 200 + Math.random() * 300;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.life++;
+      if (this.phase === 'fadein') {
+        this.a = Math.min(this.a + 0.002, this.maxA);
+        if (this.a >= this.maxA) this.phase = 'hold';
+      } else if (this.phase === 'hold' && this.life > this.maxLife) {
+        this.phase = 'fadeout';
+      } else if (this.phase === 'fadeout') {
+        this.a -= 0.001;
+        if (this.a <= 0) this.reset(false);
+      }
+      if (this.x > W + 300) this.reset(false);
+    }
+    draw() {
+      if (this.a <= 0) return;
+      const angle = Math.atan2(this.vy, this.vx);
+      const ex = this.x + Math.cos(angle) * this.len;
+      const ey = this.y + Math.sin(angle) * this.len;
+      const g = ctx.createLinearGradient(this.x, this.y, ex, ey);
+      g.addColorStop(0, `hsla(${this.hue},80%,85%,0)`);
+      g.addColorStop(0.3, `hsla(${this.hue},80%,85%,${this.a})`);
+      g.addColorStop(0.7, `hsla(${this.hue+30},70%,90%,${this.a * 0.6})`);
+      g.addColorStop(1, `hsla(${this.hue+30},70%,90%,0)`);
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(ex, ey);
+      ctx.strokeStyle = g;
+      ctx.lineWidth = this.w;
+      ctx.stroke();
+    }
+  }
+
+  const streaks = Array.from({length: 18}, () => new Streak());
+  let active = false, animId = null;
+
+  function loop() {
+    if (!active) return;
+    animId = requestAnimationFrame(loop);
+    ctx.clearRect(0, 0, W, H);
+    streaks.forEach(s => { s.update(); s.draw(); });
+  }
+
+  function start() { if (active) return; active = true; loop(); }
+  function stop() {
+    active = false;
+    if (animId) { cancelAnimationFrame(animId); animId = null; }
+    setTimeout(() => { if (!active) ctx.clearRect(0, 0, W, H); }, 800);
+  }
+
+  const obs = new MutationObserver(() => {
+    document.documentElement.getAttribute('data-theme') === 'glass' ? start() : stop();
+  });
+  obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (document.documentElement.getAttribute('data-theme') === 'glass') start();
+})();
+
+// ═══════════════════════════════════════════════════════════
+// TACTICAL — RADAR SWEEP + CURSOR PING SYSTEM
+// ═══════════════════════════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('tactical-ping-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let pings = [];
+  let active = false, animId = null;
+
+  // Click to ping
+  function onPointerDown(e) {
+    if (document.documentElement.getAttribute('data-theme') !== 'tactical') return;
+    const x = e.clientX || (e.touches && e.touches[0].clientX);
+    const y = e.clientY || (e.touches && e.touches[0].clientY);
+    if (!x) return;
+    pings.push({ x, y, r: 0, maxR: Math.max(W, H) * 0.7, a: 0.9, speed: 3.5 + Math.random() * 2 });
+    // Up to 3 pings at once
+    if (pings.length > 3) pings.shift();
+  }
+  document.addEventListener('mousedown', onPointerDown);
+  document.addEventListener('touchstart', onPointerDown, {passive: true});
+
+  function loop() {
+    if (!active) return;
+    animId = requestAnimationFrame(loop);
+    ctx.clearRect(0, 0, W, H);
+
+    // Draw origin crosshair at center
+    const cx = W * 0.5, cy = H * 0.5;
+    ctx.strokeStyle = 'rgba(168,200,40,0.12)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 8]);
+    ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Draw range rings from center
+    [0.18, 0.35, 0.55, 0.78].forEach(f => {
+      const r = Math.min(W, H) * f;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(168,200,40,0.06)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+
+    // Animate pings
+    pings = pings.filter(p => p.a > 0.01);
+    pings.forEach(p => {
+      p.r += p.speed;
+      p.a *= 0.975;
+      // Multiple expanding rings
+      for (let i = 0; i < 3; i++) {
+        const rr = p.r - i * 22;
+        if (rr <= 0) continue;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, rr, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(168,200,40,${p.a * (1 - i * 0.3)})`;
+        ctx.lineWidth = 2 - i * 0.5;
+        ctx.stroke();
+      }
+      // Ping origin dot
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(168,200,40,${p.a})`;
+      ctx.fill();
+
+      // Labels at ping point
+      if (p.r < 60) {
+        ctx.font = '8px "Share Tech Mono", monospace';
+        ctx.fillStyle = `rgba(168,200,40,${p.a})`;
+        ctx.letterSpacing = '2px';
+        ctx.fillText('◈ PING', p.x + 8, p.y - 6);
+      }
+    });
+  }
+
+  function start() { if (active) return; active = true; loop(); }
+  function stop() {
+    active = false;
+    if (animId) { cancelAnimationFrame(animId); animId = null; }
+    pings = [];
+    setTimeout(() => { if (!active) ctx.clearRect(0, 0, W, H); }, 400);
+  }
+
+  const obs = new MutationObserver(() => {
+    document.documentElement.getAttribute('data-theme') === 'tactical' ? start() : stop();
+  });
+  obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (document.documentElement.getAttribute('data-theme') === 'tactical') start();
+})();
+
+// ═══════════════════════════════════════════════════════════
+// PAPER — DRAW ON BACKGROUND CANVAS
+// ═══════════════════════════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('paper-draw-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    // Save drawing, resize, restore
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    ctx.putImageData(imgData, 0, 0);
+  }
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+
+  let drawing = false;
+  let lastX = 0, lastY = 0;
+  let tool = 'pen'; // 'pen' | 'eraser'
+  let lastTime = 0;
+
+  window.setPaperTool = function(t) {
+    tool = t;
+    document.getElementById('paper-pen-btn').classList.toggle('active', t === 'pen');
+    document.getElementById('paper-eraser-btn').classList.toggle('active', t === 'eraser');
+  };
+  window.clearPaperCanvas = function() {
+    ctx.clearRect(0, 0, W, H);
+  };
+
+  function isActive() {
+    return document.documentElement.getAttribute('data-theme') === 'paper';
+  }
+
+  function getXY(e) {
+    if (e.touches) return [e.touches[0].clientX, e.touches[0].clientY];
+    return [e.clientX, e.clientY];
+  }
+
+  function onStart(e) {
+    if (!isActive()) return;
+    // Don't draw on interactive elements
+    if (e.target.closest('header, .input-bar, #theme-screen, #setup-screen, .result-modal-backdrop, #paper-toolbar, button, input')) return;
+    drawing = true;
+    [lastX, lastY] = getXY(e);
+    lastTime = Date.now();
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+  }
+
+  function onMove(e) {
+    if (!drawing || !isActive()) return;
+    e.preventDefault();
+    const [x, y] = getXY(e);
+    const now = Date.now();
+    const dt = Math.max(now - lastTime, 1);
+    const dist = Math.hypot(x - lastX, y - lastY);
+    const speed = dist / dt;
+    lastTime = now;
+
+    if (tool === 'eraser') {
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineWidth = 24;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      ctx.restore();
+    } else {
+      // Pressure simulation: slower = thicker, faster = thinner
+      const lineW = Math.max(0.8, Math.min(3.5, 2.2 - speed * 0.04));
+      const alpha = Math.max(0.35, Math.min(0.75, 0.65 - speed * 0.008));
+      ctx.strokeStyle = `rgba(80,30,8,${alpha})`;
+      ctx.lineWidth = lineW;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      // Slight wobble for natural feel
+      const mx = (lastX + x) / 2 + (Math.random() - 0.5) * 0.5;
+      const my = (lastY + y) / 2 + (Math.random() - 0.5) * 0.5;
+      ctx.quadraticCurveTo(mx, my, x, y);
+      ctx.stroke();
+    }
+
+    [lastX, lastY] = [x, y];
+  }
+
+  function onEnd() { drawing = false; }
+
+  canvas.addEventListener('mousedown',  onStart);
+  canvas.addEventListener('mousemove',  onMove);
+  canvas.addEventListener('mouseup',    onEnd);
+  canvas.addEventListener('mouseleave', onEnd);
+  canvas.addEventListener('touchstart', onStart, {passive: true});
+  canvas.addEventListener('touchmove',  onMove,  {passive: false});
+  canvas.addEventListener('touchend',   onEnd);
+})();
+
+// ═══════════════════════════════════════════════════════════
+// PHANTOM — CONSTELLATION PARTICLE NETWORK
+// Motion Art: floating nodes + cursor-reactive connection lines
+// ═══════════════════════════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('phantom-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => { resize(); initParticles(); });
+
+  let mx = -9999, my = -9999;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  document.addEventListener('touchmove', e => {
+    if (e.touches[0]) { mx = e.touches[0].clientX; my = e.touches[0].clientY; }
+  }, {passive: true});
+
+  const PARTICLE_COUNT = 90;
+  const CONNECT_DIST   = 160;  // px — line drawn between particles
+  const CURSOR_DIST    = 220;  // px — cursor attracts/connects to particles
+  const ATTRACT_FORCE  = 0.025;
+
+  let particles = [];
+
+  class Node {
+    constructor() { this.init(); }
+    init() {
+      this.x  = Math.random() * W;
+      this.y  = Math.random() * H;
+      this.vx = (Math.random() - 0.5) * 0.35;
+      this.vy = (Math.random() - 0.5) * 0.35;
+      this.r  = Math.random() * 1.5 + 0.8;
+      this.hue = 195 + Math.floor(Math.random() * 60); // steel-blue → lavender
+      this.baseAlpha = 0.35 + Math.random() * 0.3;
+    }
+    update() {
+      // Soft cursor attraction
+      const dx = mx - this.x;
+      const dy = my - this.y;
+      const d2 = dx * dx + dy * dy;
+      if (d2 < CURSOR_DIST * CURSOR_DIST) {
+        const f = ATTRACT_FORCE * (1 - Math.sqrt(d2) / CURSOR_DIST);
+        this.vx += dx * f * 0.1;
+        this.vy += dy * f * 0.1;
+      }
+      // Dampen
+      this.vx *= 0.992;
+      this.vy *= 0.992;
+      this.x += this.vx;
+      this.y += this.vy;
+      // Wrap edges
+      if (this.x < -20)  this.x = W + 20;
+      if (this.x > W+20) this.x = -20;
+      if (this.y < -20)  this.y = H + 20;
+      if (this.y > H+20) this.y = -20;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${this.hue},60%,72%,${this.baseAlpha})`;
+      ctx.fill();
+      // Soft glow
+      const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 4);
+      g.addColorStop(0, `hsla(${this.hue},60%,72%,${this.baseAlpha * 0.5})`);
+      g.addColorStop(1, `hsla(${this.hue},60%,72%,0)`);
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r * 4, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles = Array.from({length: PARTICLE_COUNT}, () => new Node());
+  }
+  initParticles();
+
+  function drawLine(x1, y1, x2, y2, alpha, hue, w) {
+    const g = ctx.createLinearGradient(x1, y1, x2, y2);
+    g.addColorStop(0, `hsla(${hue},55%,68%,${alpha})`);
+    g.addColorStop(1, `hsla(${hue+25},55%,72%,${alpha * 0.4})`);
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.strokeStyle = g;
+    ctx.lineWidth = w;
+    ctx.stroke();
+  }
+
+  let active = false, animId = null, frame = 0;
+
+  function loop() {
+    if (!active) return;
+    animId = requestAnimationFrame(loop);
+    frame++;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Update all
+    particles.forEach(p => p.update());
+
+    // Draw particle-particle lines
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i], b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < CONNECT_DIST) {
+          const alpha = (1 - d / CONNECT_DIST) * 0.18;
+          drawLine(a.x, a.y, b.x, b.y, alpha, (a.hue + b.hue) / 2, 0.6);
+        }
+      }
+    }
+
+    // Draw cursor-particle lines (brighter, thicker)
+    particles.forEach(p => {
+      const dx = p.x - mx, dy = p.y - my;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < CURSOR_DIST) {
+        const alpha = (1 - d / CURSOR_DIST) * 0.55;
+        drawLine(p.x, p.y, mx, my, alpha, p.hue, 0.8);
+      }
+    });
+
+    // Draw cursor node
+    if (mx > 0 && mx < W) {
+      const cg = ctx.createRadialGradient(mx, my, 0, mx, my, 12);
+      cg.addColorStop(0, 'rgba(200,212,240,0.5)');
+      cg.addColorStop(1, 'rgba(200,212,240,0)');
+      ctx.beginPath();
+      ctx.arc(mx, my, 12, 0, Math.PI * 2);
+      ctx.fillStyle = cg;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(mx, my, 2, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(200,212,240,0.7)';
+      ctx.fill();
+    }
+
+    // Draw all particles on top
+    particles.forEach(p => p.draw());
+  }
+
+  function start() { if (active) return; active = true; loop(); }
+  function stop() {
+    active = false;
+    if (animId) { cancelAnimationFrame(animId); animId = null; }
+    setTimeout(() => { if (!active) ctx.clearRect(0, 0, W, H); }, 1000);
+  }
+
+  const obs = new MutationObserver(() => {
+    document.documentElement.getAttribute('data-theme') === 'phantom' ? start() : stop();
+  });
+  obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (document.documentElement.getAttribute('data-theme') === 'phantom') start();
+})();
 </script>
 </body>
 </html>
